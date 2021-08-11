@@ -120,22 +120,3 @@ class Harvester extends Vehicle {
 	}
 }
 
-class Player extends Vehicle {
-	int test = 0;
-	public void Player(int x, int y, int z) {
-		super(x, y, z);
-		System.out.println("player reated");
-	}
-
-	public int getX() {
-		return 0;
-	}
-
-	public int getY() {
-		return 0;
-	}
-
-	public boolean getEnteredVehicle() {
-		return false;
-	}
-}
