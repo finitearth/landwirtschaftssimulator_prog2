@@ -1,3 +1,4 @@
+
 /**
  * 
  * @author Tom Zehle
@@ -50,6 +51,7 @@ public class Vehicle {
 	public void move(int d_x, int d_y) {
 		x += d_x;
 		y += d_y;
+		fuel -= d_x - d_y;
 	}
 
 	public void refuel(int d_fuel) {
