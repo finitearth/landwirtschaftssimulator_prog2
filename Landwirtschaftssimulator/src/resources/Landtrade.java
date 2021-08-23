@@ -1,3 +1,5 @@
+package resources;
+
 
 public class Landtrade  extends Field{
 	int pricePerUnit;

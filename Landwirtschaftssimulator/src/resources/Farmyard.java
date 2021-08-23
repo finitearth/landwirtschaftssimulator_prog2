@@ -1,3 +1,5 @@
+package resources;
+
 
 public class Farmyard  extends Field{
 	private int siloLevel;

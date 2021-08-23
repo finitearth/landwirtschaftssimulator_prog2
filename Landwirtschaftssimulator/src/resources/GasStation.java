@@ -1,3 +1,5 @@
+package resources;
+
 
 public class GasStation extends Field{
 	int costPerLiter;
