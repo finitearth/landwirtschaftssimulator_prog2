@@ -5,7 +5,7 @@ import javafx.scene.image.ImageView;
 
 public class Player extends ImageView {				
 													
-	Image playerImageW = new Image("File:./Images/PlayerTest.png");
+	Image playerImageW = new Image("File:./Images/PlayerTest.png"); // TODO Bilder ersetzen
 	Image playerImageA = new Image("File:./Images/PlayerTest.png");
 	Image playerImageS = new Image("File:./Images/PlayerTest.png");
 	Image playerImageD = new Image("File:./Images/PlayerTest.png");

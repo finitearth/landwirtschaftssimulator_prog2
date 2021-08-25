@@ -59,7 +59,7 @@ public class aplication extends Application {
             grid.getRowConstraints().add(row);
 		}
 		
-		Image background = new Image("File:./Images/TestImage.png");	// Festes Spielfeld
+		Image background = new Image("File:./Images/TestImage.png");	// TODO Bild ersetzen   Festes Spielfeld
 		ImageView backg = new ImageView(background);
 		grid.add(backg, 0, 10);											// Landschaft
 
