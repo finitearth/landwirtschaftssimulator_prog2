@@ -19,10 +19,11 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import resources.Field;
-import resources.Player;
 
 import javax.imageio.ImageIO;
+
+import Fields.Field;
+import buildings.Player;
 
 public class aplication extends Application {
 

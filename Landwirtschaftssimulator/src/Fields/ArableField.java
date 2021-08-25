@@ -1,5 +1,4 @@
-package resources;
-
+package Fields;
 
 public class ArableField extends Field{
 	private int grainAmount;

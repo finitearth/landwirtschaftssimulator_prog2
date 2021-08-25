@@ -1,5 +1,6 @@
-package resources;
+package buildings;
 
+import Fields.Field;
 
 public class Landtrade  extends Field{
 	int pricePerUnit;
