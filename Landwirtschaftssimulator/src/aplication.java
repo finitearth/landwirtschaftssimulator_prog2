@@ -1,4 +1,4 @@
-package resources;
+
 
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -19,6 +19,8 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import resources.Field;
+import resources.Player;
 
 import javax.imageio.ImageIO;
 
@@ -31,7 +33,7 @@ public class aplication extends Application {
 
 	@Override
 	public void start(Stage stage) throws Exception {
-		Player player = new Player(10, 10);								// Spieler erstellen
+		Player player = new Player(10,60);								// Spieler erstellen
 		GridPane gridPane = generateGamefield();						// Spielfeld erstellen	
 		final Group group = new Group(gridPane, player);
 		Scene scene = new Scene(group);
@@ -82,14 +84,14 @@ public class aplication extends Application {
 	    scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
 	      @Override public void handle(KeyEvent event) {
 	        switch (event.getCode()) {
-	          case UP	, 	W	:  	player.setY(player.getY() - 50); break;
-	          case RIGHT,	D	: 	player.setX(player.getX() + 50); break;
-	          case DOWN	, 	S	: 	player.setY(player.getY() + 50); break;
-	          case LEFT	, 	A	: 	player.setX(player.getX() - 50); break;
+	          case UP	, 	W	:  	player.setImageW(); player.setY(player.getY() - 50); break;
+	          case RIGHT,	D	: 	player.setImageD(); player.setX(player.getX() + 50); break;
+	          case DOWN	, 	S	: 	player.setImageS(); player.setY(player.getY() + 50); break;
+	          case LEFT	, 	A	: 	player.setImageA(); player.setX(player.getX() - 50); break;
 			default:
 				break;
 	        }
-	        if(player.getY() < 0) { player.setY(player.getY() + 50); 	}
+	        if(player.getY() < 50) { player.setY(player.getY() + 50); 	}
 	        if(player.getX() < 0) { player.setX(player.getX() + 50); 	}
 	        if(player.getY() > 1050) { player.setY(player.getY() - 50); } // Window ist 1050px hoch
 	        if(player.getX() > 1500) { player.setX(player.getX() - 50); } // Window ist 1500px breit

@@ -3,34 +3,33 @@ package resources;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-public class Player extends ImageView {				// ImageView hat schon posX und posY + getter/setter
-													// also wieso diese überschreiben?
-	Image playerImage = new Image("File:./Images/PlayerTest.png");
+public class Player extends ImageView {				
+													
+	Image playerImageW = new Image("File:./Images/PlayerTest.png");
+	Image playerImageA = new Image("File:./Images/PlayerTest.png");
+	Image playerImageS = new Image("File:./Images/PlayerTest.png");
+	Image playerImageD = new Image("File:./Images/PlayerTest.png");
 	
-//	private int posX;
-//	private int posY;
 	private boolean mounted = false;
 	
 	public Player(int posX, int posY){
 		this.setX(posX);
 		this.setY(posY);
-		this.setImage(playerImage);
+		this.setImage(playerImageS);
 	}
-//	public int getPosX() {
-//		return posX;
-//	}
-
-//	public void setPosX(int posX) {
-//		this.posX = posX;
-//	}
-
-//	public int getPosY() {
-//		return posY;
-//	}
-//
-//	public void setPosY(int posY) {
-//		this.posY = posY;
-//	}
+	public void setImageW() {
+		this.setImage(playerImageW);
+	}
+	public void setImageA() {
+		this.setImage(playerImageA);
+	}
+	public void setImageS() {
+		this.setImage(playerImageS);
+	}
+	public void setImageD() {
+		this.setImage(playerImageD);
+	}
+	
 	public boolean isMounted() {
 		return mounted;
 	}
