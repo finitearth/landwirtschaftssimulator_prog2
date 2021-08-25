@@ -24,6 +24,7 @@ import javax.imageio.ImageIO;
 
 import Fields.Field;
 import buildings.Player;
+import Utils.CollisionChecker;
 
 public class aplication extends Application {
 
@@ -78,24 +79,39 @@ public class aplication extends Application {
 		}	
 			
 		grid.setGridLinesVisible(true);
+		
+		
+		
 		return grid;	
+		
+		
 	}
 	
-	private void movePlayerOnKeyPress(Scene scene, Player player) {		// TODO implement proper collision detection
+	private void movePlayerOnKeyPress(Scene scene, Player player) { // TODO implement proper collision detection
+		int upper_boundary = -50;
+		int left_boundary = -50;
+		int right_boundary = 1550;
+		int lower_boundary = 1100;
+		CollisionChecker bc = new CollisionChecker();
+		bc.addboundary(left_boundary-50,  upper_boundary-50, left_boundary+50, lower_boundary+50); // Left Window boundary
+		bc.addboundary(left_boundary-50, upper_boundary-50, right_boundary+50, upper_boundary+50); // Upper Window boundary
+		bc.addboundary(right_boundary-50, upper_boundary-50, right_boundary+50, lower_boundary+50); // Right Window boundary
+		bc.addboundary(left_boundary-50, lower_boundary-50, right_boundary+50, lower_boundary+50); // Lower Window boundary
+		
 	    scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
 	      @Override public void handle(KeyEvent event) {
 	        switch (event.getCode()) {
-	          case UP	, 	W	:  	player.setImageW(); player.setY(player.getY() - 50); break;
-	          case RIGHT,	D	: 	player.setImageD(); player.setX(player.getX() + 50); break;
-	          case DOWN	, 	S	: 	player.setImageS(); player.setY(player.getY() + 50); break;
-	          case LEFT	, 	A	: 	player.setImageA(); player.setX(player.getX() - 50); break;
+	          case UP	, 	W	:  	player.setImageW(); player.setY(player.getY() + bc.collisioncheckY(player, - 50)); break;
+	          case RIGHT,	D	: 	player.setImageD(); player.setX(player.getX() + bc.collisioncheckX(player, + 50)); break;
+	          case DOWN	, 	S	: 	player.setImageS(); player.setY(player.getY() + bc.collisioncheckY(player, + 50)); break;
+	          case LEFT	, 	A	: 	player.setImageA(); player.setX(player.getX() + bc.collisioncheckX(player, - 50)); break;
 			default:
 				break;
 	        }
-	        if(player.getY() < 50) { player.setY(player.getY() + 50); 	}
-	        if(player.getX() < 0) { player.setX(player.getX() + 50); 	}
-	        if(player.getY() > 1050) { player.setY(player.getY() - 50); } // Window ist 1050px hoch
-	        if(player.getX() > 1500) { player.setX(player.getX() - 50); } // Window ist 1500px breit
+	       // if(player.getY() < 50) { player.setY(player.getY() + 100); 	}
+	        //if(player.getX() < 0) { player.setX(player.getX() + 100); 	}
+	        //if(player.getY() > 1050) { player.setY(player.getY() - 100); } // Window ist 1050px hoch
+	       // if(player.getX() > 1500) { player.setX(player.getX() - 100); } // Window ist 1500px breit
 	      }
 	    });
 	  }
