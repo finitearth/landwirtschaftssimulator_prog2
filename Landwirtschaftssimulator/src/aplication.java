@@ -25,6 +25,8 @@ import javax.imageio.ImageIO;
 import Fields.Field;
 import buildings.Player;
 import Utils.CollisionChecker;
+import machinery.Tractor;
+import machinery.Vehicle;
 
 public class aplication extends Application {
 
@@ -37,11 +39,13 @@ public class aplication extends Application {
 	public void start(Stage stage) throws Exception {
 		Player player = new Player(10,60);								// Spieler erstellen
 		GridPane gridPane = generateGamefield();						// Spielfeld erstellen	
-		final Group group = new Group(gridPane, player);
+		Tractor tractor = new Tractor(50, 80, 100);
+		final Group group = new Group(gridPane, player, tractor);
 		Scene scene = new Scene(group);
 		
-		movePlayerOnKeyPress(scene, player);
+		movePlayerOnKeyPress(scene, player, tractor);
 		movePlayerOnMousePress(scene, player, createTransition(player));
+		
 		
 		stage.setScene(scene);
 		stage.show();
@@ -87,34 +91,52 @@ public class aplication extends Application {
 		
 	}
 	
-	private void movePlayerOnKeyPress(Scene scene, Player player) { // TODO implement proper collision detection
-		int upper_boundary = -50;
-		int left_boundary = -50;
-		int right_boundary = 1550;
-		int lower_boundary = 1100;
+	private void movePlayerOnKeyPress(Scene scene, Player player, Vehicle tractor) { // TODO check for vehicle near the player!
+		int upper_boundary = 0;
+		int left_boundary = 0;
+		int right_boundary = 1500;
+		int lower_boundary = 1050;
 		CollisionChecker bc = new CollisionChecker();
-		bc.addboundary(left_boundary-50,  upper_boundary-50, left_boundary+50, lower_boundary+50); // Left Window boundary
-		bc.addboundary(left_boundary-50, upper_boundary-50, right_boundary+50, upper_boundary+50); // Upper Window boundary
-		bc.addboundary(right_boundary-50, upper_boundary-50, right_boundary+50, lower_boundary+50); // Right Window boundary
-		bc.addboundary(left_boundary-50, lower_boundary-50, right_boundary+50, lower_boundary+50); // Lower Window boundary
+		bc.addboundary(left_boundary-100,  upper_boundary, left_boundary, lower_boundary); // Left Window boundary
+		bc.addboundary(left_boundary, upper_boundary-100, right_boundary, upper_boundary); // Upper Window boundary
+		bc.addboundary(right_boundary, upper_boundary, right_boundary+100, lower_boundary); // Right Window boundary
+		bc.addboundary(left_boundary, lower_boundary, right_boundary, lower_boundary+100); // Lower Window boundary
 		
 	    scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
 	      @Override public void handle(KeyEvent event) {
+	    	  Vehicle enteredvehicle = player.getEnteredVehicle();
+    	  if (enteredvehicle == null) {
 	        switch (event.getCode()) {
 	          case UP	, 	W	:  	player.setImageW(); player.setY(player.getY() + bc.collisioncheckY(player, - 50)); break;
 	          case RIGHT,	D	: 	player.setImageD(); player.setX(player.getX() + bc.collisioncheckX(player, + 50)); break;
 	          case DOWN	, 	S	: 	player.setImageS(); player.setY(player.getY() + bc.collisioncheckY(player, + 50)); break;
 	          case LEFT	, 	A	: 	player.setImageA(); player.setX(player.getX() + bc.collisioncheckX(player, - 50)); break;
+	          case E			:   player.setEnteredVehicle(tractor); break;
 			default:
 				break;
+	        }
+    	  }
+	        else {
+	        	switch (event.getCode()) { //TODO collission check for vehicle
+		          case UP, 		W	:  	enteredvehicle.setY(enteredvehicle.getY() - 100); break;
+		          case RIGHT,	D	: 	enteredvehicle.setX(enteredvehicle.getX() + 100); break;
+		          case DOWN	, 	S	: 	enteredvehicle.setY(enteredvehicle.getY() + 100); break;
+		          case LEFT	, 	A	: 	enteredvehicle.setX(enteredvehicle.getX() - 100); break;
+		          case E			:   player.setImageW(); enteredvehicle.exit(); player.setEnteredVehicle(null); 	player.setX(enteredvehicle.getX());	player.setY(enteredvehicle.getY());  break;
+				default:
+					break;
 	        }
 	       // if(player.getY() < 50) { player.setY(player.getY() + 100); 	}
 	        //if(player.getX() < 0) { player.setX(player.getX() + 100); 	}
 	        //if(player.getY() > 1050) { player.setY(player.getY() - 100); } // Window ist 1050px hoch
 	       // if(player.getX() > 1500) { player.setX(player.getX() - 100); } // Window ist 1500px breit
-	      }
-	    });
-	  }
+	      
+	    }
+    	  }});
+	  
+	}
+	
+
 	
 	private void movePlayerOnMousePress(Scene scene, final Player player, final TranslateTransition transition) {
 	    scene.setOnMousePressed(new EventHandler<MouseEvent>() {
