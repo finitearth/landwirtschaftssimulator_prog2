@@ -117,11 +117,11 @@ public class aplication extends Application {
 	        }
     	  }
 	        else {
-	        	switch (event.getCode()) { //TODO collission check for vehicle
-		          case UP, 		W	:  	enteredvehicle.setY(enteredvehicle.getY() - 100); break;
-		          case RIGHT,	D	: 	enteredvehicle.setX(enteredvehicle.getX() + 100); break;
-		          case DOWN	, 	S	: 	enteredvehicle.setY(enteredvehicle.getY() + 100); break;
-		          case LEFT	, 	A	: 	enteredvehicle.setX(enteredvehicle.getX() - 100); break;
+	        	switch (event.getCode()) {
+		          case UP, 		W	:  	enteredvehicle.setImageW(); enteredvehicle.setY(enteredvehicle.getY() - 100); break;
+		          case RIGHT,	D	: 	enteredvehicle.setImageD();enteredvehicle.setX(enteredvehicle.getX() + 100); break;
+		          case DOWN	, 	S	: 	enteredvehicle.setImageS();enteredvehicle.setY(enteredvehicle.getY() + 100); break;
+		          case LEFT	, 	A	: 	enteredvehicle.setImageA();enteredvehicle.setX(enteredvehicle.getX() - 100); break;
 		          case E			:   player.setImageW(); enteredvehicle.exit(); player.setEnteredVehicle(null); 	player.setX(enteredvehicle.getX());	player.setY(enteredvehicle.getY());  break;
 				default:
 					break;
