@@ -1,5 +1,7 @@
 package machinery;
-
+import buildings.Player;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 /**
  * 
  * @author Tom Zehle
@@ -14,7 +16,8 @@ package machinery;
  * 
  */
 
-public class Vehicle {
+public class Vehicle extends ImageView {
+	
 	public boolean entered = false;
 	public int x;
 	public int y;
@@ -32,10 +35,10 @@ public class Vehicle {
 	 * Enters the vehicle
 	 */
 	public void enter(Player player) {
-		int player_x = player.getX();
-		int player_y = player.getY();
-		boolean alreadyinvehicle = player.getEnteredVehicle();
-		if (Math.pow((player_x - x), 2) + Math.pow((player_y - y), 2) < 1 && !alreadyinvehicle) {
+		int player_x = (int) player.getX();
+		int player_y = (int) player.getY();
+		Vehicle alreadyinvehicle = player.getEnteredVehicle();
+		if (Math.pow((player_x - x), 2) + Math.pow((player_y - y), 2) < 1 && alreadyinvehicle != null) {
 			entered = true;
 			System.out.println(entered);
 		} else {
@@ -61,29 +64,7 @@ public class Vehicle {
 	}
 }
 
-class Traktor extends Vehicle {
-	Equiptment trailer;
 
-	public Traktor(int x, int y, int maxfuel) {
-		super(x, y, maxfuel);
-		trailer = null;
-
-	}
-
-	public void equip(Equipment equipment) {
-		if (trailer == null) {
-			trailer = equipment;
-			equipment.setEquipped = true;
-		}
-
-	}
-
-	public void deequip() {
-		trailer.setEquipped = false;
-		trailer = null;
-
-	}
-}
 
 class Harvester extends Vehicle {
 	public int graintank;
@@ -96,18 +77,16 @@ class Harvester extends Vehicle {
 
 	}
 
-	public void mow(Grainfield field) {
-		int grainamount = field.getGrainamount();
-		if (graintank + grainamount <= maxgraintank) {
-			graintank += grainamount;
-			field.mow();
-		} else {
-			System.out.println("Tank full");
-		}
+	//public void mow(Grainfield field) {
+	/*
+	 * int grainamount = field.getGrainamount(); if (graintank + grainamount <=
+	 * maxgraintank) { graintank += grainamount; field.mow(); } else {
+	 * System.out.println("Tank full"); }
+	 * 
+	 * }
+	 */
 
-	}
-
-	public void empty(Silo silo) {
+	/*public void empty(Silo silo) {
 		int silox = silo.getX();
 		int siloy = silo.getY();
 		int silolevel = silo.getLevel();
@@ -119,7 +98,7 @@ class Harvester extends Vehicle {
 			} catch (TankFull e) {
 				System.out.println("Tank full :(");
 			}
-		}
-	}
+		}*/
+	//}
 }
 
