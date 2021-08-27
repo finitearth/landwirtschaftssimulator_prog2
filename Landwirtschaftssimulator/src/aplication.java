@@ -91,7 +91,7 @@ public class aplication extends Application {
 		
 	}
 	
-	private void movePlayerOnKeyPress(Scene scene, Player player, Vehicle tractor) { // TODO check for vehicle near the player!
+	private void movePlayerOnKeyPress(Scene scene, Player player, Vehicle tractor) {
 		int upper_boundary = 0;
 		int left_boundary = 0;
 		int right_boundary = 1500;
@@ -104,7 +104,7 @@ public class aplication extends Application {
 		
 	    scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
 	      @Override public void handle(KeyEvent event) {
-	    	  Vehicle enteredvehicle = player.getEnteredVehicle();
+    	  Vehicle enteredvehicle = player.getEnteredVehicle();
     	  if (enteredvehicle == null) {
 	        switch (event.getCode()) {
 	          case UP	, 	W	:  	player.setImageW(); player.setY(player.getY() + bc.collisioncheckY(player, - 50)); break;
@@ -116,13 +116,13 @@ public class aplication extends Application {
 				break;
 	        }
     	  }
-	        else {
+	        else { // TODO collision check for vehicle
 	        	switch (event.getCode()) {
 		          case UP, 		W	:  	enteredvehicle.setImageW(); enteredvehicle.setY(enteredvehicle.getY() - 100); break;
 		          case RIGHT,	D	: 	enteredvehicle.setImageD();enteredvehicle.setX(enteredvehicle.getX() + 100); break;
 		          case DOWN	, 	S	: 	enteredvehicle.setImageS();enteredvehicle.setY(enteredvehicle.getY() + 100); break;
 		          case LEFT	, 	A	: 	enteredvehicle.setImageA();enteredvehicle.setX(enteredvehicle.getX() - 100); break;
-		          case E			:   player.setImageW(); enteredvehicle.exit(); player.setEnteredVehicle(null); 	player.setX(enteredvehicle.getX());	player.setY(enteredvehicle.getY());  break;
+		          case E			:   player.setX(enteredvehicle.getX());	player.setY(enteredvehicle.getY()); player.setImageW(); enteredvehicle.exit(); player.setEnteredVehicle(null);  break;
 				default:
 					break;
 	        }
