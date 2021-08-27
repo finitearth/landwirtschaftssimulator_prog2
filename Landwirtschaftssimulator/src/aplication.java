@@ -64,23 +64,21 @@ public class aplication extends Application {
             grid.getRowConstraints().add(row);
 		}
 		
-		Image background = new Image("File:./Images/TestImage.png");	// TODO Bild ersetzen   Festes Spielfeld
+		Image background = new Image("File:./Images/MapPrototyp.png", 1500, 1000, false, false);	// TODO Bild ersetzen   Festes Spielfeld
 		ImageView backg = new ImageView(background);
 		grid.add(backg, 0, 10);											// Landschaft
 
-		File file = new File("Images/Bitmap.bmp");						// Weizenfelder
-		BufferedImage bitmap;
-		try {
-			bitmap = ImageIO.read(file);
-			for (int y = 0; y < bitmap.getHeight(); y++) {
-			    for (int x = 0; x < bitmap.getWidth(); x++) {
-//			          System.out.println(bitmap.getRGB(x, y));
-			          if(bitmap.getRGB(x, y) == -10728) { grid.add(new Field(), x, (y+1)); }
-			    }
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}	
+		/*
+		 * File file = new File("Images/Bitmap.bmp"); // Weizenfelder BufferedImage
+		 * bitmap;
+		 */
+		/*
+		 * try { bitmap = ImageIO.read(file); for (int y = 0; y < bitmap.getHeight();
+		 * y++) { for (int x = 0; x < bitmap.getWidth(); x++) { //
+		 * System.out.println(bitmap.getRGB(x, y)); if(bitmap.getRGB(x, y) == -10728) {
+		 * grid.add(new Field(), x, (y+1)); } } } } catch (IOException e) {
+		 * e.printStackTrace(); }
+		 */
 			
 		grid.setGridLinesVisible(true);
 		
@@ -92,7 +90,7 @@ public class aplication extends Application {
 	}
 	
 	private void movePlayerOnKeyPress(Scene scene, Player player, Vehicle tractor) {
-		int upper_boundary = 0;
+		int upper_boundary = 50;
 		int left_boundary = 0;
 		int right_boundary = 1500;
 		int lower_boundary = 1050;
