@@ -34,16 +34,17 @@ public class Vehicle extends ImageView {
 	/**
 	 * Enters the vehicle
 	 */
-	public void enter(Player player) {
+	public boolean enter(Player player) {
 		int player_x = (int) player.getX();
 		int player_y = (int) player.getY();
 		Vehicle alreadyinvehicle = player.getEnteredVehicle();
-		if (Math.pow((player_x - x), 2) + Math.pow((player_y - y), 2) < 1 && alreadyinvehicle != null) {
+		if (((player_x - x + player_y - y) < 10000.0)) {
 			entered = true;
 			System.out.println(entered);
 		} else {
-			System.out.println("FAIL");
+			entered = false;
 		}
+		return entered;
 	}
 
 	public void exit() {
@@ -61,6 +62,15 @@ public class Vehicle extends ImageView {
 	public void refuel(int d_fuel) {
 		fuel = Math.min(d_fuel + fuel, maxfuel);
 
+	}
+	
+	public void setImageW() {
+	}
+	public void setImageA() {
+	}
+	public void setImageS() {
+	}
+	public void setImageD() {
 	}
 }
 
@@ -100,5 +110,6 @@ class Harvester extends Vehicle {
 			}
 		}*/
 	//}
+
 }
 
