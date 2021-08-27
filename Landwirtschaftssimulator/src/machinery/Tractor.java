@@ -14,8 +14,6 @@ public class Tractor extends Vehicle {
 
 	public Tractor(int x, int y, int maxfuel) {
 		super(x, y, maxfuel);
-		this.setX(x);
-		this.setY(y);
 		this.setImage(TractorViewA);
 		
 		//trailer = null;
@@ -24,6 +22,7 @@ public class Tractor extends Vehicle {
 
 		@Override
 		public void setImageW() {
+			
 			this.setImage(TractorViewW);
 		}
 		@Override
