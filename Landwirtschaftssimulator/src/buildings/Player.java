@@ -39,13 +39,6 @@ public class Player extends ImageView {
 	public void setNoImage() {
 		this.setImage(null);
 	}
-	public boolean isMounted() {
-		return mounted;
-	}
-	public void setMounted(boolean mounted) {
-		this.mounted = mounted;
-	}
-	
 	public Vehicle getEnteredVehicle() {
 		return enteredvehicle;
 	}
