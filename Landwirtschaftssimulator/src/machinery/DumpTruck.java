@@ -8,7 +8,7 @@ public class DumpTruck extends ImageView{
 	private int load;
 	private int maxload;
 	
-	Image dumpTruckW = new Image("File:./Images/DumpTruckW.png"); // TODO Bilder ersetzen
+	Image dumpTruckW = new Image("File:./Images/DumpTruckW.png"); 
 	Image dumpTruckA = new Image("File:./Images/DumpTruckA.png");
 	Image dumpTruckS = new Image("File:./Images/DumpTruckS.png");
 	Image dumpTruckD = new Image("File:./Images/DumpTruckD.png");
