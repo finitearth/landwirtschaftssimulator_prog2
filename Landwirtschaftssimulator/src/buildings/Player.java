@@ -52,7 +52,13 @@ public class Player extends ImageView {
 	
 	public void setEnteredVehicle(Vehicle vehicle) {
 		enteredvehicle = vehicle;
-		setNoImage();
+		if (vehicle==null) {
+			setNoImage();
+			return;
+		}
+		if (vehicle.enter(this)) {
+			setNoImage();
+		}
 	}
 	
 }
