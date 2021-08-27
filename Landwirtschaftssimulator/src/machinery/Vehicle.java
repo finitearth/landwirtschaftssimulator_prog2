@@ -39,7 +39,7 @@ public class Vehicle extends ImageView {
 		double player_y = player.getY();
 		double vehicle_x = getX();
 		double vehicle_y = getY();
-		if (((player_x - vehicle_x + player_y - vehicle_y) < 150)) {
+		if (((Math.abs(player_x - vehicle_x) + Math.abs(player_y - vehicle_y)) < 150)) {
 			entered = true;
 		} else {
 			entered = false;
