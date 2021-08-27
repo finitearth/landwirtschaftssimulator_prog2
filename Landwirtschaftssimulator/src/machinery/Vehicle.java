@@ -37,8 +37,8 @@ public class Vehicle extends ImageView {
 	public boolean enter(Player player) {
 		double player_x = player.getX();
 		double player_y = player.getY();
-		double vehicle_x = this.getX();
-		double vehicle_y = this.getY();
+		double vehicle_x = getX();
+		double vehicle_y = getY();
 		if (((player_x - vehicle_x + player_y - vehicle_y) < 150)) {
 			entered = true;
 		} else {
