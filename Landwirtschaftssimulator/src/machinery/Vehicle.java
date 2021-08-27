@@ -25,8 +25,8 @@ public class Vehicle extends ImageView {
 	public int fuel;
 
 	public Vehicle(int x_, int y_, int maxfuel_) {
-		x = x_;
-		y = y_;
+		this.setX(x_);
+		this.setY(y_);
 		maxfuel = maxfuel_;
 		fuel = maxfuel;
 	}
@@ -35,12 +35,12 @@ public class Vehicle extends ImageView {
 	 * Enters the vehicle
 	 */
 	public boolean enter(Player player) {
-		int player_x = (int) player.getX();
-		int player_y = (int) player.getY();
-		Vehicle alreadyinvehicle = player.getEnteredVehicle();
-		if (((player_x - x + player_y - y) < 10000.0)) {
+		double player_x = player.getX();
+		double player_y = player.getY();
+		double vehicle_x = this.getX();
+		double vehicle_y = this.getY();
+		if (((player_x - vehicle_x + player_y - vehicle_y) < 150)) {
 			entered = true;
-			System.out.println(entered);
 		} else {
 			entered = false;
 		}
@@ -52,6 +52,8 @@ public class Vehicle extends ImageView {
 			entered = false;
 		}
 	}
+	
+
 
 	public void move(int d_x, int d_y) {
 		x += d_x;
