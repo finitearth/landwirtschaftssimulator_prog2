@@ -8,8 +8,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 public class Tractor extends Vehicle {
-	Image TractorViewA = new Image("File:./Images/TractorTestL.png", 100, 100, false, false);
-	Image TractorViewD = new Image("File:./Images/TractorTestR.png", 100, 100, false, false);
+	Image TractorViewA = new Image("File:./Images/TractorL50x50.png");
+	Image TractorViewD = new Image("File:./Images/TractorR50x50.png");
 	Image TractorViewW = new Image("File:./Images/TractorTestW.png", 100, 100, false, false);
 	Image TractorViewS = new Image("File:./Images/TractorTestS.png", 100, 100, false, false);
 	Equipment trailer = null;
@@ -18,43 +18,45 @@ public class Tractor extends Vehicle {
 		super(x, y, maxfuel);
 		this.setImage(TractorViewA);
 
-
 	}
 
-		@Override
-		public void setImageW() {
-			
-			this.setImage(TractorViewW);
-		}
-		@Override
-		public void setImageA() {
-			this.setImage(TractorViewA);
-		}
-		@Override
-		public void setImageS() {
-			this.setImage(TractorViewS);
-		}
-		@Override
-		public void setImageD() {
-			this.setImage(TractorViewD);
-		}
+	@Override
+	public void setImageW() {
 
+		this.setImage(TractorViewW);
+	}
+
+	@Override
+	public void setImageA() {
+		this.setImage(TractorViewA);
+	}
+
+	@Override
+	public void setImageS() {
+		this.setImage(TractorViewS);
+	}
+
+	@Override
+	public void setImageD() {
+		this.setImage(TractorViewD);
+	}
+	
+	@Override
 	public void equip(Equipment equipment) {
 		if (trailer == null) {
 			trailer = equipment;
 			/* equipment.setEquipped = true; */
-		}
-		else {
+		} else {
 			deequip();
 		}
-
 	}
 
 	public void deequip() {
-		//trailer.setEquipped = false;
+		// trailer.setEquipped = false;
 		trailer = null;
 
 	}
+
 	public void moveup(CollisionChecker bc, double speed) {
 		setImageW();
 		if (updatefuel(speed)) {
@@ -63,9 +65,9 @@ public class Tractor extends Vehicle {
 			System.out.println("NO FUEL LEFT - REFUEL!!!");
 			fuel = 0;
 		}
-		if (trailer!=null) {
+		if (trailer != null) {
 			trailer.setX(getX());
-			trailer.setY(getY()+30);
+			trailer.setY(getY() + 30);
 		}
 	}
 
@@ -77,8 +79,8 @@ public class Tractor extends Vehicle {
 			System.out.println("NO FUEL LEFT - REFUEL!!!");
 			fuel = 0;
 		}
-		if (trailer!=null) {
-			trailer.setX(getX()-30);
+		if (trailer != null) {
+			trailer.setX(getX() - 30);
 			trailer.setY(getY());
 		}
 	}
@@ -91,9 +93,9 @@ public class Tractor extends Vehicle {
 			System.out.println("NO FUEL LEFT - REFUEL!!!");
 			fuel = 0;
 		}
-		if (trailer!=null) {
+		if (trailer != null) {
 			trailer.setX(getX());
-			trailer.setY(getY()-30);
+			trailer.setY(getY() - 30);
 		}
 	}
 
@@ -105,8 +107,8 @@ public class Tractor extends Vehicle {
 			System.out.println("NO FUEL LEFT - REFUEL!!!");
 			fuel = 0;
 		}
-		if (trailer!=null) {
-			trailer.setX(getX()+30);
+		if (trailer != null) {
+			trailer.setX(getX() + 30);
 			trailer.setY(getY());
 			/* trailer.setImage(cultivatorW) */
 		}
