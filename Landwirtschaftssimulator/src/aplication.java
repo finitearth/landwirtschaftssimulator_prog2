@@ -39,7 +39,7 @@ public class aplication extends Application {
 	public void start(Stage stage) throws Exception {
 		Player player = new Player(10,60);								// Spieler erstellen
 		GridPane gridPane = generateGamefield();						// Spielfeld erstellen	
-		Tractor tractor = new Tractor(50, 80, 100);
+		Tractor tractor = new Tractor(110, 160, 10000);
 		final Group group = new Group(gridPane, player, tractor);
 		Scene scene = new Scene(group);
 		
@@ -89,7 +89,7 @@ public class aplication extends Application {
 		
 	}
 	
-	private void movePlayerOnKeyPress(Scene scene, Player player, Vehicle tractor) {
+	private void movePlayerOnKeyPress(Scene scene, Player player, Vehicle tractor) { // TODO transitions
 		int upper_boundary = 50;
 		int left_boundary = 0;
 		int right_boundary = 1500;
@@ -103,23 +103,25 @@ public class aplication extends Application {
 	    scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
 	      @Override public void handle(KeyEvent event) {
     	  Vehicle enteredvehicle = player.getEnteredVehicle();
+    	  double walkingspeed = 6.25;
+    	  double drivingspeed = 50;
     	  if (enteredvehicle == null) {
 	        switch (event.getCode()) {
-	          case UP	, 	W	:  	player.setImageW(); player.setY(player.getY() + bc.collisioncheckY(player, - 50)); break;
-	          case RIGHT,	D	: 	player.setImageD(); player.setX(player.getX() + bc.collisioncheckX(player, + 50)); break;
-	          case DOWN	, 	S	: 	player.setImageS(); player.setY(player.getY() + bc.collisioncheckY(player, + 50)); break;
-	          case LEFT	, 	A	: 	player.setImageA(); player.setX(player.getX() + bc.collisioncheckX(player, - 50)); break;
+	          case UP	, 	W	:  	player.moveup(bc, walkingspeed); break;
+	          case RIGHT,	D	: 	player.moveright(bc, walkingspeed); break;
+	          case DOWN	, 	S	: 	player.movedown(bc, walkingspeed); break;
+	          case LEFT	, 	A	: 	player.moveleft(bc, walkingspeed); break;
 	          case E			:   player.setEnteredVehicle(tractor); break;
 			default:
 				break;
 	        }
     	  }
-	        else { // TODO collision check for vehicle
+	        else { 
 	        	switch (event.getCode()) {
-		          case UP, 		W	:  	enteredvehicle.setImageW(); enteredvehicle.setY(enteredvehicle.getY() - 100); break;
-		          case RIGHT,	D	: 	enteredvehicle.setImageD();enteredvehicle.setX(enteredvehicle.getX() + 100); break;
-		          case DOWN	, 	S	: 	enteredvehicle.setImageS();enteredvehicle.setY(enteredvehicle.getY() + 100); break;
-		          case LEFT	, 	A	: 	enteredvehicle.setImageA();enteredvehicle.setX(enteredvehicle.getX() - 100); break;
+		          case UP, 		W	:  	enteredvehicle.moveup(bc, drivingspeed); break;
+		          case RIGHT,	D	: 	enteredvehicle.moveright(bc, drivingspeed); break;
+		          case DOWN	, 	S	: 	enteredvehicle.movedown(bc, drivingspeed); break;
+		          case LEFT	, 	A	: 	enteredvehicle.moveleft(bc, drivingspeed); break;
 		          case E			:   player.setX(enteredvehicle.getX());	player.setY(enteredvehicle.getY()); player.setImageW(); enteredvehicle.exit(); player.setEnteredVehicle(null);  break;
 				default:
 					break;
