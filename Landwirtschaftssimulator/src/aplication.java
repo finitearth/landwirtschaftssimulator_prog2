@@ -29,6 +29,7 @@ import machinery.Tractor;
 import machinery.Vehicle;
 import machinery.Cultivator;
 import machinery.Equipment;
+import Utils.AvailableObjectsNearby;
 
 public class aplication extends Application {
 
@@ -44,10 +45,14 @@ public class aplication extends Application {
 		Tractor tractor = new Tractor(110, 160, 10000);
 		Cultivator cultivator = new Cultivator(160, 160);
 		
+		AvailableObjectsNearby aonb = new AvailableObjectsNearby();
+		aonb.add(tractor);
+		aonb.add(cultivator);
+		
 		final Group group = new Group(gridPane, player, tractor, cultivator);
 		Scene scene = new Scene(group);
 		
-		movePlayerOnKeyPress(scene, player, tractor, cultivator);
+		movePlayerOnKeyPress(scene, player, aonb);
 		movePlayerOnMousePress(scene, player, createTransition(player));
 		
 		
@@ -93,7 +98,7 @@ public class aplication extends Application {
 		
 	}
 	
-	private void movePlayerOnKeyPress(Scene scene, Player player, Tractor tractor, Equipment cultivator) { // TODO transitions 
+	private void movePlayerOnKeyPress(Scene scene, Player player, AvailableObjectsNearby aonb) { // TODO transitions 
 		// TODO search for vehicles instead of passing them as parameters?
 		int upper_boundary = 50;
 		int left_boundary = 0;
@@ -116,19 +121,20 @@ public class aplication extends Application {
 	          case RIGHT,	D	: 	player.moveright(bc, walkingspeed); break;
 	          case DOWN	, 	S	: 	player.movedown(bc, walkingspeed); break;
 	          case LEFT	, 	A	: 	player.moveleft(bc, walkingspeed); break;
-	          case E			:   player.setEnteredVehicle(tractor); break;
+	          case E			:   player.setEnteredVehicle((Vehicle) aonb.search(player.getX(), player.getY(), "machinery.Vehicle")); break;
 			default:
 				break;
 	        }
     	  }
-	        else { 
-	        	switch (event.getCode()) {
-		          case UP, 		W	:  	enteredvehicle.moveup(bc, drivingspeed); break;
-		          case RIGHT,	D	: 	enteredvehicle.moveright(bc, drivingspeed); break;
-		          case DOWN	, 	S	: 	enteredvehicle.movedown(bc, drivingspeed); break;
-		          case LEFT	, 	A	: 	enteredvehicle.moveleft(bc, drivingspeed); break;
-		          case E			:   player.setX(enteredvehicle.getX());	player.setY(enteredvehicle.getY()); player.setImageW(); enteredvehicle.exit(); player.setEnteredVehicle(null);  break;
-		          case X			: 	tractor.equip(cultivator); break;
+    	  else if (enteredvehicle.getClass() == Tractor.class) { 
+    		  Tractor tractor = (Tractor) enteredvehicle;
+    		  switch (event.getCode()) {
+		          case UP, 		W	:  	tractor.moveup(bc, drivingspeed); break;
+		          case RIGHT,	D	: 	tractor.moveright(bc, drivingspeed); break;
+		          case DOWN	, 	S	: 	tractor.movedown(bc, drivingspeed); break;
+		          case LEFT	, 	A	: 	tractor.moveleft(bc, drivingspeed); break;
+		          case E			:   player.setX(tractor.getX());	player.setY(tractor.getY()); player.setImageW(); tractor.exit(); player.setEnteredVehicle(null);  break;
+		          case X			: 	tractor.equip((Equipment) aonb.search(tractor.getX(), tractor.getY(), "machinery.Equipment")); break;
 		          default:
 					break;
 	        }
