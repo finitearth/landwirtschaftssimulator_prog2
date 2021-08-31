@@ -37,7 +37,7 @@ public class aplication extends Application {
 
 	@Override
 	public void start(Stage stage) throws Exception {
-		Player player = new Player(10,60);								// Spieler erstellen
+		Player player = new Player(500,500);								// Spieler erstellen
 		GridPane gridPane = generateGamefield();						// Spielfeld erstellen	
 		Tractor tractor = new Tractor(110, 160, 10000);
 		final Group group = new Group(gridPane, player, tractor);
