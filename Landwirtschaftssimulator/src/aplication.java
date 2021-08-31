@@ -30,6 +30,9 @@ import machinery.Vehicle;
 import machinery.Cultivator;
 import machinery.Equipment;
 import Utils.AvailableObjectsNearby;
+import buildings.GasStation;
+import buildings.Landtrade;
+import buildings.Farmyard;
 
 public class aplication extends Application {
 
@@ -43,13 +46,19 @@ public class aplication extends Application {
 		Player player = new Player(500,500);								// Spieler erstellen
 		GridPane gridPane = generateGamefield();						// Spielfeld erstellen	
 		Tractor tractor = new Tractor(450, 450, 10000);
+		GasStation gasStation = new GasStation(250,325);
 		Cultivator cultivator = new Cultivator(160, 160);
+		Landtrade landtrade = new Landtrade(1200, 525);
+		Farmyard farmyard = new Farmyard(1300, 425);
 		
 		AvailableObjectsNearby aonb = new AvailableObjectsNearby();
 		aonb.add(tractor);
 		aonb.add(cultivator);
+		aonb.add(gasStation);
+		aonb.add(landtrade);
+		aonb.add(farmyard);
 		
-		final Group group = new Group(gridPane, player, tractor, cultivator);
+		final Group group = new Group(gridPane, player, tractor, cultivator,gasStation,farmyard,landtrade);
 		Scene scene = new Scene(group);
 		
 		movePlayerOnKeyPress(scene, player, aonb);
