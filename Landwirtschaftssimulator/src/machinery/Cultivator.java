@@ -4,7 +4,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 
-public class Cultivator extends ImageView {
+public class Cultivator extends Equipment {
 	Image cultivatorW = new Image("File:./Images/CultivatorW.png"); 
 	Image cultivatorA = new Image("File:./Images/CultivatorA.png");
 	Image cultivatorS = new Image("File:./Images/CultivatorS.png");
