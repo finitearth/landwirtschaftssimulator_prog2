@@ -42,7 +42,7 @@ public class Tractor extends Vehicle {
 	public void setImageD() {
 		this.setImage(TractorViewD);
 	}
-	
+
 	@Override
 	public void equip(Equipment equipment) {
 		if (trailer == null) {
@@ -61,12 +61,9 @@ public class Tractor extends Vehicle {
 
 	public void moveup(CollisionChecker bc, double speed) {
 		setImageW();
-		if (updatefuel(speed)) {
-			setY(getY() + bc.collisioncheckY(getX(), getY(), -speed));
-		} else {
-			System.out.println("NO FUEL LEFT - REFUEL!!!");
-			fuel = 0;
-		}
+		updatefuel(speed);
+		setY(getY() + bc.collisioncheckY(getX(), getY(), -speed));
+
 		if (trailer != null) {
 			trailer.setX(getX());
 			trailer.setY(getY() + 30);
@@ -75,12 +72,9 @@ public class Tractor extends Vehicle {
 
 	public void moveright(CollisionChecker bc, double speed) {
 		setImageD();
-		if (updatefuel(speed)) {
-			setX(getX() + bc.collisioncheckX(getX(), getY(), +speed));
-		} else {
-			System.out.println("NO FUEL LEFT - REFUEL!!!");
-			fuel = 0;
-		}
+		updatefuel(speed);
+		setX(getX() + bc.collisioncheckX(getX(), getY(), +speed));
+
 		if (trailer != null) {
 			trailer.setX(getX() - 30);
 			trailer.setY(getY());
@@ -89,12 +83,9 @@ public class Tractor extends Vehicle {
 
 	public void movedown(CollisionChecker bc, double speed) {
 		setImageS();
-		if (updatefuel(speed)) {
-			setY(getY() + bc.collisioncheckY(getX(), getY(), +speed));
-		} else {
-			System.out.println("NO FUEL LEFT - REFUEL!!!");
-			fuel = 0;
-		}
+		updatefuel(speed);
+		setY(getY() + bc.collisioncheckY(getX(), getY(), +speed));
+
 		if (trailer != null) {
 			trailer.setX(getX());
 			trailer.setY(getY() - 30);
@@ -103,12 +94,9 @@ public class Tractor extends Vehicle {
 
 	public void moveleft(CollisionChecker bc, double speed) {
 		setImageA();
-		if (updatefuel(speed)) {
-			setX(getX() + bc.collisioncheckX(getX(), getY(), -speed));
-		} else {
-			System.out.println("NO FUEL LEFT - REFUEL!!!");
-			fuel = 0;
-		}
+		updatefuel(speed);
+		setX(getX() + bc.collisioncheckX(getX(), getY(), -speed));
+
 		if (trailer != null) {
 			trailer.setX(getX() + 30);
 			trailer.setY(getY());
