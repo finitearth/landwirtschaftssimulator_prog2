@@ -9,9 +9,9 @@ import machinery.Vehicle;
 public class Player extends ImageView {
 
 	Image playerImageW = new Image("File:./Images/PlayerW.png"); // TODO Bilder ersetzen
-	Image playerImageA = new Image("File:./Images/PlayerTest.png");
+	Image playerImageA = new Image("File:./Images/PlayerA.png");
 	Image playerImageS = new Image("File:./Images/PlayerS.png");
-	Image playerImageD = new Image("File:./Images/PlayerTest.png");
+	Image playerImageD = new Image("File:./Images/PlayerD.png");
 	Image playerImageCollided = new Image("File:./Images/PlayerTest.png");
 
 	private boolean mounted = false;
