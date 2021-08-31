@@ -14,7 +14,7 @@ public class Cultivator extends Equipment {
 	public Cultivator(int posX, int posY){
 		this.setX(posX);
 		this.setY(posY);
-		this.setImage(cultivatorA);
+		this.setImage(cultivatorD);
 	}
 	
 	public void cultivate(GridPane grid) {

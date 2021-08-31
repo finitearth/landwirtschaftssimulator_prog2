@@ -8,10 +8,10 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 public class Tractor extends Vehicle {
-	Image TractorViewA = new Image("File:./Images/TractorTestL.png", 100, 100, false, false);
-	Image TractorViewD = new Image("File:./Images/TractorTestR.png", 100, 100, false, false);
-	Image TractorViewW = new Image("File:./Images/TractorTestW.png", 100, 100, false, false);
-	Image TractorViewS = new Image("File:./Images/TractorTestS.png", 100, 100, false, false);
+	Image TractorViewA = new Image("File:./Images/TractorTestL.png", 50, 50, false, false);
+	Image TractorViewD = new Image("File:./Images/TractorTestR.png", 50, 50, false, false);
+	Image TractorViewW = new Image("File:./Images/TractorTestW.png", 50, 50, false, false);
+	Image TractorViewS = new Image("File:./Images/TractorTestS.png", 50, 50, false, false);
 	Equipment trailer = null;
 
 	public Tractor(int x, int y, int maxfuel) {

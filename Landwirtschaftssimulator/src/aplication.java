@@ -41,7 +41,7 @@ public class aplication extends Application {
 	public void start(Stage stage) throws Exception {
 		Player player = new Player(500,500);								// Spieler erstellen
 		GridPane gridPane = generateGamefield();						// Spielfeld erstellen	
-		Tractor tractor = new Tractor(110, 160, 10000);
+		Tractor tractor = new Tractor(450, 450, 10000);
 		Cultivator cultivator = new Cultivator(160, 160);
 		
 		final Group group = new Group(gridPane, player, tractor, cultivator);
