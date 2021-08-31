@@ -27,6 +27,8 @@ import buildings.Player;
 import Utils.CollisionChecker;
 import machinery.Tractor;
 import machinery.Vehicle;
+import machinery.Cultivator;
+import machinery.Equipment;
 
 public class aplication extends Application {
 
@@ -40,10 +42,12 @@ public class aplication extends Application {
 		Player player = new Player(10,60);								// Spieler erstellen
 		GridPane gridPane = generateGamefield();						// Spielfeld erstellen	
 		Tractor tractor = new Tractor(110, 160, 10000);
-		final Group group = new Group(gridPane, player, tractor);
+		Cultivator cultivator = new Cultivator(160, 160);
+		
+		final Group group = new Group(gridPane, player, tractor, cultivator);
 		Scene scene = new Scene(group);
 		
-		movePlayerOnKeyPress(scene, player, tractor);
+		movePlayerOnKeyPress(scene, player, tractor, cultivator);
 		movePlayerOnMousePress(scene, player, createTransition(player));
 		
 		
@@ -89,7 +93,8 @@ public class aplication extends Application {
 		
 	}
 	
-	private void movePlayerOnKeyPress(Scene scene, Player player, Vehicle tractor) { // TODO transitions
+	private void movePlayerOnKeyPress(Scene scene, Player player, Tractor tractor, Equipment cultivator) { // TODO transitions 
+		// TODO search for vehicles instead of passing them as parameters?
 		int upper_boundary = 50;
 		int left_boundary = 0;
 		int right_boundary = 1500;
@@ -123,7 +128,8 @@ public class aplication extends Application {
 		          case DOWN	, 	S	: 	enteredvehicle.movedown(bc, drivingspeed); break;
 		          case LEFT	, 	A	: 	enteredvehicle.moveleft(bc, drivingspeed); break;
 		          case E			:   player.setX(enteredvehicle.getX());	player.setY(enteredvehicle.getY()); player.setImageW(); enteredvehicle.exit(); player.setEnteredVehicle(null);  break;
-				default:
+		          case X			: 	tractor.equip(cultivator); break;
+		          default:
 					break;
 	        }
 	       // if(player.getY() < 50) { player.setY(player.getY() + 100); 	}
