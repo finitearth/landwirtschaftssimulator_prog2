@@ -1,11 +1,19 @@
 package buildings;
 
 import Fields.Field;
+import javafx.scene.image.Image;
 
 public class Farmyard  extends Field{
 	private int siloLevel;
 	private int maxSiloLevel;
+	Image Farmyard  = new Image("File:./Images/Scheune.png", 50, 50, false, false);
 	String[] machineParking = {};
+	
+	public Farmyard(int posX, int posY) {
+		this.setX(posX);
+		this.setY(posY);
+		this.setImage(Farmyard);
+	}
 	
 	public int fillSilo(int amountOfFilling) {
 		siloLevel = siloLevel + amountOfFilling;
