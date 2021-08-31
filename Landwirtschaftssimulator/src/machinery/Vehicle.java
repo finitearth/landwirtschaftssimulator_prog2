@@ -4,7 +4,7 @@ import Utils.CollisionChecker;
 import buildings.Player;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-
+import machinery.Equipment;
 /**
  * 
  * @author Tom Zehle
@@ -26,6 +26,7 @@ public class Vehicle extends ImageView {
 	public int y;
 	public int maxfuel;
 	public int fuel;
+	Equipment trailer = null;
 
 	public Vehicle(int x_, int y_, int maxfuel_) {
 		this.setX(x_);
@@ -76,6 +77,10 @@ public class Vehicle extends ImageView {
 			System.out.println("NO FUEL LEFT - REFUEL!!!");
 			fuel = 0;
 		}
+		if (trailer!=null) {
+			trailer.setX(getX());
+			trailer.setY(getY()+30);
+		}
 	}
 
 	public void moveright(CollisionChecker bc, double speed) {
@@ -85,6 +90,10 @@ public class Vehicle extends ImageView {
 		} else {
 			System.out.println("NO FUEL LEFT - REFUEL!!!");
 			fuel = 0;
+		}
+		if (trailer!=null) {
+			trailer.setX(getX()-30);
+			trailer.setY(getY());
 		}
 	}
 
@@ -96,6 +105,10 @@ public class Vehicle extends ImageView {
 			System.out.println("NO FUEL LEFT - REFUEL!!!");
 			fuel = 0;
 		}
+		if (trailer!=null) {
+			trailer.setX(getX());
+			trailer.setY(getY()-30);
+		}
 	}
 
 	public void moveleft(CollisionChecker bc, double speed) {
@@ -105,6 +118,10 @@ public class Vehicle extends ImageView {
 		} else {
 			System.out.println("NO FUEL LEFT - REFUEL!!!");
 			fuel = 0;
+		}
+		if (trailer!=null) {
+			trailer.setX(getX()+30);
+			trailer.setY(getY());
 		}
 
 	}
