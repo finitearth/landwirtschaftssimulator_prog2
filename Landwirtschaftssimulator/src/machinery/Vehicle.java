@@ -1,11 +1,17 @@
 package machinery;
+
 import javafx.animation.TranslateTransition;
+
+import java.util.ArrayList;
+
 import Utils.CollisionChecker;
 import buildings.Player;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import machinery.Equipment;
 import Utils.InterActableObjects;
+import Utils.NotificationPopUp;
+
 /**
  * 
  * @author Tom Zehle
@@ -30,8 +36,8 @@ public class Vehicle extends ImageView {
 	Equipment trailer = null;
 
 	public Vehicle(int x_, int y_, int maxfuel_) {
-		this.setX(x_);
-		this.setY(y_);
+		setX(x_);
+		setY(y_);
 		maxfuel = maxfuel_;
 		fuel = maxfuel;
 	}
@@ -58,11 +64,17 @@ public class Vehicle extends ImageView {
 		}
 	}
 
-	public boolean updatefuel(double d_s) {
+	public void updatefuel(double d_s) {
 		fuel -= d_s;
 		boolean enoughfuel = (fuel > 0);
+		if (!enoughfuel) {
+			ArrayList<String> actions = new ArrayList<>();
+			actions.add("OKAY!");
+			NotificationPopUp wind = new NotificationPopUp("Fuel ist leer :(", actions);
+			wind.display();
+			fuel = maxfuel;
 
-		return enoughfuel;
+		}
 	}
 
 	public void refuel(int d_fuel) {
@@ -72,56 +84,44 @@ public class Vehicle extends ImageView {
 
 	public void moveup(CollisionChecker bc, double speed) {
 		setImageW();
-		if (updatefuel(speed)) {
-			setY(getY() + bc.collisioncheckY(getX(), getY(), -speed));
-		} else {
-			System.out.println("NO FUEL LEFT - REFUEL!!!");
-			fuel = 0;
-		}
-		if (trailer!=null) {
+		updatefuel(speed);
+		setY(getY() + bc.collisioncheckY(getX(), getY(), -speed));
+
+		if (trailer != null) {
 			trailer.setX(getX());
-			trailer.setY(getY()+30);
+			trailer.setY(getY() + 30);
 		}
 	}
 
 	public void moveright(CollisionChecker bc, double speed) {
 		setImageD();
-		if (updatefuel(speed)) {
-			setX(getX() + bc.collisioncheckX(getX(), getY(), +speed));
-		} else {
-			System.out.println("NO FUEL LEFT - REFUEL!!!");
-			fuel = 0;
-		}
-		if (trailer!=null) {
-			trailer.setX(getX()-30);
+		updatefuel(speed);
+		setX(getX() + bc.collisioncheckX(getX(), getY(), +speed));
+
+		if (trailer != null) {
+			trailer.setX(getX() - 30);
 			trailer.setY(getY());
 		}
 	}
 
 	public void movedown(CollisionChecker bc, double speed) {
 		setImageS();
-		if (updatefuel(speed)) {
-			setY(getY() + bc.collisioncheckY(getX(), getY(), +speed));
-		} else {
-			System.out.println("NO FUEL LEFT - REFUEL!!!");
-			fuel = 0;
-		}
-		if (trailer!=null) {
+		updatefuel(speed);
+		setY(getY() + bc.collisioncheckY(getX(), getY(), +speed));
+
+		if (trailer != null) {
 			trailer.setX(getX());
-			trailer.setY(getY()-30);
+			trailer.setY(getY() - 30);
 		}
 	}
 
 	public void moveleft(CollisionChecker bc, double speed) {
 		setImageA();
-		if (updatefuel(speed)) {
-			setX(getX() + bc.collisioncheckX(getX(), getY(), -speed));
-		} else {
-			System.out.println("NO FUEL LEFT - REFUEL!!!");
-			fuel = 0;
-		}
-		if (trailer!=null) {
-			trailer.setX(getX()+30);
+		updatefuel(speed);
+		setX(getX() + bc.collisioncheckX(getX(), getY(), -speed));
+
+		if (trailer != null) {
+			trailer.setX(getX() + 30);
 			trailer.setY(getY());
 		}
 
@@ -143,6 +143,6 @@ public class Vehicle extends ImageView {
 	}
 
 	public void equip(Equipment equipment) {
-		
+
 	}
 }

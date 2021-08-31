@@ -3,6 +3,7 @@
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javafx.animation.TranslateTransition;
 import javafx.application.Application;
@@ -21,7 +22,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import javax.imageio.ImageIO;
-
+import Utils.NotificationPopUp;
 import Fields.Field;
 import buildings.Player;
 import Utils.CollisionChecker;
@@ -108,7 +109,7 @@ public class aplication extends Application {
 	}
 	
 	private void movePlayerOnKeyPress(Scene scene, Player player, AvailableObjectsNearby aonb) { // TODO transitions 
-		// TODO search for vehicles instead of passing them as parameters?
+
 		int upper_boundary = 50;
 		int left_boundary = 0;
 		int right_boundary = 1500;
@@ -137,6 +138,9 @@ public class aplication extends Application {
     	  }
     	  else if (enteredvehicle.getClass() == Tractor.class) { 
     		  Tractor tractor = (Tractor) enteredvehicle;
+    		  ArrayList<String> actions = new ArrayList<>();
+    		  actions.add("test");
+    		  NotificationPopUp wind = new NotificationPopUp("test", actions);
     		  switch (event.getCode()) {
 		          case UP, 		W	:  	tractor.moveup(bc, drivingspeed); break;
 		          case RIGHT,	D	: 	tractor.moveright(bc, drivingspeed); break;
@@ -144,6 +148,7 @@ public class aplication extends Application {
 		          case LEFT	, 	A	: 	tractor.moveleft(bc, drivingspeed); break;
 		          case E			:   player.setX(tractor.getX());	player.setY(tractor.getY()); player.setImageW(); tractor.exit(); player.setEnteredVehicle(null);  break;
 		          case X			: 	tractor.equip((Equipment) aonb.search(tractor.getX(), tractor.getY(), "machinery.Equipment")); break;
+		          case F			: 	System.out.println(wind.display());
 		          default:
 					break;
 	        }
