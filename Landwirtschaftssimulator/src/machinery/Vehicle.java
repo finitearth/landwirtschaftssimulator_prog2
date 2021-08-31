@@ -5,6 +5,7 @@ import buildings.Player;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import machinery.Equipment;
+import Utils.InterActableObjects;
 /**
  * 
  * @author Tom Zehle
@@ -136,5 +137,12 @@ public class Vehicle extends ImageView {
 	}
 
 	public void setImageD() {
+	}
+
+	public void equip(ImageView object) {
+	}
+
+	public void equip(Equipment equipment) {
+		
 	}
 }
