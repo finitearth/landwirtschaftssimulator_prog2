@@ -110,8 +110,8 @@ public class aplication extends Application {
 	
 	private void movePlayerOnKeyPress(Scene scene, Player player, AvailableObjectsNearby aonb) { // TODO transitions 
 
-		int upper_boundary = 50;
-		int left_boundary = 0;
+		int upper_boundary = 50-50;
+		int left_boundary = 0-50;
 		int right_boundary = 1500;
 		int lower_boundary = 1050;
 		CollisionChecker bc = new CollisionChecker();
@@ -119,6 +119,8 @@ public class aplication extends Application {
 		bc.addboundary(left_boundary, upper_boundary-100, right_boundary, upper_boundary); // Upper Window boundary
 		bc.addboundary(right_boundary, upper_boundary, right_boundary+100, lower_boundary); // Right Window boundary
 		bc.addboundary(left_boundary, lower_boundary, right_boundary, lower_boundary+100); // Lower Window boundary
+		
+		bc.addboundary(650, 800, 750, 1000);
 		
 	    scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
 	      @Override public void handle(KeyEvent event) {
@@ -149,6 +151,7 @@ public class aplication extends Application {
 		          case E			:   player.setX(tractor.getX());	player.setY(tractor.getY()); player.setImageW(); tractor.exit(); player.setEnteredVehicle(null);  break;
 		          case X			: 	tractor.equip((Equipment) aonb.search(tractor.getX(), tractor.getY(), "machinery.Equipment")); break;
 		          case F			: 	System.out.println(wind.display());
+		          case Z 			: 	System.out.println(tractor.getX()); System.out.println(tractor.getY());
 		          default:
 					break;
 	        }
