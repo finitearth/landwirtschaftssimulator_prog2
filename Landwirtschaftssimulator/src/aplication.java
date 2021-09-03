@@ -30,6 +30,7 @@ import machinery.Tractor;
 import machinery.Vehicle;
 import machinery.Cultivator;
 import machinery.Equipment;
+import machinery.SeedDrill;
 import Utils.AvailableObjectsNearby;
 import buildings.GasStation;
 import buildings.Landtrade;
@@ -49,6 +50,7 @@ public class aplication extends Application {
 		Tractor tractor = new Tractor(450, 450, 10000);
 		GasStation gasStation = new GasStation(250,350);
 		Cultivator cultivator = new Cultivator(160, 160);
+		SeedDrill seeddrill = new SeedDrill(160, 300);
 		Landtrade landtrade = new Landtrade(1200, 550);
 		Farmyard farmyard = new Farmyard(1300, 450);
 		
@@ -58,8 +60,9 @@ public class aplication extends Application {
 		aonb.add(gasStation);
 		aonb.add(landtrade);
 		aonb.add(farmyard);
+		aonb.add(seeddrill);
 		
-		final Group group = new Group(gridPane, player, tractor, cultivator,gasStation,farmyard,landtrade);
+		final Group group = new Group(gridPane, player, tractor, cultivator,gasStation,farmyard,landtrade, seeddrill);
 		Scene scene = new Scene(group);
 		
 		movePlayerOnKeyPress(scene, player, aonb);
@@ -120,8 +123,13 @@ public class aplication extends Application {
 		bc.addboundary(right_boundary, upper_boundary, right_boundary+100, lower_boundary); // Right Window boundary
 		bc.addboundary(left_boundary, lower_boundary, right_boundary, lower_boundary+100); // Lower Window boundary
 		
-		bc.addboundary(650, 800, 750, 1000);
-		
+		bc.addboundary(550, 700, 650, 1000); // lower river and forest
+		bc.addboundary(700, 350, 750, 650); // middle river
+		bc.addboundary(600, 400, 850, 450); // river curls left
+		bc.addboundary(600, 350, 650, 400); // river before bridge
+		bc.addboundary(300, 250, 500, 300); // above gasstation
+		bc.addboundary(0, 50, 300, 250); // upper right forest
+		bc.addboundary(0, 300, 200, 350); //
 	    scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
 	      @Override public void handle(KeyEvent event) {
     	  Vehicle enteredvehicle = player.getEnteredVehicle();

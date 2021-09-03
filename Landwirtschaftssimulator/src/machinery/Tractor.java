@@ -18,7 +18,7 @@ public class Tractor extends Vehicle {
 
 	public Tractor(int x, int y, int maxfuel) {
 		super(x, y, maxfuel);
-		this.setImage(TractorViewA);
+		setImage(TractorViewA);
 
 	}
 
@@ -66,7 +66,8 @@ public class Tractor extends Vehicle {
 
 		if (trailer != null) {
 			trailer.setX(getX());
-			trailer.setY(getY() + 30);
+			trailer.setY(getY() + 50);
+			trailer.setImageW();
 		}
 	}
 
@@ -78,6 +79,7 @@ public class Tractor extends Vehicle {
 		if (trailer != null) {
 			trailer.setX(getX() - 30);
 			trailer.setY(getY());
+			trailer.setImageD();
 		}
 	}
 
@@ -89,6 +91,7 @@ public class Tractor extends Vehicle {
 		if (trailer != null) {
 			trailer.setX(getX());
 			trailer.setY(getY() - 30);
+			trailer.setImageS();
 		}
 	}
 
@@ -98,8 +101,9 @@ public class Tractor extends Vehicle {
 		setX(getX() + bc.collisioncheckX(getX(), getY(), -speed));
 
 		if (trailer != null) {
-			trailer.setX(getX() + 30);
+			trailer.setX(getX() + 50);
 			trailer.setY(getY());
+			trailer.setImageA();
 			/* trailer.setImage(cultivatorW) */
 		}
 

@@ -29,6 +29,7 @@ public class NotificationPopUp {
 
 		VBox layout = new VBox(10);
 		Label label1 = new Label(message);
+		label1.setWrapText(true);
 		layout.getChildren().addAll(label1);
 		
 		ArrayList<Button> buttons = new ArrayList<>();

@@ -1,7 +1,6 @@
 package machinery;
 
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 
 public class Cultivator extends Equipment {
@@ -12,12 +11,28 @@ public class Cultivator extends Equipment {
 	
 	
 	public Cultivator(int posX, int posY){
-		this.setX(posX);
-		this.setY(posY);
-		this.setImage(cultivatorD);
+		setX(posX);
+		setY(posY);
+		setImage(cultivatorD);
 	}
 	
 	public void cultivate(GridPane grid) {
 		
 	}
+	public void setImageA() {
+		setImage(cultivatorA);
+	}
+	
+	public void setImageW() {
+		setImage(cultivatorW);
+	}
+	
+	public void setImageS() {
+		setImage(cultivatorS);
+	}
+	
+	public void setImageD() {
+		setImage(cultivatorD);
+	}
+	
 }

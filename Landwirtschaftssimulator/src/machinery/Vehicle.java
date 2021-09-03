@@ -70,9 +70,11 @@ public class Vehicle extends ImageView {
 		if (!enoughfuel) {
 			ArrayList<String> actions = new ArrayList<>();
 			actions.add("OKAY!");
-			NotificationPopUp wind = new NotificationPopUp("Fuel ist leer :(", actions);
+			NotificationPopUp wind = new NotificationPopUp("Ihr Tank ist leer und wachen ohnmächtig an einer Tanke auf!\n Zahle 3.000$ für deine Unachtsamkeit!", actions);
 			wind.display();
 			fuel = maxfuel;
+			setX(250);
+			setY(350);
 
 		}
 	}

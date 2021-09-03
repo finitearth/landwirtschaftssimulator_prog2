@@ -1,7 +1,6 @@
 package Utils;
 import java.util.ArrayList;
 import buildings.Player;
-import machinery.Vehicle;
 
 public class CollisionChecker {
 	ArrayList<ArrayList<Integer>> boundaries = new ArrayList<>();
@@ -67,6 +66,7 @@ public class CollisionChecker {
 		temparraylist.add(y1);
 		temparraylist.add(x2);
 		temparraylist.add(y2);
+		
 		
 		boundaries.add(temparraylist);
 	}
