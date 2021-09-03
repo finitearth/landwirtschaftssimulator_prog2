@@ -47,10 +47,10 @@ public class aplication extends Application {
 		Player player = new Player(500,500);								// Spieler erstellen
 		GridPane gridPane = generateGamefield();						// Spielfeld erstellen	
 		Tractor tractor = new Tractor(450, 450, 10000);
-		GasStation gasStation = new GasStation(250,325);
+		GasStation gasStation = new GasStation(250,350);
 		Cultivator cultivator = new Cultivator(160, 160);
-		Landtrade landtrade = new Landtrade(1200, 525);
-		Farmyard farmyard = new Farmyard(1300, 425);
+		Landtrade landtrade = new Landtrade(1200, 550);
+		Farmyard farmyard = new Farmyard(1300, 450);
 		
 		AvailableObjectsNearby aonb = new AvailableObjectsNearby();
 		aonb.add(tractor);
@@ -83,7 +83,7 @@ public class aplication extends Application {
             grid.getRowConstraints().add(row);
 		}
 		
-		Image background = new Image("File:./Images/MapPrototyp.png", 1500, 1000, false, false);	// TODO Bild ersetzen   Festes Spielfeld
+		Image background = new Image("File:./Images/Map.png");	// TODO Bild ersetzen   Festes Spielfeld
 		ImageView backg = new ImageView(background);
 		grid.add(backg, 0, 10);											// Landschaft
 
