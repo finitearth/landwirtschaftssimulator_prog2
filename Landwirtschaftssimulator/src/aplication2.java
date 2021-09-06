@@ -9,15 +9,28 @@ import javafx.animation.TranslateTransition;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.RowConstraints;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -36,7 +49,7 @@ import buildings.GasStation;
 import buildings.Landtrade;
 import buildings.Farmyard;
 
-public class aplication extends Application {
+public class aplication2 extends Application {
 
 	public static void main(String[] args) {
 		launch(args);
@@ -45,28 +58,26 @@ public class aplication extends Application {
 
 	@Override
 	public void start(Stage stage) throws Exception {
-		Player player = new Player(500,500);								// Spieler erstellen
-		GridPane gridPane = generateGamefield();						// Spielfeld erstellen	
-		Tractor tractor = new Tractor(450, 450, 10000);
-		GasStation gasStation = new GasStation(250,350);
-		Cultivator cultivator = new Cultivator(160, 160);
-		SeedDrill seeddrill = new SeedDrill(160, 300);
-		Landtrade landtrade = new Landtrade(1200, 550);
-		Farmyard farmyard = new Farmyard(1300, 450);
 		
-		AvailableObjectsNearby aonb = new AvailableObjectsNearby();
-		aonb.add(tractor);
-		aonb.add(cultivator);
-		aonb.add(gasStation);
-		aonb.add(landtrade);
-		aonb.add(farmyard);
-		aonb.add(seeddrill);
+		Pane welcome = new Pane();
+		welcome.setPrefSize(1500, 1050);
+		Button newGame = new Button("New Game");
+		newGame.setPrefSize(100, 20);
+		newGame.relocate(700, 490);
+		newGame.setOnMouseClicked(e -> {stage.setScene(chooseSettings(stage));});
+		Button load = new Button("Load");
+		load.setPrefSize(100, 20);
+		load.relocate(700, 540);
+		load.setOnMouseClicked(e -> { }); // TODO Möglichkeit zum Spielstand laden
 		
-		final Group group = new Group(gridPane, player, tractor, cultivator,gasStation,farmyard,landtrade, seeddrill);
-		Scene scene = new Scene(group);
+		Image backg = new Image("File:./Images/", 1500, 1050, false, false); // TODO Hintergrundbild erstellen
+		BackgroundImage backgroundImage = new BackgroundImage(backg,BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT,
+															  BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
+		welcome.setBackground(new Background(backgroundImage));
 		
-		movePlayerOnKeyPress(scene, player, aonb);
-		movePlayerOnMousePress(scene, player, createTransition(player));
+		welcome.getChildren().addAll(load, newGame);
+		
+		Scene scene = new Scene(welcome);
 		
 		stage.setScene(scene);
 		stage.setTitle("Farmland");
@@ -74,7 +85,95 @@ public class aplication extends Application {
 		
 	}
 	
-	public GridPane generateGamefield() {
+	public Scene chooseSettings(Stage stage) {
+		Pane settings = new Pane();
+		settings.setPrefSize(1500, 1050);
+		
+		Label headline = new Label("Einstellungen");
+		headline.setFont(new Font("Arial", 30));
+		headline.setPrefSize(200, 20);
+		headline.relocate(650, 30);
+		
+		Label nameDescription = new Label("Charakter Name");
+		nameDescription.setFont(new Font("Arial", 16));
+		nameDescription.setPrefSize(200, 10);
+		nameDescription.relocate(250, 300);
+		
+		TextField name = new TextField();
+		name.setPrefSize(200, 20);
+		name.relocate(250, 330);
+		
+		Label difficultlyLevel = new Label("Schwierigkeitsgrad");
+		difficultlyLevel.setFont(new Font("Arial", 16));
+		difficultlyLevel.setPrefSize(400, 20);
+		difficultlyLevel.relocate(250, 500);
+		
+		ToggleGroup difficultly = new ToggleGroup();
+		RadioButton easy = new RadioButton("Einfach");
+		easy.setToggleGroup(difficultly);
+		easy.setSelected(true);
+		easy.relocate(250, 530);
+		RadioButton middle = new RadioButton("Mittel");
+		middle.setToggleGroup(difficultly);
+		middle.relocate(330, 530);
+		RadioButton hard = new RadioButton("Schwer");
+		hard.setToggleGroup(difficultly);
+		hard.relocate(400, 530);
+		
+		ToggleGroup playerChoose = new ToggleGroup();
+		
+		RadioButton player1 = new RadioButton();
+		player1.setToggleGroup(playerChoose);
+		player1.setSelected(true);
+		player1.relocate(1050, 300);
+		Image player1Image = new Image("File:./Images/PlayerS.png", 50, 50, false, false);
+		ImageView player1View = new ImageView(player1Image);
+		player1View.relocate(1100, 280);
+		
+		RadioButton player2 = new RadioButton();
+		player2.setToggleGroup(playerChoose);
+		player2.relocate(1050, 400);
+		Image player2Image = new Image("File:./Images/PlayerS.png", 50, 50, false, false);
+		ImageView player2View = new ImageView(player2Image);
+		player2View.relocate(1100, 380);
+		
+		RadioButton player3 = new RadioButton();
+		player3.setToggleGroup(playerChoose);
+		player3.relocate(1050, 500);
+		Image player3Image = new Image("File:./Images/PlayerS.png", 50, 50, false, false);
+		ImageView player3View = new ImageView(player3Image);
+		player3View.relocate(1100, 480);
+		
+		RadioButton player4 = new RadioButton();
+		player4.setToggleGroup(playerChoose);
+		player4.relocate(1050, 600);
+		Image player4Image = new Image("File:./Images/PlayerS.png", 50, 50, false, false);
+		ImageView player4View = new ImageView(player4Image);
+		player4View.relocate(1100, 580);
+		
+		
+		Button start = new Button("Start");
+		start.setFont(new Font("Arial", 25));
+		start.setPrefSize(100, 20);
+		start.relocate(700, 850);
+		start.setOnMouseClicked(e -> {stage.setScene(generateGame());});
+		
+		Image backg = new Image("File:./Images/", 1500, 1050, false, false); // TODO Hintergrundbild erstellen
+		BackgroundImage backgroundImage = new BackgroundImage(backg,BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT,
+															  BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
+		settings.setBackground(new Background(backgroundImage));
+		
+		settings.getChildren().addAll(headline, nameDescription, name, start, difficultlyLevel,
+									  easy, middle, hard, player1, player1View, player2, player2View,
+									  player3, player3View, player4, player4View);
+		
+		Scene scene = new Scene(settings);
+		
+		return scene;
+		
+	}
+	
+	public Scene generateGame() {
 		GridPane grid = new GridPane();
 
 		for (int i = 0; i < 30; i++) {
@@ -86,7 +185,7 @@ public class aplication extends Application {
             grid.getRowConstraints().add(row);
 		}
 		
-		Image background = new Image("File:./Images/Map.png");	// TODO Bild ersetzen   Festes Spielfeld
+		Image background = new Image("File:./Images/Map.png");	
 		ImageView backg = new ImageView(background);
 		grid.add(backg, 0, 10);											// Landschaft
 
@@ -104,10 +203,29 @@ public class aplication extends Application {
 			
 		grid.setGridLinesVisible(true);
 		
+		Player player = new Player(500,500);
+		Tractor tractor = new Tractor(450, 450, 10000);
+		GasStation gasStation = new GasStation(250,350);
+		Cultivator cultivator = new Cultivator(160, 160);
+		SeedDrill seeddrill = new SeedDrill(160, 300);
+		Landtrade landtrade = new Landtrade(1200, 550);
+		Farmyard farmyard = new Farmyard(1300, 450);
 		
+		AvailableObjectsNearby aonb = new AvailableObjectsNearby();
+		aonb.add(tractor);
+		aonb.add(cultivator);
+		aonb.add(gasStation);
+		aonb.add(landtrade);
+		aonb.add(farmyard);
+		aonb.add(seeddrill);
 		
-		return grid;	
+		final Group group = new Group(grid, player, tractor, cultivator,gasStation,farmyard,landtrade, seeddrill);
+		Scene scene = new Scene(group);
 		
+		movePlayerOnKeyPress(scene, player, aonb);
+		movePlayerOnMousePress(scene, player, createTransition(player));
+		
+		return scene;
 		
 	}
 	
