@@ -62,15 +62,17 @@ public class aplication2 extends Application {
 		Pane welcome = new Pane();
 		welcome.setPrefSize(1500, 1050);
 		Button newGame = new Button("New Game");
-		newGame.setPrefSize(100, 20);
-		newGame.relocate(700, 490);
+		newGame.setFont(new Font("Arial", 30));
+		newGame.setPrefSize(200, 20);
+		newGame.relocate(650, 470);
 		newGame.setOnMouseClicked(e -> {stage.setScene(chooseSettings(stage));});
 		Button load = new Button("Load");
-		load.setPrefSize(100, 20);
-		load.relocate(700, 540);
+		load.setFont(new Font("Arial", 30));
+		load.setPrefSize(200, 20);
+		load.relocate(650, 580);
 		load.setOnMouseClicked(e -> { }); // TODO Möglichkeit zum Spielstand laden
 		
-		Image backg = new Image("File:./Images/", 1500, 1050, false, false); // TODO Hintergrundbild erstellen
+		Image backg = new Image("File:./Images/back.png", 1500, 1050, false, false); // TODO Hintergrundbild erstellen
 		BackgroundImage backgroundImage = new BackgroundImage(backg,BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT,
 															  BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
 		welcome.setBackground(new Background(backgroundImage));
