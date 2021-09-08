@@ -49,8 +49,8 @@ public class aplication extends Application {
 		GridPane gridPane = generateGamefield();						// Spielfeld erstellen	
 		Tractor tractor = new Tractor(450, 450, 10000);
 		GasStation gasStation = new GasStation(250,350);
-		Cultivator cultivator = new Cultivator(160, 160);
-		SeedDrill seeddrill = new SeedDrill(160, 300);
+		Cultivator cultivator = new Cultivator(400, 400);
+		SeedDrill seeddrill = new SeedDrill(400, 500);
 		Landtrade landtrade = new Landtrade(1200, 550);
 		Farmyard farmyard = new Farmyard(1300, 450);
 		
