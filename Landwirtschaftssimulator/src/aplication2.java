@@ -81,7 +81,7 @@ public class aplication2 extends Application {
 		load.setFont(new Font("Arial", 30));
 		load.setPrefSize(300, 20);
 		load.relocate(600, 580);
-		load.setOnMouseClicked(e -> { }); // TODO Möglichkeit zum Spielstand laden
+		load.setOnMouseClicked(e -> { }); // TODO Mï¿½glichkeit zum Spielstand laden
 		
 		Button exit = new Button("Beenden");
 		exit.setFont(new Font("Arial", 30));
@@ -188,7 +188,7 @@ public class aplication2 extends Application {
 		start.relocate(700, 850);
 		start.setOnMouseClicked(e -> {stage.setScene(generateGame());});
 		
-		Button back = new Button("Zurück");
+		Button back = new Button("Zurï¿½ck");
 		back.setFont(new Font("Arial", 12));
 		back.setPrefSize(100, 10);
 		back.relocate(700, 950);
@@ -258,14 +258,14 @@ public class aplication2 extends Application {
 		final Group group = new Group(grid, player, tractor, cultivator,gasStation,farmyard,landtrade, seeddrill);
 		Scene scene = new Scene(group);
 		
-		movePlayerOnKeyPress(scene, player, aonb);
+		movePlayerOnKeyPress(scene, player, aonb, gasStation, tractor,landtrade, farmyard);
 		movePlayerOnMousePress(scene, player, createTransition(player));
 		
 		return scene;
 		
 	}
 	
-	private void movePlayerOnKeyPress(Scene scene, Player player, AvailableObjectsNearby aonb) { // TODO transitions 
+	private void movePlayerOnKeyPress(Scene scene, Player player, AvailableObjectsNearby aonb, GasStation gasStation, Tractor tractorInstanz, Landtrade landtrade, Farmyard farmyard) { // TODO transitions 
 
 		int upper_boundary = 50-50;
 		int left_boundary = 0-50;
@@ -314,6 +314,9 @@ public class aplication2 extends Application {
 		          case X			: 	tractor.equip((Equipment) aonb.search(tractor.getX(), tractor.getY(), "machinery.Equipment")); break;
 		          case F			: 	System.out.println(wind.display());
 		          case Z 			: 	System.out.println(tractor.getX()); System.out.println(tractor.getY());
+		          case L			:   gasStation.refuel((GasStation) aonb.search(tractor.getX(), tractor.getY(), "buildings.building"), tractorInstanz);break;
+		          case V			: 	landtrade.selling((Landtrade) aonb.search(tractor.getX(), tractor.getY(), "buildings.building")); break; //nur provisorisch
+		          case M			:   System.out.println(farmyard.display((Farmyard) aonb.search(tractor.getX(), tractor.getY(), "buildings.building")));
 		          default:
 					break;
 	        }
