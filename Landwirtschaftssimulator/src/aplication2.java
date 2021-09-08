@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Optional;
 
 import javafx.animation.TranslateTransition;
 import javafx.application.Application;
@@ -12,7 +13,10 @@ import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
@@ -61,23 +65,47 @@ public class aplication2 extends Application {
 		
 		Pane welcome = new Pane();
 		welcome.setPrefSize(1500, 1050);
-		Button newGame = new Button("New Game");
+		
+		Label headline = new Label("Willkommen auf der Farm");
+		headline.setFont(new Font("Arial", 40));
+		headline.setPrefSize(460, 40);
+		headline.relocate(520, 50);
+		
+		Button newGame = new Button("Neues Spiel");
 		newGame.setFont(new Font("Arial", 30));
-		newGame.setPrefSize(200, 20);
-		newGame.relocate(650, 470);
+		newGame.setPrefSize(250, 20);
+		newGame.relocate(625, 470);
 		newGame.setOnMouseClicked(e -> {stage.setScene(chooseSettings(stage));});
-		Button load = new Button("Load");
+		
+		Button load = new Button("Spielstand laden");
 		load.setFont(new Font("Arial", 30));
-		load.setPrefSize(200, 20);
-		load.relocate(650, 580);
+		load.setPrefSize(300, 20);
+		load.relocate(600, 580);
 		load.setOnMouseClicked(e -> { }); // TODO Möglichkeit zum Spielstand laden
+		
+		Button exit = new Button("Beenden");
+		exit.setFont(new Font("Arial", 30));
+		exit.setPrefSize(200, 20);
+		exit.relocate(650, 690);
+		exit.setOnMouseClicked(e -> {
+			Alert alert = new Alert(AlertType.CONFIRMATION);
+			alert.setTitle("Spiel beenden");
+			alert.setContentText("Sind Sie sich sicher, dass Sie das Spiel beenden wollen?");
+
+			Optional<ButtonType> result = alert.showAndWait();
+			if (result.get() == ButtonType.OK){
+			    stage.close();
+			} else {
+			    alert.close();
+			}
+		});
 		
 		Image backg = new Image("File:./Images/back.png", 1500, 1050, false, false); // TODO Hintergrundbild erstellen
 		BackgroundImage backgroundImage = new BackgroundImage(backg,BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT,
 															  BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
 		welcome.setBackground(new Background(backgroundImage));
 		
-		welcome.getChildren().addAll(load, newGame);
+		welcome.getChildren().addAll(headline,load, newGame, exit);
 		
 		Scene scene = new Scene(welcome);
 		
@@ -160,6 +188,12 @@ public class aplication2 extends Application {
 		start.relocate(700, 850);
 		start.setOnMouseClicked(e -> {stage.setScene(generateGame());});
 		
+		Button back = new Button("Zurück");
+		back.setFont(new Font("Arial", 12));
+		back.setPrefSize(100, 10);
+		back.relocate(700, 950);
+		back.setOnMouseClicked(e -> {});
+		
 		Image backg = new Image("File:./Images/", 1500, 1050, false, false); // TODO Hintergrundbild erstellen
 		BackgroundImage backgroundImage = new BackgroundImage(backg,BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT,
 															  BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
@@ -167,7 +201,7 @@ public class aplication2 extends Application {
 		
 		settings.getChildren().addAll(headline, nameDescription, name, start, difficultlyLevel,
 									  easy, middle, hard, player1, player1View, player2, player2View,
-									  player3, player3View, player4, player4View);
+									  player3, player3View, player4, player4View, back);
 		
 		Scene scene = new Scene(settings);
 		
