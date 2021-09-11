@@ -4,12 +4,18 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -23,6 +29,7 @@ import javafx.util.Duration;
 
 import javax.imageio.ImageIO;
 import Utils.NotificationPopUp;
+import Fields.ArableField;
 import Fields.Field;
 import buildings.Player;
 import Utils.CollisionChecker;
@@ -38,6 +45,8 @@ import buildings.Farmyard;
 
 public class aplication extends Application {
 
+	int currentCondition = 0;
+	
 	public static void main(String[] args) {
 		launch(args);
 
@@ -45,8 +54,13 @@ public class aplication extends Application {
 
 	@Override
 	public void start(Stage stage) throws Exception {
+		File file = new File("Images/Bitmap.bmp"); // Weizenfelder BufferedImage
+		BufferedImage bitmap = null;
+		try { bitmap = ImageIO.read(file); }
+		catch (IOException e) { e.printStackTrace(); }
+		
 		Player player = new Player(500,500);								// Spieler erstellen
-		GridPane gridPane = generateGamefield();						// Spielfeld erstellen	
+		GridPane gridPane = generateGamefield(bitmap);						// Spielfeld erstellen	
 		Tractor tractor = new Tractor(450, 450, 10000);
 		GasStation gasStation = new GasStation(250,350);
 		Cultivator cultivator = new Cultivator(160, 160);
@@ -65,6 +79,27 @@ public class aplication extends Application {
 		final Group group = new Group(gridPane, player, tractor, cultivator,gasStation,farmyard,landtrade, seeddrill);
 		Scene scene = new Scene(group);
 		
+		
+//		TimerTask task = new TimerTask()
+//		{
+//				@Override
+//				public void run() {
+//					for (int y = 0; y < 20; y++) { 
+//						for (int x = 0; x < 30; x++) {
+//							gridPane.getChildren().remove(gridPane.lookup("fieldX" + x + "Y" + (y+1)));
+//							Node arableField = new ArableField(1);
+//							arableField.setId("fieldX" + x + "Y" + (y+1));
+//						    gridPane.add(arableField, x, (y+1));
+//						}
+//					}
+//		
+//				}
+//
+//		};
+//		Timer timer = new Timer();
+//		timer.schedule(task,5000l);
+		
+		updateFields(gridPane,bitmap);
 		movePlayerOnKeyPress(scene, player, aonb);
 		movePlayerOnMousePress(scene, player, createTransition(player));
 		
@@ -74,7 +109,7 @@ public class aplication extends Application {
 		
 	}
 	
-	public GridPane generateGamefield() {
+	public GridPane generateGamefield(BufferedImage bitmap) {
 		GridPane grid = new GridPane();
 
 		for (int i = 0; i < 30; i++) {
@@ -90,25 +125,20 @@ public class aplication extends Application {
 		ImageView backg = new ImageView(background);
 		grid.add(backg, 0, 10);											// Landschaft
 
-		/*
-		 * File file = new File("Images/Bitmap.bmp"); // Weizenfelder BufferedImage
-		 * bitmap;
-		 */
-		/*
-		 * try { bitmap = ImageIO.read(file); for (int y = 0; y < bitmap.getHeight();
-		 * y++) { for (int x = 0; x < bitmap.getWidth(); x++) { //
-		 * System.out.println(bitmap.getRGB(x, y)); if(bitmap.getRGB(x, y) == -10728) {
-		 * grid.add(new Field(), x, (y+1)); } } } } catch (IOException e) {
-		 * e.printStackTrace(); }
-		 */
+		for (int y = 0; y < bitmap.getHeight(); y++) { 
+			for (int x = 0; x < bitmap.getWidth(); x++) {
+//					System.out.println(bitmap.getRGB(x, y));
+				if(bitmap.getRGB(x, y) == -10728) {
+					Node arableField = new ArableField();
+//					System.out.println("fieldX" + x + "Y" + (y+1));
+					arableField.setId("fieldX" + x + "Y" + (y+1));
+				    grid.add(arableField, x, (y+1));
+				}
+			}
+		}
 			
-		grid.setGridLinesVisible(true);
-		
-		
-		
-		return grid;	
-		
-		
+		grid.setGridLinesVisible(true);		
+		return grid;		
 	}
 	
 	private void movePlayerOnKeyPress(Scene scene, Player player, AvailableObjectsNearby aonb) { // TODO transitions 
@@ -204,5 +234,27 @@ public class aplication extends Application {
 	    });
 	    return transition;
 	  }
+	
+	public void updateFields(GridPane gridPane, BufferedImage bitmap) {
+	    Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(5), ev -> {
+			for (int y = 0; y < bitmap.getHeight(); y++) { 
+				for (int x = 0; x < bitmap.getWidth(); x++) {
+//						System.out.println(bitmap.getRGB(x, y));
+					if(bitmap.getRGB(x, y) == -10728) {
+						gridPane.getChildren().remove(gridPane.lookup("fieldX" + x + "Y" + (y+1)));
+						Node arableField = new ArableField(currentCondition);
+						arableField.setId("fieldX" + x + "Y" + (y+1));
+					    gridPane.add(arableField, x, (y+1));
+					}
+				}
+			}
+			if(currentCondition < 5) { currentCondition++; }
+		    else { currentCondition = 0; }
+//		    System.out.println(currentCondition);
+	    }));
+	    gridPane.setGridLinesVisible(true);
+	    timeline.setCycleCount(Animation.INDEFINITE);
+	    timeline.play();
+	}
 	
 }
