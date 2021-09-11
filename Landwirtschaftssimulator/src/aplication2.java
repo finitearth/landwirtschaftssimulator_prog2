@@ -34,11 +34,15 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.RowConstraints;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import javax.imageio.ImageIO;
+import javax.swing.SwingConstants;
+
 import Utils.NotificationPopUp;
 import Fields.Field;
 import buildings.Player;
@@ -193,19 +197,19 @@ public class aplication2 extends Application {
 			
 			save.setPlayerName(name.getText());
 			
-			if (easy.isPressed()) {
+			if (easy.isSelected()) {
 				save.setCash(2000);
 			}
-			if (middle.isPressed()) {
+			if (middle.isSelected()) {
 				save.setCash(1500);
 			}
-			if (hard.isPressed()) {
+			if (hard.isSelected()) {
 				save.setCash(1000);
 			}
 			
 			stage.setScene(generateGame());});
 		
-		Button back = new Button("Zurï¿½ck");
+		Button back = new Button("Zurück");
 		back.setFont(new Font("Arial", 12));
 		back.setPrefSize(100, 10);
 		back.relocate(700, 950);
@@ -238,9 +242,28 @@ public class aplication2 extends Application {
             grid.getRowConstraints().add(row);
 		}
 		
-		Image background = new Image("File:./Images/Map.png");	
-		ImageView backg = new ImageView(background);
-		grid.add(backg, 0, 10);											// Landschaft
+		Label headline = new Label(save.getPlayerName() + "'s Farm");
+		headline.setFont(new Font("Arial", 25));
+		grid.add(headline, 11, 0, 3, 1);
+		
+		Label currentCash = new Label("Cash: " + save.getCash());
+		currentCash.setFont(new Font("Arial", 25));
+		grid.add(currentCash, 27, 0, 3, 1);
+		
+		
+		
+		
+		Image backg = new Image("File:./Images/Map.png", 1500, 1050, false, false); // TODO Hintergrundbild erstellen
+		BackgroundImage backgroundImage = new BackgroundImage(backg,BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT,
+															  BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
+		grid.setBackground(new Background(backgroundImage));
+		
+		
+		
+		
+//		Image background = new Image("File:./Images/Map.png");	
+//		ImageView backg = new ImageView(background);
+//		grid.add(backg, 0, 10);											// Landschaft
 
 		/*
 		 * File file = new File("Images/Bitmap.bmp"); // Weizenfelder BufferedImage
