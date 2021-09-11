@@ -1,6 +1,7 @@
 package Fields;
 
 import javafx.scene.image.Image;
+import machinery.Harvester;
 
 public class ArableField extends Field{
 	@SuppressWarnings("unused")
@@ -47,4 +48,16 @@ public class ArableField extends Field{
 		
 	}
 	
+	int growthstate = 0;
+	int lastgrowthtime = 0;
+	
+	private int getHarvestCondition() {
+		return growthstate;
+	}
+	
+	public void harnest(Harvester harvester) {
+		harvester.fill(growthstate-1);
+		growthstate = 0;
+		
+	}
 }
