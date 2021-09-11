@@ -12,9 +12,10 @@ public class DumpTruck extends Equipment {
 	Image dumpTruckS = new Image("File:./Images/DumpTruckS.png");
 	Image dumpTruckD = new Image("File:./Images/DumpTruckD.png");
 
-	public DumpTruck(int posX, int posY) {
+	public DumpTruck(int posX, int posY, int maxload) {
 		this.setX(posX);
 		this.setY(posY);
+		this.maxload = maxload;
 		this.setImage(dumpTruckA);
 	}
 

@@ -52,8 +52,11 @@ import Utils.AvailableObjectsNearby;
 import buildings.GasStation;
 import buildings.Landtrade;
 import buildings.Farmyard;
+import settings.SaveFile;
 
 public class aplication2 extends Application {
+	
+	SaveFile save = new SaveFile();
 
 	public static void main(String[] args) {
 		launch(args);
@@ -186,7 +189,21 @@ public class aplication2 extends Application {
 		start.setFont(new Font("Arial", 25));
 		start.setPrefSize(100, 20);
 		start.relocate(700, 850);
-		start.setOnMouseClicked(e -> {stage.setScene(generateGame());});
+		start.setOnMouseClicked(e -> {
+			
+			save.setPlayerName(name.getText());
+			
+			if (easy.isPressed()) {
+				save.setCash(2000);
+			}
+			if (middle.isPressed()) {
+				save.setCash(1500);
+			}
+			if (hard.isPressed()) {
+				save.setCash(1000);
+			}
+			
+			stage.setScene(generateGame());});
 		
 		Button back = new Button("Zur�ck");
 		back.setFont(new Font("Arial", 12));
@@ -239,13 +256,15 @@ public class aplication2 extends Application {
 			
 		grid.setGridLinesVisible(true);
 		
-		Player player = new Player(500,500);
-		Tractor tractor = new Tractor(450, 450, 10000);
-		GasStation gasStation = new GasStation(250,350);
-		Cultivator cultivator = new Cultivator(160, 160);
-		SeedDrill seeddrill = new SeedDrill(160, 300);
+		
+		
+		Player player = new Player(save.getPlayerX(),save.getPlayerY());
+		Tractor tractor = new Tractor(save.getTractorX(), save.getTractorY(), 10000);
+		Cultivator cultivator = new Cultivator(save.getCultivatorX(), save.getCultiavtorY());
+		SeedDrill seeddrill = new SeedDrill(save.getSeedDrillX(), save.getSeedDrillY());
 		Landtrade landtrade = new Landtrade(1200, 550);
 		Farmyard farmyard = new Farmyard(1300, 450);
+		GasStation gasStation = new GasStation(250,350);
 		
 		AvailableObjectsNearby aonb = new AvailableObjectsNearby();
 		aonb.add(tractor);

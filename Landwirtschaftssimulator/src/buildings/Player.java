@@ -14,7 +14,6 @@ public class Player extends ImageView {
 	Image playerImageD = new Image("File:./Images/PlayerD.png");
 	Image playerImageCollided = new Image("File:./Images/PlayerTest.png");
 
-	private boolean mounted = false;
 
 	private Vehicle enteredvehicle = null;
 
