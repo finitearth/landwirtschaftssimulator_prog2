@@ -18,6 +18,9 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
@@ -244,26 +247,53 @@ public class aplication2 extends Application {
 		
 		Label headline = new Label(save.getPlayerName() + "'s Farm");
 		headline.setFont(new Font("Arial", 25));
-		grid.add(headline, 11, 0, 3, 1);
+		grid.add(headline, 13, 0, 3, 1);
 		
 		Label currentCash = new Label("Cash: " + save.getCash());
 		currentCash.setFont(new Font("Arial", 25));
 		grid.add(currentCash, 27, 0, 3, 1);
 		
+		Menu menu = new Menu("Menü");
+		MenuBar menuBar = new MenuBar();
+		
+		MenuItem newGame = new MenuItem("Neues Spiel");
+		newGame.setOnAction(e -> {
+			
+		});
+		
+		MenuItem load = new MenuItem("Spiel laden");
+		load.setOnAction(e -> {
+			
+		});
+		
+		MenuItem saveGame = new MenuItem("Spiel speichern");
+		saveGame.setOnAction(e -> {
+			
+		});
+		
+		MenuItem keyAssignment = new MenuItem("Tastenbelegung");
+		keyAssignment.setOnAction(e -> {
+			
+		});
+
+		menu.getItems().add(newGame);
+		menu.getItems().add(load);
+		menu.getItems().add(saveGame);
+		menu.getItems().add(keyAssignment);
+		
+		menuBar.getMenus().add(menu);
+		
+		grid.add(menuBar, 0, 0, 2, 1);
 		
 		
 		
-		Image backg = new Image("File:./Images/Map.png", 1500, 1050, false, false); // TODO Hintergrundbild erstellen
+		
+		Image backg = new Image("File:./Images/Map.png", 1500, 1050, false, false); 
 		BackgroundImage backgroundImage = new BackgroundImage(backg,BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT,
 															  BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
 		grid.setBackground(new Background(backgroundImage));
 		
 		
-		
-		
-//		Image background = new Image("File:./Images/Map.png");	
-//		ImageView backg = new ImageView(background);
-//		grid.add(backg, 0, 10);											// Landschaft
 
 		/*
 		 * File file = new File("Images/Bitmap.bmp"); // Weizenfelder BufferedImage
@@ -277,7 +307,7 @@ public class aplication2 extends Application {
 		 * e.printStackTrace(); }
 		 */
 			
-		grid.setGridLinesVisible(true);
+		grid.setGridLinesVisible(false);
 		
 		
 		
