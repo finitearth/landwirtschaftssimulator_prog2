@@ -37,9 +37,11 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.RowConstraints;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -198,19 +200,36 @@ public class aplication2 extends Application {
 		start.relocate(700, 850);
 		start.setOnMouseClicked(e -> {
 			
-			save.setPlayerName(name.getText());
+			if (name.getText() == "") {
+				Alert alert = new Alert(AlertType.ERROR);
+				alert.setTitle("Oh, da ist etwas schief gelaufen");
+				alert.setContentText("Gib dem Farmer einen Namen");
+				alert.showAndWait();
+				Optional<ButtonType> result = alert.showAndWait();
+				if (result.get() == ButtonType.OK){
+				    alert.close();
+				}
+				
+			}
+			else {
+				save.setPlayerName(name.getText());
+				
+				if (easy.isSelected()) {
+					save.setCash(2000);
+				}
+				if (middle.isSelected()) {
+					save.setCash(1500);
+				}
+				if (hard.isSelected()) {
+					save.setCash(1000);
+				}
+				
+				stage.setScene(generateGame());
+			}
+				
 			
-			if (easy.isSelected()) {
-				save.setCash(2000);
-			}
-			if (middle.isSelected()) {
-				save.setCash(1500);
-			}
-			if (hard.isSelected()) {
-				save.setCash(1000);
-			}
+			});
 			
-			stage.setScene(generateGame());});
 		
 		Button back = new Button("Zurück");
 		back.setFont(new Font("Arial", 12));
