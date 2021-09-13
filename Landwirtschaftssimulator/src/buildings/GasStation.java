@@ -3,11 +3,12 @@ package buildings;
 import buildings.building;
 import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
+import machinery.Harvester;
 import machinery.Tractor;
+import settings.SaveFile;
 
 public class GasStation extends building{
 	int costPerLiter = 1;
-	int cash = 5;
 	Image GasStation  = new Image("File:./Images/Tanke.png", 50, 50, false, false);
 	
 	public GasStation(int x, int y) {
@@ -15,23 +16,50 @@ public class GasStation extends building{
 		this.setImage(GasStation);
 	}
 
-	public void refuel(GasStation gasStation, Tractor tractor) {
+	public void refuelTractor(GasStation gasStation, Tractor tractor, SaveFile save) {
 		if(gasStation != null) {
 			int newFuel = tractor.maxfuel - tractor.fuel;
-			if(cash>=newFuel * costPerLiter) {
+			if(save.getCash()>=newFuel * costPerLiter) {
 				System.out.println(tractor.fuel);
-				cash = cash - (newFuel * costPerLiter);
+				save.setCash(save.getCash() - (newFuel * costPerLiter));
 				System.out.println("You have " + newFuel + " Liter refueled");
 				tractor.refuel(newFuel);
+				System.out.print(save.getCash());
 			}
-			else if(cash == 0){
+			else if(save.getCash() == 0){
 				System.out.println("You have no money");
 			}	
 			else {
-				newFuel = cash * costPerLiter;
-				cash = 0;
+				newFuel = save.getCash() * costPerLiter;
+				save.setCash(0);
 				System.out.println("You have " + newFuel + " Liter refueled");
 				tractor.refuel(newFuel);
+				System.out.print(save.getCash());
+			}
+		}
+		else {
+			System.out.println("There is no Gasstation nearby");
+		}
+	}
+	public void refuelHarvester(GasStation gasStation, Harvester harvetser, SaveFile save) {
+		if(gasStation != null) {
+			int newFuel = harvetser.maxfuel - harvetser.fuel;
+			if(save.getCash()>=newFuel * costPerLiter) {
+				System.out.println(harvetser.fuel);
+				save.setCash(save.getCash() - (newFuel * costPerLiter));
+				System.out.println("You have " + newFuel + " Liter refueled");
+				harvetser.refuel(newFuel);
+				System.out.print(save.getCash());
+			}
+			else if(save.getCash() == 0){
+				System.out.println("You have no money");
+			}	
+			else {
+				newFuel = save.getCash() * costPerLiter;
+				save.setCash(0);
+				System.out.println("You have " + newFuel + " Liter refueled");
+				harvetser.refuel(newFuel);
+				System.out.print(save.getCash());
 			}
 		}
 		else {
