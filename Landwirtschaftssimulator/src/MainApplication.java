@@ -242,7 +242,7 @@ public class MainApplication extends Application {
 					save.setPriceField3(2000);
 				}
 				
-				stage.setScene(generateGame(stage));
+				stage.setScene(generateGame());
 			}
 				
 			
@@ -271,7 +271,7 @@ public class MainApplication extends Application {
 		
 	}
 	
-	public Scene generateGame(Stage stage) {
+	public Scene generateGame() {
 		File file = new File("Images/Bitmap.bmp"); // Weizenfelder BufferedImage
 		BufferedImage bitmap = null;
 		try { bitmap = ImageIO.read(file); }
@@ -364,7 +364,7 @@ public class MainApplication extends Application {
 		//grid.setGridLinesVisible(false);
 		
 	
-		
+		 
 		Player player = new Player(save.getPlayerX(),save.getPlayerY());
 		Tractor tractor = new Tractor(save.getTractorX(), save.getTractorY(), 10000);
 		Cultivator cultivator = new Cultivator(save.getCultivatorX(), save.getCultiavtorY());
