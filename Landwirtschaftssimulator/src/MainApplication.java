@@ -99,7 +99,7 @@ public class MainApplication extends Application {
 		load.setFont(new Font("Arial", 30));
 		load.setPrefSize(300, 20);
 		load.relocate(600, 580);
-		load.setOnMouseClicked(e -> { }); // TODO Mï¿½glichkeit zum Spielstand laden
+		load.setOnMouseClicked(e -> { }); // TODO Möglichkeit zum Spielstand laden
 		
 		Button exit = new Button("Beenden");
 		exit.setFont(new Font("Arial", 30));
@@ -222,22 +222,34 @@ public class MainApplication extends Application {
 				
 				if (easy.isSelected()) {
 					save.setCash(2000);
+					save.setAmount(5);
+					save.setUnitPrice(20);
+					save.setPriceField2(500);
+					save.setPriceField3(1000);
 				}
 				if (middle.isSelected()) {
 					save.setCash(1500);
+					save.setAmount(3);
+					save.setUnitPrice(15);
+					save.setPriceField2(1000);
+					save.setPriceField3(1500);
 				}
 				if (hard.isSelected()) {
 					save.setCash(1000);
+					save.setAmount(1);
+					save.setUnitPrice(10);
+					save.setPriceField2(1500);
+					save.setPriceField3(2000);
 				}
 				
-				stage.setScene(generateGame());
+				stage.setScene(generateGame(stage));
 			}
 				
 			
 			});
 			
 		
-		Button back = new Button("Zurï¿½ck");
+		Button back = new Button("Zurück");
 		back.setFont(new Font("Arial", 12));
 		back.setPrefSize(100, 10);
 		back.relocate(700, 950);
@@ -259,13 +271,14 @@ public class MainApplication extends Application {
 		
 	}
 	
-	public Scene generateGame() {
+	public Scene generateGame(Stage stage) {
 		File file = new File("Images/Bitmap.bmp"); // Weizenfelder BufferedImage
 		BufferedImage bitmap = null;
 		try { bitmap = ImageIO.read(file); }
 		catch (IOException e) { e.printStackTrace(); }
 		
 		GridPane grid = generateGamefield(bitmap);
+		Player player = new Player(save.getPlayerX(),save.getPlayerY());
 
 		/*
 		 * for (int i = 0; i < 30; i++) { ColumnConstraints column = new
@@ -279,11 +292,20 @@ public class MainApplication extends Application {
 		headline.setFont(new Font("Arial", 25));
 		grid.add(headline, 13, 0, 3, 1);
 		
-		Label currentCash = new Label("Cash: " + save.getCash());
+		Label currentCash = new Label("Geld: " + save.getCash());
 		currentCash.setFont(new Font("Arial", 25));
 		grid.add(currentCash, 27, 0, 3, 1);
 		
-		Menu menu = new Menu("Menï¿½");
+		
+		Label fuelTractor = new Label("Tank Traktor: " + save.getTractorFuel());
+		fuelTractor.setFont(new Font("Arial", 20));
+		grid.add(fuelTractor, 23, 0, 4, 1);
+		
+		Label fuelHarvester = new Label("Tank Mähdrescher: " + save.getHarvesterFuel());
+		fuelHarvester.setFont(new Font("Arial", 20));
+		grid.add(fuelHarvester, 18, 0, 5, 1);
+		
+		Menu menu = new Menu("Menü");
 		MenuBar menuBar = new MenuBar();
 		
 		MenuItem newGame = new MenuItem("Neues Spiel");
@@ -344,7 +366,7 @@ public class MainApplication extends Application {
 		
 	
 		
-		Player player = new Player(save.getPlayerX(),save.getPlayerY());
+		
 		Tractor tractor = new Tractor(save.getTractorX(), save.getTractorY(), 10000);
 		Cultivator cultivator = new Cultivator(save.getCultivatorX(), save.getCultiavtorY());
 		SeedDrill seeddrill = new SeedDrill(save.getSeedDrillX(), save.getSeedDrillY());
