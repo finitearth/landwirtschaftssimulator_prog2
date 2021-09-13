@@ -14,7 +14,7 @@ public class Tractor extends Vehicle {
 	Image TractorViewW = new Image("File:./Images/TractorTestW.png", 50, 50, false, false);
 	Image TractorViewS = new Image("File:./Images/TractorTestS.png", 50, 50, false, false);
 
-	Equipment trailer = null;
+	public Equipment trailer = null;
 
 	public Tractor(int x, int y, int maxfuel) {
 		super(x, y, maxfuel);

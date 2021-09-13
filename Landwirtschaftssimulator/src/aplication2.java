@@ -231,7 +231,7 @@ public class aplication2 extends Application {
 			});
 			
 		
-		Button back = new Button("Zurück");
+		Button back = new Button("Zurï¿½ck");
 		back.setFont(new Font("Arial", 12));
 		back.setPrefSize(100, 10);
 		back.relocate(700, 950);
@@ -272,7 +272,7 @@ public class aplication2 extends Application {
 		currentCash.setFont(new Font("Arial", 25));
 		grid.add(currentCash, 27, 0, 3, 1);
 		
-		Menu menu = new Menu("Menü");
+		Menu menu = new Menu("Menï¿½");
 		MenuBar menuBar = new MenuBar();
 		
 		MenuItem newGame = new MenuItem("Neues Spiel");
@@ -405,9 +405,9 @@ public class aplication2 extends Application {
 		          case X			: 	tractor.equip((Equipment) aonb.search(tractor.getX(), tractor.getY(), "machinery.Equipment")); break;
 		          case F			: 	System.out.println(wind.display());
 		          case Z 			: 	System.out.println(tractor.getX()); System.out.println(tractor.getY());
-		          case L			:   gasStation.refuel((GasStation) aonb.search(tractor.getX(), tractor.getY(), "buildings.building"), tractorInstanz);break;
+		      //    case L			:   gasStation.refuel((GasStation) aonb.search(tractor.getX(), tractor.getY(), "buildings.building"), tractorInstanz);break;
 		          case V			: 	landtrade.selling((Landtrade) aonb.search(tractor.getX(), tractor.getY(), "buildings.building")); break; //nur provisorisch
-		          case M			:   System.out.println(farmyard.display((Farmyard) aonb.search(tractor.getX(), tractor.getY(), "buildings.building")));
+		   //       case M			:   System.out.println(farmyard.display((Farmyard) aonb.search(tractor.getX(), tractor.getY(), "buildings.building")));
 		          default:
 					break;
 	        }
