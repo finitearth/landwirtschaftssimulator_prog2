@@ -278,7 +278,6 @@ public class MainApplication extends Application {
 		catch (IOException e) { e.printStackTrace(); }
 		
 		GridPane grid = generateGamefield(bitmap);
-		Player player = new Player(save.getPlayerX(),save.getPlayerY());
 
 		/*
 		 * for (int i = 0; i < 30; i++) { ColumnConstraints column = new
@@ -366,7 +365,7 @@ public class MainApplication extends Application {
 		
 	
 		
-		
+		Player player = new Player(save.getPlayerX(),save.getPlayerY());
 		Tractor tractor = new Tractor(save.getTractorX(), save.getTractorY(), 10000);
 		Cultivator cultivator = new Cultivator(save.getCultivatorX(), save.getCultiavtorY());
 		SeedDrill seeddrill = new SeedDrill(save.getSeedDrillX(), save.getSeedDrillY());
