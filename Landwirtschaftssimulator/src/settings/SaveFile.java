@@ -3,7 +3,6 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import org.json.simple.JSONObject;
 public class SaveFile {
 	
 	//Player
@@ -11,27 +10,7 @@ public class SaveFile {
 	private int playerX = 1300;
 	private int playerY = 550;
 	
-	public void savetofile() {
-		  try {  
-			  	JSONObject countryObj = new JSONObject();  
-	            // Writing to a file  
-	            File file=new File("JsonFile.json");  
-	            file.createNewFile();  
-	            FileWriter fileWriter = new FileWriter(file);  
-	            System.out.println("Writing JSON object to file");  
-	            System.out.println("-----------------------");  
-	            System.out.print(countryObj);  
 
-	            fileWriter.write(countryObj.toJSONString());  
-	            fileWriter.flush();  
-	            fileWriter.close();  
-
-	        } catch (IOException e) {  
-	            e.printStackTrace();  
-	        }  
-
-		
-	}
 	// getter & setter Player Name
 	public String getPlayerName() {
 		return playerName;

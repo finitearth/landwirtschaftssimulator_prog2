@@ -16,7 +16,7 @@ public class Tractor extends Vehicle {
 	Image TractorViewD = new Image("File:./Images/TractorD.png", 50, 50, false, false);
 	Image TractorViewW = new Image("File:./Images/TractorW.png", 50, 50, false, false);
 	Image TractorViewS = new Image("File:./Images/TractorS.png", 50, 50, false, false);
-
+	AvailableObjectsNearby aonb; 
 
 	public Equipment trailer = null;
 
