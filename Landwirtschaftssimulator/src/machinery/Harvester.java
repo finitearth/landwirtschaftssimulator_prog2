@@ -6,6 +6,7 @@ import javafx.scene.image.Image;
 public class Harvester extends Vehicle {
 	public int graintank;
 	public int maxgraintank;
+	
 
 	Image ViewA = new Image("File:./Images/HarvesterA.png", 50, 50, false, false);
 	Image ViewD = new Image("File:./Images/HarvesterD.png", 50, 50, false, false);
@@ -73,8 +74,10 @@ public class Harvester extends Vehicle {
 		setX(getX() + bc.collisioncheckX(getX(), getY(), -speed));
 
 		}
-
+	
 	}
+
+	
 
 	//public void mow(Grainfield field) {
 	/*

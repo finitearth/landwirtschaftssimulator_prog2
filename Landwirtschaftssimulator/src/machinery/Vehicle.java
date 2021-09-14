@@ -27,14 +27,14 @@ import Utils.NotificationPopUp;
  */
 
 public class Vehicle extends ImageView {
-
 	public boolean entered = false;
 	public int x;
 	public int y;
 	public int maxfuel;
 	public int fuel;
 	Equipment trailer = null;
-
+	
+	
 	public Vehicle(int x_, int y_, int maxfuel_) {
 		setX(x_);
 		setY(y_);

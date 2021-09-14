@@ -1,16 +1,11 @@
 package Fields;
 
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import machinery.Harvester;
 
-public class ArableField extends Field{
-	@SuppressWarnings("unused")
-	private int grainAmount;
-	@SuppressWarnings("unused")
-	private int timeToGrow;
-	int currentCondition;
-	String[] growthState = {"sowReady", "growthStage0", "growthStage1", "growthStage2", "harvestReady", "harvested"};
-	
+public class ArableField extends ImageView{
+	int growthstate=-2;
 	Image sowReady 		= new Image("File:./Images/Wheatfield0.png");
 	Image growthStage0	= new Image("File:./Images/Wheatfield1.png");
 	Image growthStage1 	= new Image("File:./Images/Wheatfield2.png");
@@ -20,44 +15,45 @@ public class ArableField extends Field{
 	
 	
 	
-	public ArableField(int setCurrentCondition) {
-		currentCondition = setCurrentCondition;
-		updateFieldImage(growthState[currentCondition]);
+	public ArableField(int x, int y) {
+		setImage(harvested);
+		setX(x);
+		setY(y);
 	}
 	
-	public ArableField() {
-		currentCondition = 4; // growthState[4] => "harvestReady"
-		updateFieldImage(growthState[currentCondition]);
-	}
-	
-	@SuppressWarnings("unused")
-	private String getHarvestCondition(int currentCondition) {
-		return growthState[currentCondition];
-	}
-	
-	private void updateFieldImage(String growthState) {
-		switch(growthState) {
-			case "sowReady"		:	this.setImage(sowReady); 	 break;
-			case "growthStage0"	:	this.setImage(growthStage0); break;
-			case "growthStage1"	:	this.setImage(growthStage1); break;
-			case "growthStage2"	:	this.setImage(growthStage2); break;
-			case "harvestReady"	:	this.setImage(harvestReady); break;
-			case "harvested"	:	this.setImage(harvested); 	 break;
-			default				:	System.out.println("Invalid grothState"); break;
+
+	private void updateFieldImage() {
+		switch(growthstate) {
+			case -1	:	setImage(sowReady); ;	 break;
+			case 0	:	setImage(growthStage0);;	break;
+			case 1  :	setImage(growthStage1);	 break;
+			case 2	:	setImage(growthStage2); 	break;
+			case 3	:	setImage(harvestReady); break;
+			case -2	:	setImage(harvested);  break;
+			default	:  System.out.println("ALARM ");break;
 		}
 		
 	}
 	
-	int growthstate = 0;
-	int lastgrowthtime = 0;
-	
-	private int getHarvestCondition() {
-		return growthstate;
+	public void update() {
+		if (growthstate >= 0){
+			growthstate = Math.min(growthstate+1, 3);
+			updateFieldImage();
+		}
+		
+		
 	}
 	
 	public void harnest(Harvester harvester) {
 		harvester.fill(growthstate-1);
-		growthstate = 0;
+		growthstate = -2;
 		
+	}
+	
+	public void sow() {
+		if (growthstate==-2) {
+			growthstate = -1;
+			updateFieldImage();
+		}
 	}
 }

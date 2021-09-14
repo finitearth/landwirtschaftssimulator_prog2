@@ -54,6 +54,7 @@ public class aplication extends Application {
 
 	@Override
 	public void start(Stage stage) throws Exception {
+
 		File file = new File("Images/Bitmap.bmp"); // Weizenfelder BufferedImage
 		BufferedImage bitmap = null;
 		try { bitmap = ImageIO.read(file); }
@@ -61,8 +62,8 @@ public class aplication extends Application {
 		
 		Player player = new Player(500,500);								// Spieler erstellen
 		GridPane gridPane = generateGamefield(bitmap);						// Spielfeld erstellen	
-		Player player = new Player(500, 500); // Spieler erstellen
-		GridPane gridPane = generateGamefield(); // Spielfeld erstellen
+
+
 		Tractor tractor = new Tractor(450, 450, 10000);
 		GasStation gasStation = new GasStation(250, 350);
 		Cultivator cultivator = new Cultivator(160, 160);
@@ -83,6 +84,7 @@ public class aplication extends Application {
 		final Group group = new Group(gridPane, player, tractor, cultivator, gasStation, farmyard, landtrade, seeddrill,
 				harvester);
 		Scene scene = new Scene(group);
+
 		
 		
 //		TimerTask task = new TimerTask()
@@ -105,18 +107,19 @@ public class aplication extends Application {
 //		timer.schedule(task,5000l);
 		
 		updateFields(gridPane,bitmap);
+
 		movePlayerOnKeyPress(scene, player, aonb);
 		movePlayerOnMousePress(scene, player, createTransition(player));
-		
+
 		stage.setScene(scene);
 		stage.setTitle("Farmland");
 		stage.show();
-		
+
 	}
+
 	
 	public GridPane generateGamefield(BufferedImage bitmap) {
 
-	public GridPane generateGamefield() {
 		GridPane grid = new GridPane();
 
 		for (int i = 0; i < 30; i++) {
@@ -132,7 +135,7 @@ public class aplication extends Application {
 		ImageView backg = new ImageView(background);
 		grid.add(backg, 0, 10); // Landschaft
 
-<<<<<<< Updated upstream
+
 		for (int y = 0; y < bitmap.getHeight(); y++) { 
 			for (int x = 0; x < bitmap.getWidth(); x++) {
 //					System.out.println(bitmap.getRGB(x, y));
@@ -147,6 +150,7 @@ public class aplication extends Application {
 			
 		grid.setGridLinesVisible(true);		
 		return grid;		
+
 		/*
 		 * File file = new File("Images/Bitmap.bmp"); // Weizenfelder BufferedImage
 		 * bitmap;
@@ -159,9 +163,7 @@ public class aplication extends Application {
 		 * e.printStackTrace(); }
 		 */
 
-		grid.setGridLinesVisible(true);
 
-		return grid;
 
 	}
 
@@ -306,6 +308,7 @@ public class aplication extends Application {
 	}
 
 	private TranslateTransition createTransition(final Player player) {
+
 	    final TranslateTransition transition = new TranslateTransition(Duration.seconds(0.25), player);
 	    transition.setOnFinished(new EventHandler<ActionEvent>() {
 	      @Override public void handle(ActionEvent event) {
@@ -316,8 +319,8 @@ public class aplication extends Application {
 	      }
 	    });
 	    return transition;
-	  }
-	
+	}
+
 	public void updateFields(GridPane gridPane, BufferedImage bitmap) {
 	    Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(5), ev -> {
 			for (int y = 0; y < bitmap.getHeight(); y++) { 
@@ -338,19 +341,17 @@ public class aplication extends Application {
 	    gridPane.setGridLinesVisible(true);
 	    timeline.setCycleCount(Animation.INDEFINITE);
 	    timeline.play();
-	}
 	
-		final TranslateTransition transition = new TranslateTransition(Duration.seconds(0.25), player);
-		transition.setOnFinished(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent event) {
-				player.setX(player.getTranslateX() + player.getX());
-				player.setY(player.getTranslateY() + player.getY());
-				player.setTranslateX(0);
-				player.setTranslateY(0);
-			}
-		});
-		return transition;
-	}
 
+		/*
+		 * final TranslateTransition transition = new
+		 * TranslateTransition(Duration.seconds(0.25), player);
+		 * transition.setOnFinished(new EventHandler<ActionEvent>() {
+		 * 
+		 * @Override public void handle(ActionEvent event) {
+		 * player.setX(player.getTranslateX() + player.getX());
+		 * player.setY(player.getTranslateY() + player.getY()); player.setTranslateX(0);
+		 * player.setTranslateY(0); } }); return transition;
+		 */
+	}
 }

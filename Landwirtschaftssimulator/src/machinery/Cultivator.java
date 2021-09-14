@@ -8,7 +8,8 @@ public class Cultivator extends Equipment {
 	Image cultivatorA = new Image("File:./Images/CultivatorA.png");
 	Image cultivatorS = new Image("File:./Images/CultivatorS.png");
 	Image cultivatorD = new Image("File:./Images/CultivatorD.png");
-	
+
+	String type = "Cultivator";
 	
 	public Cultivator(int posX, int posY){
 		setX(posX);
@@ -34,5 +35,7 @@ public class Cultivator extends Equipment {
 	public void setImageD() {
 		setImage(cultivatorD);
 	}
-	
+	public String getType() {
+		return type;
+	}
 }

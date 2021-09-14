@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Optional;
 
 import javafx.animation.Animation;
@@ -72,7 +73,8 @@ import settings.SaveFile;
 public class MainApplication extends Application {
 	int currentCondition = 0;
 	SaveFile save = new SaveFile();
-
+	HashMap<String, ArableField> arablefieldtracker = new HashMap<>();
+	AvailableObjectsNearby aonb = new AvailableObjectsNearby();
 	public static void main(String[] args) {
 		launch(args);
 
@@ -342,10 +344,25 @@ public class MainApplication extends Application {
 			
 		//grid.setGridLinesVisible(false);
 		
-	
-		
+		Image background = new Image("File:./Images/Map.png"); // TODO Bild ersetzen Festes Spielfeld
+		ImageView backg = new ImageView(background);
+		grid.add(backg, 0, 10); // Landschaft
+		for (int y = 0; y < bitmap.getHeight(); y++) { 
+			for (int x = 0; x < bitmap.getWidth(); x++) {
+//					System.out.println(bitmap.getRGB(x, y));
+				if(bitmap.getRGB(x, y) == -10728) {
+					ArableField arableField = new ArableField(x*50, (y+1)*50);
+					aonb.add(arableField, "ArableField");
+					String position = "fieldX" + x + "Y" + (y+1);
+//					System.out.println("fieldX" + x + "Y" + (y+1));
+				//	arableField.setId(position);
+					arablefieldtracker.put(position, arableField);
+				    grid.add(arableField, x, (y+1));
+				}
+			}
+		}
 		Player player = new Player(save.getPlayerX(),save.getPlayerY());
-		Tractor tractor = new Tractor(save.getTractorX(), save.getTractorY(), 10000);
+		Tractor tractor = new Tractor(save.getTractorX(), save.getTractorY(), 10000, aonb);
 		Cultivator cultivator = new Cultivator(save.getCultivatorX(), save.getCultiavtorY());
 		SeedDrill seeddrill = new SeedDrill(save.getSeedDrillX(), save.getSeedDrillY());
 		Landtrade landtrade = new Landtrade(1200, 550);
@@ -353,20 +370,24 @@ public class MainApplication extends Application {
 		GasStation gasStation = new GasStation(250,350);
 		Harvester harvester = new Harvester(550, 550, 10000, 100);
 		
-		AvailableObjectsNearby aonb = new AvailableObjectsNearby();
-		aonb.add(tractor);
-		aonb.add(cultivator);
-		aonb.add(gasStation);
-		aonb.add(landtrade);
-		aonb.add(farmyard);
-		aonb.add(seeddrill);
-		aonb.add(harvester);
+		
+		aonb.add(tractor, "Vehicle");
+		aonb.add(cultivator, "Trailer");
+		aonb.add(gasStation, "Building");
+		aonb.add(landtrade, "Building");
+		aonb.add(farmyard, "Building");
+		aonb.add(seeddrill, "Trailer");
+		aonb.add(harvester, "Vehicle");
+		
+
+		
+		
 		
 		final Group group = new Group(grid, player, tractor, cultivator, gasStation, farmyard, landtrade, seeddrill,
 				harvester);
 		Scene scene = new Scene(group);
 		
-		movePlayerOnKeyPress(scene, player, aonb, gasStation, tractor,landtrade, farmyard, cultivator, seeddrill, save, harvester);
+		movePlayerOnKeyPress(scene, player, gasStation, tractor,landtrade, farmyard, cultivator, seeddrill, save, harvester);
 		movePlayerOnMousePress(scene, player, createTransition(player));
 		
 		GridPane gridPane = generateGamefield(bitmap);	
@@ -375,7 +396,7 @@ public class MainApplication extends Application {
 		
 	}
 	
-	private void movePlayerOnKeyPress(Scene scene, Player player, AvailableObjectsNearby aonb, GasStation gasStation, Tractor tractorInstanz, Landtrade landtrade, Farmyard farmyard, Cultivator cultivator, SeedDrill seeddrill, SaveFile save, Harvester harvesterInstanz) { // TODO transitions 
+	private void movePlayerOnKeyPress(Scene scene, Player player, GasStation gasStation, Tractor tractorInstanz, Landtrade landtrade, Farmyard farmyard, Cultivator cultivator, SeedDrill seeddrill, SaveFile save, Harvester harvesterInstanz) { // TODO transitions 
 
 		int upper_boundary = 50-50;
 		int left_boundary = 0-50;
@@ -405,8 +426,8 @@ public class MainApplication extends Application {
 	          case RIGHT,	D	: 	player.moveright(bc, walkingspeed); break;
 	          case DOWN	, 	S	: 	player.movedown(bc, walkingspeed); break;
 	          case LEFT	, 	A	: 	player.moveleft(bc, walkingspeed); break;
-	          case E			:   player.setEnteredVehicle((Vehicle) aonb.search(player.getX(), player.getY(), "machinery.Vehicle")); break;
-	          case M			:   farmyard.farmyardMenu(((Farmyard) aonb.search(player.getX(), player.getY(), "buildings.building")), tractorInstanz, aonb, player, cultivator, seeddrill, harvesterInstanz);
+	          case E			:   player.setEnteredVehicle((Vehicle) aonb.search(player.getX(), player.getY(), "Vehicle")); break;
+	          case M			:   farmyard.farmyardMenu(((Farmyard) aonb.search(player.getX(), player.getY(), "Building")), tractorInstanz, aonb, player, cultivator, seeddrill, harvesterInstanz);
 			default:
 				break;
 	        }
@@ -422,9 +443,9 @@ public class MainApplication extends Application {
 		          case DOWN	, 	S	: 	tractor.movedown(bc, drivingspeed); break;
 		          case LEFT	, 	A	: 	tractor.moveleft(bc, drivingspeed); break;
 		          case E			:   player.setX(tractor.getX());	player.setY(tractor.getY()); player.setImageW(); tractor.exit(); player.setEnteredVehicle(null);  break;
-		          case X			: 	tractor.equip((Equipment) aonb.search(tractor.getX(), tractor.getY(), "machinery.Equipment")); break;
-		          case F			: 	System.out.println(wind.display());
-		          case Z 			: 	System.out.println(tractor.getX()); System.out.println(tractor.getY());
+		          case X			: 	tractor.equip((Equipment) aonb.search(tractor.getX(), tractor.getY(), "Trailer")); break;
+		          case F			: 	System.out.println(wind.display()); break;
+		          case Z 			: 	System.out.println(tractor.getX()); System.out.println(tractor.getY()); break;
 		          case L			:   gasStation.refuelTractor((GasStation) aonb.search(tractor.getX(), tractor.getY(), "buildings.building"), tractorInstanz, save);break;
 		          case V			: 	landtrade.selling((Landtrade) aonb.search(tractor.getX(), tractor.getY(), "buildings.building")); break; //nur provisorisch
 		          case M			:   farmyard.farmyardMenu(((Farmyard) aonb.search(tractor.getX(), tractor.getY(), "buildings.building")), tractorInstanz, aonb, player, cultivator, seeddrill, harvesterInstanz);
@@ -507,18 +528,18 @@ public class MainApplication extends Application {
 				for (int x = 0; x < bitmap.getWidth(); x++) {
 //						System.out.println(bitmap.getRGB(x, y));
 					if(bitmap.getRGB(x, y) == -10728) {
-						gridPane.getChildren().remove(gridPane.lookup("fieldX" + x + "Y" + (y+1)));
-						Node arableField = new ArableField(currentCondition);
-						arableField.setId("fieldX" + x + "Y" + (y+1));
-					    gridPane.add(arableField, x, (y+1));
+						String position = "fieldX" + x + "Y" + (y+1);
+						ArableField field = arablefieldtracker.get(position);
+						if (field != null) {
+							field.update();
+						}
+						
 					}
 				}
 			}
-			if(currentCondition < 5) { currentCondition++; }
-		    else { currentCondition = 0; }
+			
 //		    System.out.println(currentCondition);
 	    }));
-	    gridPane.setGridLinesVisible(true);
 	    timeline.setCycleCount(Animation.INDEFINITE);
 	    timeline.play();
 	
@@ -548,24 +569,12 @@ public class MainApplication extends Application {
 			grid.getRowConstraints().add(row);
 		}
 
-		Image background = new Image("File:./Images/Map.png"); // TODO Bild ersetzen Festes Spielfeld
-		ImageView backg = new ImageView(background);
-		grid.add(backg, 0, 10); // Landschaft
-
-
-		for (int y = 0; y < bitmap.getHeight(); y++) { 
-			for (int x = 0; x < bitmap.getWidth(); x++) {
-//					System.out.println(bitmap.getRGB(x, y));
-				if(bitmap.getRGB(x, y) == -10728) {
-					Node arableField = new ArableField();
-//					System.out.println("fieldX" + x + "Y" + (y+1));
-					arableField.setId("fieldX" + x + "Y" + (y+1));
-				    grid.add(arableField, x, (y+1));
-				}
-			}
-		}
+		
+		
+		
+		
 			
-		grid.setGridLinesVisible(true);		
+		//grid.setGridLinesVisible(false);		
 		return grid;		
 
 		/*
