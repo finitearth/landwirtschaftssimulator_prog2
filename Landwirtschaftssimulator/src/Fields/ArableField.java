@@ -44,16 +44,31 @@ public class ArableField extends ImageView{
 		
 	}
 	
-	public void harnest(Harvester harvester) {
+	public void harvest(Harvester harvester) {
 		harvester.fill(growthstate-1);
 		growthstate = -2;
-		
+		updateFieldImage();
 	}
 	
 	public void sow() {
+		if (growthstate==-1) {
+			growthstate = 0;
+			updateFieldImage();
+		}
+	}
+	public void cultivate() {
 		if (growthstate==-2) {
 			growthstate = -1;
 			updateFieldImage();
 		}
+	}
+	
+	public int getState() {
+		return growthstate;
+	}
+	
+	public void setState(int i) {
+		growthstate = i;
+		updateFieldImage();
 	}
 }

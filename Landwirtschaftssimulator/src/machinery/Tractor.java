@@ -33,6 +33,13 @@ public class Tractor extends Vehicle {
 				ArableField field = (ArableField) aonb.search(getX(), getY(), "ArableField");
 				//System.out.println(field);
 				if (field != null) {
+					field.cultivate();
+				}
+			}
+			else if (trailer.getType()== "SeedDrill") {
+				ArableField field = (ArableField) aonb.search(getX(), getY(), "ArableField");
+				//System.out.println(field);
+				if (field != null) {
 					field.sow();
 				}
 			}
@@ -126,5 +133,15 @@ public class Tractor extends Vehicle {
 			/* trailer.setImage(cultivatorW) */
 		}
 
+	}
+
+	public int getFuel() {
+	
+		return fuel;
+	}
+
+	public void setFuel(int tractorFuel) {
+		fuel = tractorFuel;
+		
 	}
 }

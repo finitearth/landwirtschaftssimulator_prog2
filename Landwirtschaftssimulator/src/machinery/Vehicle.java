@@ -9,7 +9,6 @@ import buildings.Player;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import machinery.Equipment;
-import Utils.InterActableObjects;
 import Utils.NotificationPopUp;
 
 /**

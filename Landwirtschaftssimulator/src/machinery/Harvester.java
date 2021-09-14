@@ -1,29 +1,38 @@
 package machinery;
 
+import Fields.ArableField;
+import Utils.AvailableObjectsNearby;
 import Utils.CollisionChecker;
 import javafx.scene.image.Image;
 
 public class Harvester extends Vehicle {
 	public int graintank;
 	public int maxgraintank;
+	AvailableObjectsNearby aonb;
 	
-
 	Image ViewA = new Image("File:./Images/HarvesterA.png", 50, 50, false, false);
 	Image ViewD = new Image("File:./Images/HarvesterD.png", 50, 50, false, false);
 	Image ViewW = new Image("File:./Images/HarvesterW.png", 50, 50, false, false);
 	Image ViewS = new Image("File:./Images/HarvesterS.png", 50, 50, false, false);
 
-	public Harvester(int x, int y, int maxfuel, int maxgraintank_) {
-		super(x, y, maxfuel);
+	public Harvester(int x, int y, int maxfuel, int maxgraintank_, AvailableObjectsNearby aonb_) {
+		super(x, y, maxfuel); 
 		graintank = 0;
 		maxgraintank = maxgraintank_;
 		setImage(ViewA);
+		aonb = aonb_;
 	}
 	
 	public void fill(int grainamount) {
 		graintank += grainamount;
 	}
-	
+	public void harvest() {
+		ArableField field = (ArableField) aonb.search(getX(), getY(), "ArableField");
+		//System.out.println(field);
+		if (field != null) {
+			field.harvest(this);
+		}
+	}
 	@Override
 	public void setImageW() {
 
@@ -49,14 +58,14 @@ public class Harvester extends Vehicle {
 		setImageW();
 		updatefuel(speed);
 		setY(getY() + bc.collisioncheckY(getX(), getY(), -speed));
-
+		harvest();
 	}
 
 	public void moveright(CollisionChecker bc, double speed) {
 		setImageD();
 		updatefuel(speed);
 		setX(getX() + bc.collisioncheckX(getX(), getY(), +speed));
-
+		harvest();
 		}
 	
 
@@ -64,7 +73,7 @@ public class Harvester extends Vehicle {
 		setImageS();
 		updatefuel(speed);
 		setY(getY() + bc.collisioncheckY(getX(), getY(), +speed));
-
+		harvest();
 		}
 	
 
@@ -72,8 +81,26 @@ public class Harvester extends Vehicle {
 		setImageA();
 		updatefuel(speed);
 		setX(getX() + bc.collisioncheckX(getX(), getY(), -speed));
-
+		harvest();
 		}
+
+	public int getFuel() {
+		return fuel;
+	}
+
+	public void setFuel(int harvesterFuel) {
+		fuel = harvesterFuel;
+		
+	}
+
+	public void setLoad(int load_) {
+		graintank = load_;
+		
+	}
+	
+	public int getLoad() {
+		return graintank;
+	}
 	
 	}
 

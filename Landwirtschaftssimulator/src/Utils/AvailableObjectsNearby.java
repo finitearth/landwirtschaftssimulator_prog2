@@ -45,9 +45,7 @@ public class AvailableObjectsNearby {
 			x = object.getX();
 			y = object.getY();
 			dist = Math.abs(x - x_player) + Math.abs(y - y_player);
-			if (type_object == "ArableField") {
-				System.out.println(dist);
-			}
+		
 			if ((type_object == type)&&((dist < min_d))) {
 				min_d = dist;
 				nearest = object;

@@ -7,7 +7,8 @@ public class SeedDrill extends Equipment {
 	Image seedDrillA = new Image("File:./Images/SeedDrill.jpg", 50, 50, false, false);
 	Image seedDrillS = new Image("File:./Images/SeedDrill.jpg", 50, 50, false, false);
 	Image seedDrillD = new Image("File:./Images/SeedDrill.jpg", 50, 50, false, false);
-
+	String type = "SeedDrill";
+	
 	public SeedDrill(int posX, int posY) {
 		this.setX(posX);
 		this.setY(posY);
@@ -33,5 +34,7 @@ public class SeedDrill extends Equipment {
 	public void seed() {
 
 	}
-
+	public String getType() {
+		return type;
+	}
 }
