@@ -71,7 +71,7 @@ public class SaveFile {
 	// Tractor
 	private int tractorX = 1300;
 	private int tractorY = 500;
-	private int tractorFuel;
+	private int tractorFuel = 100;
 	
 	// getter & setter Tractor Pos.
 	public int getTractorX() {
@@ -100,7 +100,7 @@ public class SaveFile {
 	// Harvester
 	private int harvesterX = 1250;
 	private int harvesterY = 500;
-	private int harvesterFuel;
+	private int harvesterFuel = 100;
 	private int harvesterLoad = 0;
 	
 	// getter & setter Harvester Pos.
@@ -203,7 +203,44 @@ public class SaveFile {
 	}
 	
 	
+	// ArableField
 	
+	private int amount = 0;
+	
+	public int getAmount() {
+		return amount;
+	}
+	public void setAmount(int amount) {
+		this.amount = amount;
+	}
+
+	
+	private int unitPrice = 0;
+	
+	public int getUnitPrice() {
+		return unitPrice;
+	}
+	public void setUnitPrice(int unitPrice) {
+		this.unitPrice = unitPrice;
+	}
+
+
+	private int priceField2 = 0;
+	private int priceField3 = 0;
+
+
+	public int getPriceField2() {
+		return priceField2;
+	}
+	public void setPriceField2(int priceField2) {
+		this.priceField2 = priceField2;
+	}
+	public int getPriceField3() {
+		return priceField3;
+	}
+	public void setPriceField3(int priceField3) {
+		this.priceField3 = priceField3;
+	}
 	
 	
 	

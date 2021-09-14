@@ -10,11 +10,13 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 public class Tractor extends Vehicle {
-	AvailableObjectsNearby aonb;
-	Image TractorViewA = new Image("File:./Images/TractorTestL.png", 50, 50, false, false);
-	Image TractorViewD = new Image("File:./Images/TractorTestR.png", 50, 50, false, false);
-	Image TractorViewW = new Image("File:./Images/TractorTestW.png", 50, 50, false, false);
-	Image TractorViewS = new Image("File:./Images/TractorTestS.png", 50, 50, false, false);
+
+
+	Image TractorViewA = new Image("File:./Images/TractorA.png", 50, 50, false, false);
+	Image TractorViewD = new Image("File:./Images/TractorD.png", 50, 50, false, false);
+	Image TractorViewW = new Image("File:./Images/TractorW.png", 50, 50, false, false);
+	Image TractorViewS = new Image("File:./Images/TractorS.png", 50, 50, false, false);
+
 
 	public Equipment trailer = null;
 
