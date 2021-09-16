@@ -8,25 +8,29 @@ public class SeedDrill extends Equipment {
 	Image seedDrillS = new Image("File:./Images/SeedDrillS.png", 50, 50, false, false);
 	Image seedDrillD = new Image("File:./Images/SeedDrillD.png", 50, 50, false, false);
 	String type = "SeedDrill";
-	
+
 	public SeedDrill(int posX, int posY) {
 		this.setX(posX);
 		this.setY(posY);
 		this.setImage(seedDrillA);
 	}
 
+	@Override
 	public void setImageA() {
 		setImage(seedDrillA);
 	}
 
+	@Override
 	public void setImageW() {
 		setImage(seedDrillW);
 	}
 
+	@Override
 	public void setImageS() {
 		setImage(seedDrillS);
 	}
 
+	@Override
 	public void setImageD() {
 		setImage(seedDrillD);
 	}
@@ -34,6 +38,7 @@ public class SeedDrill extends Equipment {
 	public void seed() {
 
 	}
+	@Override
 	public String getType() {
 		return type;
 	}

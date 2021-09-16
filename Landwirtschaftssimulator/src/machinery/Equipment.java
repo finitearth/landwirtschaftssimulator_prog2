@@ -22,5 +22,5 @@ public class Equipment extends ImageView {
 	public String getType() {
 		return type;
 	}
-	
+
 }

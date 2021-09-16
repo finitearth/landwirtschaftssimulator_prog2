@@ -9,20 +9,20 @@ public class Harvester extends Vehicle {
 	public int graintank;
 	public int maxgraintank;
 	AvailableObjectsNearby aonb;
-	
+
 	Image ViewA = new Image("File:./Images/HarvesterA.png", 50, 50, false, false);
 	Image ViewD = new Image("File:./Images/HarvesterD.png", 50, 50, false, false);
 	Image ViewW = new Image("File:./Images/HarvesterW.png", 50, 50, false, false);
 	Image ViewS = new Image("File:./Images/HarvesterS.png", 50, 50, false, false);
 
 	public Harvester(int x, int y, int maxfuel, int maxgraintank_, AvailableObjectsNearby aonb_) {
-		super(x, y, maxfuel); 
+		super(x, y, maxfuel);
 		graintank = 0;
 		maxgraintank = maxgraintank_;
 		setImage(ViewA);
 		aonb = aonb_;
 	}
-	
+
 	public void fill(int grainamount) {
 		graintank += grainamount;
 	}
@@ -53,7 +53,8 @@ public class Harvester extends Vehicle {
 	public void setImageD() {
 		this.setImage(ViewD);
 	}
-	
+
+	@Override
 	public void moveup(CollisionChecker bc, double speed) {
 		setImageW();
 		updatefuel(speed);
@@ -61,22 +62,25 @@ public class Harvester extends Vehicle {
 		harvest();
 	}
 
+	@Override
 	public void moveright(CollisionChecker bc, double speed) {
 		setImageD();
 		updatefuel(speed);
 		setX(getX() + bc.collisioncheckX(getX(), getY(), +speed));
 		harvest();
 		}
-	
 
+
+	@Override
 	public void movedown(CollisionChecker bc, double speed) {
 		setImageS();
 		updatefuel(speed);
 		setY(getY() + bc.collisioncheckY(getX(), getY(), +speed));
 		harvest();
 		}
-	
 
+
+	@Override
 	public void moveleft(CollisionChecker bc, double speed) {
 		setImageA();
 		updatefuel(speed);
@@ -90,28 +94,28 @@ public class Harvester extends Vehicle {
 
 	public void setFuel(int harvesterFuel) {
 		fuel = harvesterFuel;
-		
+
 	}
 
 	public void setLoad(int load_) {
 		graintank = load_;
-		
+
 	}
-	
+
 	public int getLoad() {
 		return graintank;
 	}
-	
+
 	}
 
-	
+
 
 	//public void mow(Grainfield field) {
 	/*
 	 * int grainamount = field.getGrainamount(); if (graintank + grainamount <=
 	 * maxgraintank) { graintank += grainamount; field.mow(); } else {
 	 * System.out.println("Tank full"); }
-	 * 
+	 *
 	 * }
 	 */
 

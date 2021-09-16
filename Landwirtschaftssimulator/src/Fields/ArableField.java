@@ -12,63 +12,80 @@ public class ArableField extends ImageView{
 	Image growthStage2 	= new Image("File:./Images/Wheatfield3.png");
 	Image harvestReady 	= new Image("File:./Images/Wheatfield4.png");
 	Image harvested 	= new Image("File:./Images/Wheatfield5.png");
-	
-	
-	
+	Image notOwned 		= new Image("File:./Images/WheatfieldNotOwned.png");
+
+	private boolean owned = false;
+
 	public ArableField(int x, int y) {
-		setImage(harvested);
-		setX(x);
-		setY(y);
+		updateFieldImage();
+		this.setX(x);
+		this.setY(y);
 	}
-	
+
 
 	private void updateFieldImage() {
 		switch(growthstate) {
-			case -1	:	setImage(sowReady); ;	 break;
-			case 0	:	setImage(growthStage0);;	break;
-			case 1  :	setImage(growthStage1);	 break;
-			case 2	:	setImage(growthStage2); 	break;
-			case 3	:	setImage(harvestReady); break;
-			case -2	:	setImage(harvested);  break;
-			default	:  System.out.println("ALARM ");break;
+			case -1	:	setImage(sowReady);			break;
+			case  0	:	setImage(growthStage0);		break;
+			case  1 :	setImage(growthStage1);		break;
+			case  2	:	setImage(growthStage2);		break;
+			case  3	:	setImage(harvestReady);		break;
+			case -2	:	setImage(harvested);		break;
+			default	:  System.out.println("ALARM");	break;
 		}
-		
+
 	}
-	
+
 	public void update() {
-		if (growthstate >= 0){
+		if (this.getState() >= 0 && this.isOwned()){
 			growthstate = Math.min(growthstate+1, 3);
 			updateFieldImage();
 		}
-		
-		
+
+
 	}
-	
+
 	public void harvest(Harvester harvester) {
-		harvester.fill(growthstate-1);
-		growthstate = -2;
-		updateFieldImage();
+		if(this.isOwned()) {
+			harvester.fill(growthstate-1);
+			growthstate = -2;
+			updateFieldImage();
+		}
 	}
-	
+
 	public void sow() {
-		if (growthstate==-1) {
+		if (this.getState() == -1 && this.isOwned()) {
 			growthstate = 0;
 			updateFieldImage();
 		}
 	}
 	public void cultivate() {
-		if (growthstate==-2) {
+		if (this.getState() == -2 && this.isOwned()) {
 			growthstate = -1;
 			updateFieldImage();
 		}
 	}
-	
+
 	public int getState() {
 		return growthstate;
 	}
-	
+
 	public void setState(int i) {
 		growthstate = i;
 		updateFieldImage();
+	}
+
+
+	public boolean isOwned() {
+		return owned;
+	}
+
+
+	public void setOwned(boolean owned) {
+		this.owned = owned;
+		if(!this.owned)
+			this.setImage(notOwned);
+		else
+			this.setImage(harvested);
 	}
 }

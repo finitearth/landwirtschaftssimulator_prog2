@@ -1,8 +1,6 @@
 package buildings;
 
-import buildings.building;
 import javafx.scene.image.Image;
-import javafx.scene.layout.GridPane;
 import machinery.Harvester;
 import machinery.Tractor;
 import settings.SaveFile;
@@ -10,7 +8,7 @@ import settings.SaveFile;
 public class GasStation extends building{
 	int costPerLiter = 1;
 	Image GasStation  = new Image("File:./Images/Tanke.png", 50, 50, false, false);
-	
+
 	public GasStation(int x, int y) {
 		super(x, y);
 		this.setImage(GasStation);
@@ -28,7 +26,7 @@ public class GasStation extends building{
 			}
 			else if(save.getCash() == 0){
 				System.out.println("You have no money");
-			}	
+			}
 			else {
 				newFuel = save.getCash() * costPerLiter;
 				save.setCash(0);
@@ -53,7 +51,7 @@ public class GasStation extends building{
 			}
 			else if(save.getCash() == 0){
 				System.out.println("You have no money");
-			}	
+			}
 			else {
 				newFuel = save.getCash() * costPerLiter;
 				save.setCash(0);

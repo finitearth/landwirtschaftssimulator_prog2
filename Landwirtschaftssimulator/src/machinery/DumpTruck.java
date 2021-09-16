@@ -19,18 +19,22 @@ public class DumpTruck extends Equipment {
 		this.setImage(dumpTruckA);
 	}
 
+	@Override
 	public void setImageW() {
 		this.setImage(dumpTruckW);
 	}
 
+	@Override
 	public void setImageA() {
 		this.setImage(dumpTruckA);
 	}
 
+	@Override
 	public void setImageS() {
 		this.setImage(dumpTruckS);
 	}
 
+	@Override
 	public void setImageD() {
 		this.setImage(dumpTruckD);
 	}

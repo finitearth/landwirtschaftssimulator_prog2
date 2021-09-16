@@ -1,21 +1,22 @@
 
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Optional;
 
-import javafx.animation.Animation;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
+import Fields.ArableField;
+import Utils.AvailableObjectsNearby;
+import Utils.CollisionChecker;
+import Utils.NotificationPopUp;
+import Utils.WheatfieldActions;
+import buildings.Farmyard;
+import buildings.GasStation;
+import buildings.Landtrade;
+import buildings.Player;
 import javafx.animation.TranslateTransition;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.Pos;
 import javafx.scene.Group;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -41,43 +42,24 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.RowConstraints;
-import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import javafx.scene.text.TextAlignment;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-
-import javax.imageio.ImageIO;
-import javax.swing.SwingConstants;
-
-import Utils.NotificationPopUp;
-import Fields.ArableField;
-import Fields.Field;
-import buildings.Player;
-import Utils.CollisionChecker;
-import machinery.Tractor;
-import machinery.Vehicle;
 import machinery.Cultivator;
 import machinery.Equipment;
 import machinery.Harvester;
 import machinery.SeedDrill;
-import Utils.AvailableObjectsNearby;
-import buildings.GasStation;
-import buildings.Landtrade;
-import buildings.Farmyard;
+import machinery.Tractor;
+import machinery.Vehicle;
 import settings.SaveFile;
 
 public class MainApplication extends Application {
-	int currentCondition = 0;
 	SaveFile save = new SaveFile();
-	HashMap<String, ArableField> arablefieldtracker = new HashMap<>();
 	AvailableObjectsNearby aonb = new AvailableObjectsNearby();
+	WheatfieldActions wa = new WheatfieldActions();
 
 	public static void main(String[] args) {
 		launch(args);
-
 	}
 
 	@Override
@@ -104,7 +86,7 @@ public class MainApplication extends Application {
 		load.setPrefSize(300, 20);
 		load.relocate(600, 580);
 		load.setOnMouseClicked(e -> {
-		}); // TODO Möglichkeit zum Spielstand laden
+		}); // TODO Mï¿½glichkeit zum Spielstand laden
 
 		Button exit = new Button("Beenden");
 		exit.setFont(new Font("Arial", 30));
@@ -250,7 +232,7 @@ public class MainApplication extends Application {
 
 		});
 
-		Button back = new Button("Zurück");
+		Button back = new Button("Zurï¿½ck");
 		back.setFont(new Font("Arial", 12));
 		back.setPrefSize(100, 10);
 		back.relocate(700, 950);
@@ -273,15 +255,8 @@ public class MainApplication extends Application {
 	}
 
 	public Scene generateGame() {
-		File file = new File("Images/Bitmap.bmp"); // Weizenfelder BufferedImage
-		BufferedImage bitmap = null;
-		try {
-			bitmap = ImageIO.read(file);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 
-		GridPane grid = generateGamefield(bitmap);
+		GridPane grid = generateGamefield(wa.bitmap);
 
 		/*
 		 * for (int i = 0; i < 30; i++) { ColumnConstraints column = new
@@ -303,11 +278,11 @@ public class MainApplication extends Application {
 		fuelTractor.setFont(new Font("Arial", 20));
 		grid.add(fuelTractor, 23, 0, 4, 1);
 
-		Label fuelHarvester = new Label("Tank Mähdrescher: " + save.getHarvesterFuel());
+		Label fuelHarvester = new Label("Tank Mï¿½hdrescher: " + save.getHarvesterFuel());
 		fuelHarvester.setFont(new Font("Arial", 20));
 		grid.add(fuelHarvester, 18, 0, 5, 1);
 
-		Menu menu = new Menu("Menü");
+		Menu menu = new Menu("Menï¿½");
 		MenuBar menuBar = new MenuBar();
 
 		MenuItem newGame = new MenuItem("Neues Spiel");
@@ -317,12 +292,18 @@ public class MainApplication extends Application {
 
 		MenuItem load = new MenuItem("Spiel laden");
 		load.setOnAction(e -> {
-			save.loadfile(arablefieldtracker);
+//			save.loadfile(wa.arablefieldtracker);
+			save.loadfile(wa.wheatfieldOneTracker);
+			save.loadfile(wa.wheatfieldTwoTracker);
+			save.loadfile(wa.wheatfieldThreeTracker);
 		});
 
 		MenuItem saveGame = new MenuItem("Spiel speichern");
 		saveGame.setOnAction(e -> {
-			save.savetofile(arablefieldtracker);
+//			save.savetofile(wa.arablefieldtracker);
+			save.savetofile(wa.wheatfieldOneTracker);
+			save.savetofile(wa.wheatfieldTwoTracker);
+			save.savetofile(wa.wheatfieldThreeTracker);
 		});
 
 		MenuItem keyAssignment = new MenuItem("Tastenbelegung");
@@ -365,22 +346,28 @@ public class MainApplication extends Application {
 		 * Festes Spielfeld ImageView backg = new ImageView(background);
 		 */
 		// grid.add(backg, 0, 10); // Landschaft
-		for (int y = 0; y < bitmap.getHeight(); y++) {
-			for (int x = 0; x < bitmap.getWidth(); x++) {
-//					System.out.println(bitmap.getRGB(x, y));
-				if (bitmap.getRGB(x, y) == -10728) {
-					ArableField arableField = new ArableField(x * 50, (y + 1) * 50);
+		for (int y = 0; y < wa.bitmap.getHeight(); y++) {
+			for (int x = 0; x < wa.bitmap.getWidth(); x++) {
+//				System.out.println(wa.bitmap.getRGB(x, y));
+				if (wa.bitmap.getRGB(x, y) == -3628785) {
+					ArableField arableField = wa.GenerateWheatfieldOne(x, y);
 					aonb.add(arableField, "ArableField");
-					String position = "fieldX" + x + "Y" + (y + 1);
-//					System.out.println("fieldX" + x + "Y" + (y+1));
-					// arableField.setId(position);
-					arablefieldtracker.put(position, arableField);
+					grid.add(arableField, x, (y + 1));
+				}
+				else if (wa.bitmap.getRGB(x, y) == -1976724) {
+					ArableField arableField = wa.GenerateWheatfieldTwo(x, y);
+					aonb.add(arableField, "ArableField");
+					grid.add(arableField, x, (y + 1));
+				}
+				else if (wa.bitmap.getRGB(x, y) == -3614961) {
+					ArableField arableField = wa.GenerateWheatfieldThree(x, y);
+					aonb.add(arableField, "ArableField");
 					grid.add(arableField, x, (y + 1));
 				}
 			}
 		}
 
-		Player player = new Player(1200,400);			
+		Player player = new Player(1200,400);
 		Tractor tractor = new Tractor(1300, 500, 10000, aonb);
 		Cultivator cultivator = new Cultivator(1250, 500);
 		SeedDrill seeddrill = new SeedDrill(1350, 500);
@@ -405,8 +392,8 @@ public class MainApplication extends Application {
 				harvester);
 		movePlayerOnMousePress(scene, player, createTransition(player));
 
-		// GridPane gridPane = generateGamefield(bitmap);
-		updateFields(grid, bitmap);
+		// GridPane gridPane = generateGamefield(wa.bitmap);
+		wa.updateWheatfields(grid);
 		return scene;
 
 	}
@@ -457,7 +444,7 @@ public class MainApplication extends Application {
 						break;
 					case M:
 						farmyard.farmyardMenu(((Farmyard) aonb.search(player.getX(), player.getY(), "Building")),
-								tractorInstanz, aonb, player, cultivator, seeddrill, harvesterInstanz);
+								tractorInstanz, aonb, player, cultivator, seeddrill, harvesterInstanz, wa);
 					default:
 						break;
 					}
@@ -505,7 +492,7 @@ public class MainApplication extends Application {
 						break; // nur provisorisch
 					case M:
 						farmyard.farmyardMenu(((Farmyard) aonb.search(tractor.getX(), tractor.getY(), "Building")),
-								tractorInstanz, aonb, player, cultivator, seeddrill, harvesterInstanz);
+								tractorInstanz, aonb, player, cultivator, seeddrill, harvesterInstanz, wa);
 					default:
 						break;
 					}
@@ -540,11 +527,9 @@ public class MainApplication extends Application {
 					case M:
 						farmyard.farmyardMenu(
 								((Farmyard) aonb.search(harvester.getX(), harvester.getY(), "buildings.building")),
-								tractorInstanz, aonb, player, cultivator, seeddrill, harvesterInstanz);
-
+								tractorInstanz, aonb, player, cultivator, seeddrill, harvesterInstanz, wa);
 					case SPACE:
 						break;
-
 					default:
 						break;
 					}
@@ -558,8 +543,7 @@ public class MainApplication extends Application {
 		scene.setOnMousePressed(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
-				int newX = ((int) event.getSceneX() / 50) * 50 + 10; // Rundet Position der Maus ab und zentriert
-																		// Spieler
+				int newX = ((int) event.getSceneX() / 50) * 50 + 10; // Rundet Position der Maus ab und zentriert Spieler
 				int newY = ((int) event.getSceneY() / 50) * 50 + 10; // 10 = (Feld.Breite - Spieler.Breite) / 2
 				if (!event.isControlDown()) {
 					player.setX(newX);
@@ -587,52 +571,39 @@ public class MainApplication extends Application {
 		return transition;
 	}
 
-	public void updateFields(GridPane gridPane, BufferedImage bitmap) {
-		Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(5), ev -> {
-			for (int y = 0; y < bitmap.getHeight(); y++) {
-				for (int x = 0; x < bitmap.getWidth(); x++) {
-//						System.out.println(bitmap.getRGB(x, y));
-					if (bitmap.getRGB(x, y) == -10728) {
-						String position = "fieldX" + x + "Y" + (y + 1);
-						ArableField field = arablefieldtracker.get(position);
-						if (field != null) {
-							field.update();
-						}
-
-					}
-				}
-			}
-
-//		    System.out.println(currentCondition);
-		}));
-		timeline.setCycleCount(Animation.INDEFINITE);
-		timeline.play();
-
-		/*
-		 * final TranslateTransition transition = new
-		 * TranslateTransition(Duration.seconds(0.25), player);
-		 * transition.setOnFinished(new EventHandler<ActionEvent>() {
-		 * 
-		 * @Override public void handle(ActionEvent event) {
-		 * player.setX(player.getTranslateX() + player.getX());
-		 * player.setY(player.getTranslateY() + player.getY()); player.setTranslateX(0);
-		 * player.setTranslateY(0); } }); return transition;
-		 */
-	}
+//	public void updateFields(GridPane gridPane, BufferedImage bitmap) {
+//		Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(5), ev -> {
+//			for (int y = 0; y < bitmap.getHeight(); y++) {
+//				for (int x = 0; x < bitmap.getWidth(); x++) {
+////						System.out.println(bitmap.getRGB(x, y));
+//					if (bitmap.getRGB(x, y) == -3628785) {
+//						String position = "fieldX" + x + "Y" + (y + 1);
+//						ArableField field = wa.wheatfieldOneTracker.get(position);
+//						if (field != null) {
+//							field.update();
+//						}
+//						else
+//							System.out.println("errorr");
+//					}
+//				}
+//			}
+//		}));
+//		timeline.setCycleCount(Animation.INDEFINITE);
+//		timeline.play();
+//	}
 
 	public GridPane generateGamefield(BufferedImage bitmap) {
-
 		GridPane grid = new GridPane();
 
 		for (int i = 0; i < 30; i++) {
 			ColumnConstraints column = new ColumnConstraints(50); // SpielfeldgrÃ¶sse
 			grid.getColumnConstraints().add(column);
 		}
+
 		for (int i = 0; i < 21; i++) {
 			RowConstraints row = new RowConstraints(50);
 			grid.getRowConstraints().add(row);
 		}
-
 		// grid.setGridLinesVisible(false);
 		return grid;
 
