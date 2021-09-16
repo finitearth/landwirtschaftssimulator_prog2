@@ -71,7 +71,7 @@ public class SaveFile {
 		}
 	}
 
-	public void loadfile(HashMap fieldtracker) {
+	public void loadfile(HashMap<String, ArableField> fieldtracker) {
 		JSONParser parser = new JSONParser();
 		try {
 			JSONObject obj = (JSONObject) parser.parse(new FileReader("src/settings/savegame.json"));

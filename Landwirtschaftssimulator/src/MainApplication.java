@@ -57,7 +57,6 @@ public class MainApplication extends Application {
 	SaveFile save = new SaveFile();
 	AvailableObjectsNearby aonb = new AvailableObjectsNearby();
 	WheatfieldActions wa = new WheatfieldActions();
-
 	public static void main(String[] args) {
 		launch(args);
 	}
@@ -86,7 +85,11 @@ public class MainApplication extends Application {
 		load.setPrefSize(300, 20);
 		load.relocate(600, 580);
 		load.setOnMouseClicked(e -> {
-		}); // TODO M�glichkeit zum Spielstand laden
+
+			stage.setScene(chooseSettings(stage));
+			save.loadfile(wa.wheatfieldOneTracker);
+		}); 
+
 
 		Button exit = new Button("Beenden");
 		exit.setFont(new Font("Arial", 30));
