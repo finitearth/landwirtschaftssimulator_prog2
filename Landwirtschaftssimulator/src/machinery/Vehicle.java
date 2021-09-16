@@ -1,28 +1,24 @@
 package machinery;
 
-import javafx.animation.TranslateTransition;
-
 import java.util.ArrayList;
 
 import Utils.CollisionChecker;
-import buildings.Player;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import machinery.Equipment;
 import Utils.NotificationPopUp;
+import buildings.Player;
+import javafx.scene.image.ImageView;
 
 /**
- * 
+ *
  * @author Tom Zehle
  * @version 0.1
  *
- * 
+ *
  * @param entered Rather the vehicle has been entered or not.
  * @param x       The x-Coordinate of the vehicle.
  * @param y       The y-Coordinate of the vehicle.
  * @param maxfuel The maximum fuel capacity of the vehicle.
  * @param fuel    The current fuel level of the vehicle.
- * 
+ *
  */
 
 public class Vehicle extends ImageView {
@@ -32,8 +28,8 @@ public class Vehicle extends ImageView {
 	public int maxfuel;
 	public int fuel;
 	Equipment trailer = null;
-	
-	
+
+
 	public Vehicle(int x_, int y_, int maxfuel_) {
 		setX(x_);
 		setY(y_);
@@ -69,7 +65,7 @@ public class Vehicle extends ImageView {
 		if (!enoughfuel) {
 			ArrayList<String> actions = new ArrayList<>();
 			actions.add("OKAY!");
-			NotificationPopUp wind = new NotificationPopUp("Ihr Tank ist leer und wachen ohnmächtig an einer Tanke auf!\nZahle 3.000$ für deine Unachtsamkeit!", actions);
+			NotificationPopUp wind = new NotificationPopUp("Ihr Tank ist leer und wachen ohnmï¿½chtig an einer Tanke auf!\nZahle 3.000$ fï¿½r deine Unachtsamkeit!", actions);
 			wind.display();
 			fuel = maxfuel;
 			setX(250);

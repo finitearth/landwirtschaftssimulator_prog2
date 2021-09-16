@@ -1,7 +1,6 @@
 package buildings;
 
 import Utils.CollisionChecker;
-
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import machinery.Vehicle;
@@ -71,7 +70,7 @@ public class Player extends ImageView {
 	public void moveright(CollisionChecker bc, double walkingspeed) {
 		setImageD(); setX(getX() + bc.collisioncheckX(getX(), getY(), + walkingspeed));
 	}
-	
+
 	public void movedown(CollisionChecker bc, double walkingspeed) {
 		setImageS(); setY(getY() + bc.collisioncheckY(getX(), getY(), + walkingspeed));
 	}

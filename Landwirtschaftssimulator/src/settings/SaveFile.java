@@ -4,13 +4,9 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.Map;
 
-import org.json.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-
-import java.lang.reflect.Array;
 
 import Fields.ArableField;
 import buildings.Player;
@@ -279,16 +275,16 @@ public class SaveFile {
 	// getter & setter Dump Truck Pos.
 	/*
 	 * public int getDumpTruckX() { return dumptruck.getX(); }
-	 * 
+	 *
 	 * public void setDumpTruckX(int dumpTruckX) { this.dumpTruckX = dumpTruckX; }
-	 * 
+	 *
 	 * public int getDumpTruckY() { return dumpTruckY; }
-	 * 
+	 *
 	 * public void setDumpTruckY(int dumpTruckY) { this.dumpTruckY = dumpTruckY; }
-	 * 
+	 *
 	 * // getter & setter Dump Truck current Load public int getDumTruckLoad() {
 	 * return dumTruckLoad; }
-	 * 
+	 *
 	 * public void setDumTruckLoad(int dumTruckLoad) { this.dumTruckLoad =
 	 * dumTruckLoad;
 	 */

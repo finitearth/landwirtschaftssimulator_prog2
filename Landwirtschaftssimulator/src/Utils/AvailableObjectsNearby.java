@@ -1,9 +1,8 @@
 package Utils;
 
 import java.util.ArrayList;
-import javafx.scene.image.ImageView;
 
-import Fields.ArableField;
+import javafx.scene.image.ImageView;
 
 public class AvailableObjectsNearby {
 	ArrayList<ImageView> objects = new ArrayList<>();
@@ -39,19 +38,19 @@ public class AvailableObjectsNearby {
 		double min_d = 100.0;
 		ImageView nearest = null;
 		for (int i = 0; i < objects.size(); i++) {
-			
+
 			ImageView object = objects.get(i);
 			String type_object = types.get(i);
 			x = object.getX();
 			y = object.getY();
 			dist = Math.abs(x - x_player) + Math.abs(y - y_player);
-		
+
 			if ((type_object == type)&&((dist < min_d))) {
 				min_d = dist;
 				nearest = object;
 			}
 		}
-		
+
 		return nearest;
 	}
 }

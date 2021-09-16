@@ -1,13 +1,9 @@
 package machinery;
 
-import machinery.Equipment;
-import javafx.scene.image.Image;
 import Fields.ArableField;
 import Utils.AvailableObjectsNearby;
 import Utils.CollisionChecker;
-import buildings.Player;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 
 public class Tractor extends Vehicle {
 
@@ -16,7 +12,7 @@ public class Tractor extends Vehicle {
 	Image TractorViewD = new Image("File:./Images/TractorD.png", 50, 50, false, false);
 	Image TractorViewW = new Image("File:./Images/TractorW.png", 50, 50, false, false);
 	Image TractorViewS = new Image("File:./Images/TractorS.png", 50, 50, false, false);
-	AvailableObjectsNearby aonb; 
+	AvailableObjectsNearby aonb;
 
 	public Equipment trailer = null;
 
@@ -84,6 +80,7 @@ public class Tractor extends Vehicle {
 
 	}
 
+	@Override
 	public void moveup(CollisionChecker bc, double speed) {
 		setImageW();
 		updatefuel(speed);
@@ -97,6 +94,7 @@ public class Tractor extends Vehicle {
 
 	}
 
+	@Override
 	public void moveright(CollisionChecker bc, double speed) {
 		setImageD();
 		updatefuel(speed);
@@ -109,6 +107,7 @@ public class Tractor extends Vehicle {
 		}
 	}
 
+	@Override
 	public void movedown(CollisionChecker bc, double speed) {
 		setImageS();
 		updatefuel(speed);
@@ -121,6 +120,7 @@ public class Tractor extends Vehicle {
 		}
 	}
 
+	@Override
 	public void moveleft(CollisionChecker bc, double speed) {
 		setImageA();
 		updatefuel(speed);
@@ -136,12 +136,12 @@ public class Tractor extends Vehicle {
 	}
 
 	public int getFuel() {
-	
+
 		return fuel;
 	}
 
 	public void setFuel(int tractorFuel) {
 		fuel = tractorFuel;
-		
+
 	}
 }

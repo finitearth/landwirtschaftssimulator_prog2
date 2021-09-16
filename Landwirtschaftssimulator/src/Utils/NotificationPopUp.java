@@ -1,14 +1,14 @@
 package Utils;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 import javafx.geometry.Pos;
-import javafx.scene.*;
-import javafx.scene.control.*;
-import javafx.scene.layout.*;
-import javafx.stage.*;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 public class NotificationPopUp {
 	String message;
@@ -31,14 +31,14 @@ public class NotificationPopUp {
 		Label label1 = new Label(message);
 		label1.setWrapText(true);
 		layout.getChildren().addAll(label1);
-		
+
 		ArrayList<Button> buttons = new ArrayList<>();
 		for (String action : actions) {
 			buttons.add(new Button(action));
 			buttons.get(buttons.size() - 1).setOnAction(e -> {setAnswer(action);popupwindow.close();});
 			layout.getChildren().add(buttons.get(buttons.size() - 1));
 		}
-		
+
 
 		layout.setAlignment(Pos.CENTER);
 
@@ -54,7 +54,7 @@ public class NotificationPopUp {
 	public void setAnswer(String answer_) {
 		answer = answer_;
 	}
-	
+
 	public String getAnswer() {
 		return answer;
 	}
