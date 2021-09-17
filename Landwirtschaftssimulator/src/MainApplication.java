@@ -51,12 +51,14 @@ import machinery.Harvester;
 import machinery.SeedDrill;
 import machinery.Tractor;
 import machinery.Vehicle;
-import settings.SaveFile;
+import settings.GameState;
 
 public class MainApplication extends Application {
-	SaveFile save = new SaveFile();
+	GameState save;
 	AvailableObjectsNearby aonb = new AvailableObjectsNearby();
-	WheatfieldActions wa = new WheatfieldActions();
+	WheatfieldActions wa = new WheatfieldActions(save);
+	CollisionChecker bc;
+
 	public static void main(String[] args) {
 		launch(args);
 	}
@@ -88,8 +90,7 @@ public class MainApplication extends Application {
 
 			stage.setScene(chooseSettings(stage));
 			save.loadfile(wa.wheatfieldOneTracker);
-		}); 
-
+		});
 
 		Button exit = new Button("Beenden");
 		exit.setFont(new Font("Arial", 30));
@@ -356,13 +357,11 @@ public class MainApplication extends Application {
 					ArableField arableField = wa.GenerateWheatfieldOne(x, y);
 					aonb.add(arableField, "ArableField");
 					grid.add(arableField, x, (y + 1));
-				}
-				else if (wa.bitmap.getRGB(x, y) == -1976724) {
+				} else if (wa.bitmap.getRGB(x, y) == -1976724) {
 					ArableField arableField = wa.GenerateWheatfieldTwo(x, y);
 					aonb.add(arableField, "ArableField");
 					grid.add(arableField, x, (y + 1));
-				}
-				else if (wa.bitmap.getRGB(x, y) == -3614961) {
+				} else if (wa.bitmap.getRGB(x, y) == -3614961) {
 					ArableField arableField = wa.GenerateWheatfieldThree(x, y);
 					aonb.add(arableField, "ArableField");
 					grid.add(arableField, x, (y + 1));
@@ -370,15 +369,37 @@ public class MainApplication extends Application {
 			}
 		}
 
-		Player player = new Player(1200,400);
-		Tractor tractor = new Tractor(1300, 500, 10000, aonb);
+		int upper_boundary = 50 - 50;
+		int left_boundary = 0 - 50;
+		int right_boundary = 1500;
+		int lower_boundary = 1050;
+
+		bc = new CollisionChecker();
+		bc.addboundary(left_boundary - 100, upper_boundary, left_boundary, lower_boundary); // Left Window boundary
+		bc.addboundary(left_boundary, upper_boundary - 100, right_boundary, upper_boundary); // Upper Window boundary
+		bc.addboundary(right_boundary, upper_boundary, right_boundary + 100, lower_boundary); // Right Window boundary
+		bc.addboundary(left_boundary, lower_boundary, right_boundary, lower_boundary + 100); // Lower Window boundary
+
+		for (int y = 0; y < wa.bitmap.getHeight(); y++) {
+			for (int x = 0; x < wa.bitmap.getWidth(); x++) {
+//				System.out.println(wa.bitmap.getRGB(x, y));
+				if (wa.bitmap.getRGB(x, y) == -3628785) {
+					bc.addboundary(x - 25, y - 25, x + 25, y + 25);
+
+				}
+
+			}
+		}
+
+		Player player = new Player(1200, 400);
+		Tractor tractor = new Tractor(1300, 500, 10000, 25.0, bc, aonb, save);
 		Cultivator cultivator = new Cultivator(1250, 500);
 		SeedDrill seeddrill = new SeedDrill(1350, 500);
 		Landtrade landtrade = new Landtrade(1200, 550);
 		Farmyard farmyard = new Farmyard(1300, 450);
 		GasStation gasStation = new GasStation(250, 350);
-		Harvester harvester = new Harvester(400, 500, 10000, 100, aonb);
-		save.setup(player, tractor, cultivator, seeddrill, harvester);
+		Harvester harvester = new Harvester(400, 500, 10000, 500, 25.0, bc, aonb, save);
+		save = new GameState(player, tractor, cultivator, seeddrill, harvester);
 		aonb.add(tractor, "Vehicle");
 		aonb.add(cultivator, "Trailer");
 		aonb.add(gasStation, "Building");
@@ -402,32 +423,21 @@ public class MainApplication extends Application {
 	}
 
 	private void movePlayerOnKeyPress(Scene scene, Player player, GasStation gasStation, Tractor tractorInstanz,
-			Landtrade landtrade, Farmyard farmyard, Cultivator cultivator, SeedDrill seeddrill, SaveFile save,
+			Landtrade landtrade, Farmyard farmyard, Cultivator cultivator, SeedDrill seeddrill, GameState save,
 			Harvester harvesterInstanz) { // TODO transitions
 
-		int upper_boundary = 50 - 50;
-		int left_boundary = 0 - 50;
-		int right_boundary = 1500;
-		int lower_boundary = 1050;
-		CollisionChecker bc = new CollisionChecker();
-		bc.addboundary(left_boundary - 100, upper_boundary, left_boundary, lower_boundary); // Left Window boundary
-		bc.addboundary(left_boundary, upper_boundary - 100, right_boundary, upper_boundary); // Upper Window boundary
-		bc.addboundary(right_boundary, upper_boundary, right_boundary + 100, lower_boundary); // Right Window boundary
-		bc.addboundary(left_boundary, lower_boundary, right_boundary, lower_boundary + 100); // Lower Window boundary
-
-		bc.addboundary(550, 700, 650, 1000); // lower river and forest
-		bc.addboundary(700, 350, 750, 650); // middle river
-		bc.addboundary(600, 400, 850, 450); // river curls left
-		bc.addboundary(600, 350, 650, 400); // river before bridge
-		bc.addboundary(300, 250, 500, 300); // above gasstation
-		bc.addboundary(0, 50, 300, 250); // upper right forest
-		bc.addboundary(0, 300, 200, 350); //
-		scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
+		/*
+		 * bc.addboundary(550, 700, 650, 1000); // lower river and forest
+		 * bc.addboundary(700, 350, 750, 650); // middle river bc.addboundary(600, 400,
+		 * 850, 450); // river curls left bc.addboundary(600, 350, 650, 400); // river
+		 * before bridge bc.addboundary(300, 250, 500, 300); // above gasstation
+		 * bc.addboundary(0, 50, 300, 250); // upper right forest bc.addboundary(0, 300,
+		 * 200, 350); //
+		 */ scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
 			@Override
 			public void handle(KeyEvent event) {
 				Vehicle enteredvehicle = player.getEnteredVehicle();
 				double walkingspeed = 6.25;
-				double drivingspeed = 50;
 				if (enteredvehicle == null) {
 					switch (event.getCode()) {
 					case UP, W:
@@ -458,22 +468,21 @@ public class MainApplication extends Application {
 					NotificationPopUp wind = new NotificationPopUp("test", actions);
 					switch (event.getCode()) {
 					case UP, W:
-						tractor.moveup(bc, drivingspeed);
+						tractor.moveup();
 						break;
 					case RIGHT, D:
-						tractor.moveright(bc, drivingspeed);
+						tractor.moveright();
 						break;
 					case DOWN, S:
-						tractor.movedown(bc, drivingspeed);
+						tractor.movedown();
 						break;
 					case LEFT, A:
-						tractor.moveleft(bc, drivingspeed);
+						tractor.moveleft();
 						break;
 					case E:
 						player.setX(tractor.getX());
 						player.setY(tractor.getY());
 						player.setImageW();
-						tractor.exit();
 						player.setEnteredVehicle(null);
 						break;
 					case X:
@@ -504,22 +513,21 @@ public class MainApplication extends Application {
 					Harvester harvester = (Harvester) enteredvehicle;
 					switch (event.getCode()) {
 					case UP, W:
-						harvester.moveup(bc, drivingspeed);
+						harvester.moveup();
 						break;
 					case RIGHT, D:
-						harvester.moveright(bc, drivingspeed);
+						harvester.moveright();
 						break;
 					case DOWN, S:
-						harvester.movedown(bc, drivingspeed);
+						harvester.movedown();
 						break;
 					case LEFT, A:
-						harvester.moveleft(bc, drivingspeed);
+						harvester.moveleft();
 						break;
 					case E:
 						player.setX(harvester.getX());
 						player.setY(harvester.getY());
 						player.setImageW();
-						harvester.exit();
 						player.setEnteredVehicle(null);
 						break;
 					case L:
@@ -546,7 +554,8 @@ public class MainApplication extends Application {
 		scene.setOnMousePressed(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
-				int newX = ((int) event.getSceneX() / 50) * 50 + 10; // Rundet Position der Maus ab und zentriert Spieler
+				int newX = ((int) event.getSceneX() / 50) * 50 + 10; // Rundet Position der Maus ab und zentriert
+																		// Spieler
 				int newY = ((int) event.getSceneY() / 50) * 50 + 10; // 10 = (Feld.Breite - Spieler.Breite) / 2
 				if (!event.isControlDown()) {
 					player.setX(newX);

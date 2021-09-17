@@ -7,7 +7,7 @@ import machinery.Vehicle;
 
 public class Player extends ImageView {
 
-	Image playerImageW = new Image("File:./Images/PlayerW.png"); // TODO Bilder ersetzen
+	Image playerImageW = new Image("File:./Images/PlayerW.png");
 	Image playerImageA = new Image("File:./Images/PlayerA.png");
 	Image playerImageS = new Image("File:./Images/PlayerS.png");
 	Image playerImageD = new Image("File:./Images/PlayerD.png");
@@ -56,7 +56,8 @@ public class Player extends ImageView {
 			enteredvehicle = null;
 			return;
 		}
-		if ((enteredvehicle == null) && (vehicle.enter(this))) {
+		
+		else if (enteredvehicle == null) {
 			setNoImage();
 			enteredvehicle = vehicle;
 		}

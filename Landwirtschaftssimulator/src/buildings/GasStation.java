@@ -3,7 +3,7 @@ package buildings;
 import javafx.scene.image.Image;
 import machinery.Harvester;
 import machinery.Tractor;
-import settings.SaveFile;
+import settings.GameState;
 
 public class GasStation extends building{
 	int costPerLiter = 1;
@@ -14,7 +14,7 @@ public class GasStation extends building{
 		this.setImage(GasStation);
 	}
 
-	public void refuelTractor(GasStation gasStation, Tractor tractor, SaveFile save) {
+	public void refuelTractor(GasStation gasStation, Tractor tractor, GameState save) {
 		if(gasStation != null) {
 			int newFuel = tractor.maxfuel - tractor.fuel;
 			if(save.getCash()>=newFuel * costPerLiter) {
@@ -39,7 +39,7 @@ public class GasStation extends building{
 			System.out.println("There is no Gasstation nearby");
 		}
 	}
-	public void refuelHarvester(GasStation gasStation, Harvester harvetser, SaveFile save) {
+	public void refuelHarvester(GasStation gasStation, Harvester harvetser, GameState save) {
 		if(gasStation != null) {
 			int newFuel = harvetser.maxfuel - harvetser.fuel;
 			if(save.getCash()>=newFuel * costPerLiter) {
