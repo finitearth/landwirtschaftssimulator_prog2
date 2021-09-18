@@ -21,7 +21,7 @@ public class GasStation extends building{
 				System.out.println(tractor.fuel);
 				save.setCash(save.getCash() - (newFuel * costPerLiter));
 				System.out.println("You have " + newFuel + " Liter refueled");
-				tractor.refuel(newFuel);
+				tractor.setFuel(10000);
 				System.out.print(save.getCash());
 			}
 			else if(save.getCash() == 0){
@@ -31,7 +31,7 @@ public class GasStation extends building{
 				newFuel = save.getCash() * costPerLiter;
 				save.setCash(0);
 				System.out.println("You have " + newFuel + " Liter refueled");
-				tractor.refuel(newFuel);
+				tractor.setFuel(tractor.getFuel()+newFuel);
 				System.out.print(save.getCash());
 			}
 		}
@@ -39,14 +39,14 @@ public class GasStation extends building{
 			System.out.println("There is no Gasstation nearby");
 		}
 	}
-	public void refuelHarvester(GasStation gasStation, Harvester harvetser, GameState save) {
+	public void refuelHarvester(GasStation gasStation, Harvester harvester, GameState save) {
 		if(gasStation != null) {
-			int newFuel = harvetser.maxfuel - harvetser.fuel;
+			int newFuel = harvester.maxfuel - harvester.fuel;
 			if(save.getCash()>=newFuel * costPerLiter) {
-				System.out.println(harvetser.fuel);
+				System.out.println(harvester.fuel);
 				save.setCash(save.getCash() - (newFuel * costPerLiter));
 				System.out.println("You have " + newFuel + " Liter refueled");
-				harvetser.refuel(newFuel);
+				harvester.setFuel(10000);
 				System.out.print(save.getCash());
 			}
 			else if(save.getCash() == 0){
@@ -56,7 +56,7 @@ public class GasStation extends building{
 				newFuel = save.getCash() * costPerLiter;
 				save.setCash(0);
 				System.out.println("You have " + newFuel + " Liter refueled");
-				harvetser.refuel(newFuel);
+				harvester.setFuel(harvester.getFuel()+newFuel);
 				System.out.print(save.getCash());
 			}
 		}
