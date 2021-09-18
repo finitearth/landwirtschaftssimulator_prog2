@@ -51,7 +51,7 @@ public class GameState {
 	 * finds all relevant variables of the relevant objects, as well as game variables and saves them to a json
 	 * file.
 	 */
-	@SuppressWarnings("unchecked")
+
 	public void savetofile(HashMap<String, ArableField> fieldtracker) {
 		JSONObject obj = new JSONObject();
 		obj.put("Playername", getPlayerName());
@@ -87,13 +87,10 @@ public class GameState {
 			e.printStackTrace();
 		}
 	}
-
-<<<<<<< Updated upstream:Landwirtschaftssimulator/src/settings/GameState.java
-	/*
+/*
 	 * Sets all the relevant variables of all relevant objects, as well as the game variables to the values defined in the json file.
 	 */
-=======
->>>>>>> Stashed changes:Landwirtschaftssimulator/src/settings/SaveFile.java
+
 	public void loadfile(HashMap<String, ArableField> fieldtracker) {
 		JSONParser parser = new JSONParser();
 		try {
