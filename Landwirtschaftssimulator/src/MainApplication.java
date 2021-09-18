@@ -90,8 +90,9 @@ public class MainApplication extends Application {
 		load.setOnMouseClicked(e -> {
 
 			stage.setScene(chooseSettings(stage));
-			save.loadfile(wa.wheatfieldOneTracker);
-		});
+			save.loadfile(wa.getarableFields());
+		}); 
+
 
 		Button exit = new Button("Beenden");
 		exit.setFont(new Font("Arial", 30));
