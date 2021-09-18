@@ -34,16 +34,17 @@ public class GameState {
 	DumpTruck dumptruck;
 
 	/*
-	 * Cunstructor of the gamestate class. Defines all the necessary objects that
+	 * setup of the gamestate instance. Defines all the necessary objects that
 	 * need to be kept track of.
 	 */
-	public GameState(Player player_, Tractor tractor_, Cultivator cultivator_, SeedDrill seeddrill_,
-			Harvester harvester_) {
+	public void setup(Player player_, Tractor tractor_, Cultivator cultivator_, SeedDrill seeddrill_,
+			Harvester harvester_, DumpTruck dumptruck) {
 		player = player_;
 		tractor = tractor_;
 		cultivator = cultivator_;
 		seeddrill = seeddrill_;
 		harvester = harvester_;
+		this.dumptruck = dumptruck;
 	}
 
 	/*

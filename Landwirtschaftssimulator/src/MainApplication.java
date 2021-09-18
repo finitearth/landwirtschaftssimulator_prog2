@@ -46,6 +46,7 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import machinery.Cultivator;
+import machinery.DumpTruck;
 import machinery.Equipment;
 import machinery.Harvester;
 import machinery.SeedDrill;
@@ -54,7 +55,7 @@ import machinery.Vehicle;
 import settings.GameState;
 
 public class MainApplication extends Application {
-	GameState save;
+	GameState save = new GameState();
 	AvailableObjectsNearby aonb = new AvailableObjectsNearby();
 	WheatfieldActions wa = new WheatfieldActions(save);
 	CollisionChecker bc;
@@ -382,15 +383,15 @@ public class MainApplication extends Application {
 
 		for (int y = 0; y < wa.bitmap.getHeight(); y++) {
 			for (int x = 0; x < wa.bitmap.getWidth(); x++) {
-//				System.out.println(wa.bitmap.getRGB(x, y));
-				if (wa.bitmap.getRGB(x, y) == -3628785) {
-					bc.addboundary(x - 25, y - 25, x + 25, y + 25);
+				if ((wa.bitmap.getRGB(x, y) == -14117429) ||(wa.bitmap.getRGB(x, y) == -12889573) ) {
+					bc.addboundary(x*50, y*50+50, x*50+50, y*50+100);
 
 				}
 
 			}
 		}
-
+		
+		DumpTruck dumptruck = new DumpTruck(1200, 450, 1000);
 		Player player = new Player(1200, 400);
 		Tractor tractor = new Tractor(1300, 500, 10000, 25.0, bc, aonb, save);
 		Cultivator cultivator = new Cultivator(1250, 500);
@@ -399,7 +400,7 @@ public class MainApplication extends Application {
 		Farmyard farmyard = new Farmyard(1300, 450);
 		GasStation gasStation = new GasStation(250, 350);
 		Harvester harvester = new Harvester(400, 500, 10000, 500, 25.0, bc, aonb, save);
-		save = new GameState(player, tractor, cultivator, seeddrill, harvester);
+		save.setup(player, tractor, cultivator, seeddrill, harvester, dumptruck);
 		aonb.add(tractor, "Vehicle");
 		aonb.add(cultivator, "Trailer");
 		aonb.add(gasStation, "Building");

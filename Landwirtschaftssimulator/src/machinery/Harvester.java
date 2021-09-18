@@ -80,7 +80,7 @@ public class Harvester extends Vehicle {
 	 * harvest. Checks for Collision.
 	 */
 	public void moveup() {
-		setImage(ViewA);
+		setImage(ViewW);
 		updatefuel(speed);
 		setY(getY() + cb.collisioncheckY(getX(), getY(), -speed));
 		harvest();
