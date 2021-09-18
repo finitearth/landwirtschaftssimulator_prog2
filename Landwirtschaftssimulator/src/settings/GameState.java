@@ -34,8 +34,8 @@ public class GameState {
 	DumpTruck dumptruck;
 
 	/*
-	 * setup of the gamestate instance. Defines all the necessary objects that
-	 * need to be kept track of.
+	 * setup of the gamestate instance. Defines all the necessary objects that need
+	 * to be kept track of.
 	 */
 	public void setup(Player player_, Tractor tractor_, Cultivator cultivator_, SeedDrill seeddrill_,
 			Harvester harvester_, DumpTruck dumptruck) {
@@ -48,8 +48,8 @@ public class GameState {
 	}
 
 	/*
-	 * finds all relevant variables of the relevant objects, as well as game variables and saves them to a json
-	 * file.
+	 * finds all relevant variables of the relevant objects, as well as game
+	 * variables and saves them to a json file.
 	 */
 
 	@SuppressWarnings("unchecked")
@@ -78,7 +78,17 @@ public class GameState {
 		obj.put("PriceField3", getPriceField3());
 		obj.put("PriceField2", getPriceField2());
 
-		fieldtracker.forEach((position, field) -> obj.put(position, ((ArableField) field).getState()));
+		fieldtracker.forEach((position, field) -> {
+
+			if (field.isOwned()) {
+				obj.put(position, ((ArableField) field).getState());
+			}
+			
+			else {
+				obj.put(position, -10);
+			}
+		});
+
 		try {
 			FileWriter file = new FileWriter("src/settings/savegame.json");
 			file.write(obj.toString());
@@ -88,8 +98,9 @@ public class GameState {
 			e.printStackTrace();
 		}
 	}
-/*
-	 * Sets all the relevant variables of all relevant objects, as well as the game variables to the values defined in the json file.
+	/*
+	 * Sets all the relevant variables of all relevant objects, as well as the game
+	 * variables to the values defined in the json file.
 	 */
 
 	public void loadfile(HashMap<String, ArableField> fieldtracker) {
@@ -119,7 +130,17 @@ public class GameState {
 			setPriceField3((int) (long) obj.get("PriceField3"));
 			setPriceField2((int) (long) obj.get("PriceField2"));
 
-			fieldtracker.forEach((position, field) -> ((ArableField) field).setState((int) (long) obj.get(position)));
+			fieldtracker.forEach((position, field) -> {
+				int state = (int) (long) obj.get(position);
+				if (state == -10) {
+					
+				}
+				else {
+					((ArableField) field).setOwned(true);
+					((ArableField) field).setState(state);
+				}
+				
+			});
 
 		} catch (Exception e) {
 			e.printStackTrace();

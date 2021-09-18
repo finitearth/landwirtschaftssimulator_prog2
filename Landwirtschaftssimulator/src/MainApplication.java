@@ -89,11 +89,9 @@ public class MainApplication extends Application {
 		load.relocate(600, 580);
 		load.setOnMouseClicked(e -> {
 
-
 			stage.setScene(chooseSettings(stage));
 			save.loadfile(wa.wheatfieldOneTracker);
 		});
-
 
 		Button exit = new Button("Beenden");
 		exit.setFont(new Font("Arial", 30));
@@ -299,18 +297,22 @@ public class MainApplication extends Application {
 
 		MenuItem load = new MenuItem("Spiel laden");
 		load.setOnAction(e -> {
-//			save.loadfile(wa.arablefieldtracker);
-			save.loadfile(wa.wheatfieldOneTracker);
-			save.loadfile(wa.wheatfieldTwoTracker);
-			save.loadfile(wa.wheatfieldThreeTracker);
+			save.loadfile(wa.getarableFields());
+			/*
+			 * save.loadfile(wa.wheatfieldOneTracker);
+			 * save.loadfile(wa.wheatfieldTwoTracker);
+			 * save.loadfile(wa.wheatfieldThreeTracker);
+			 */
 		});
 
 		MenuItem saveGame = new MenuItem("Spiel speichern");
 		saveGame.setOnAction(e -> {
-//			save.savetofile(wa.arablefieldtracker);
-			save.savetofile(wa.wheatfieldOneTracker);
-			save.savetofile(wa.wheatfieldTwoTracker);
-			save.savetofile(wa.wheatfieldThreeTracker);
+			save.savetofile(wa.getarableFields());
+			/*
+			 * save.savetofile(wa.wheatfieldOneTracker);
+			 * save.savetofile(wa.wheatfieldTwoTracker);
+			 * save.savetofile(wa.wheatfieldThreeTracker);
+			 */
 		});
 
 		MenuItem keyAssignment = new MenuItem("Tastenbelegung");
@@ -385,14 +387,14 @@ public class MainApplication extends Application {
 
 		for (int y = 0; y < wa.bitmap.getHeight(); y++) {
 			for (int x = 0; x < wa.bitmap.getWidth(); x++) {
-				if ((wa.bitmap.getRGB(x, y) == -14117429) ||(wa.bitmap.getRGB(x, y) == -12889573) ) {
-					bc.addboundary(x*50, y*50+50, x*50+50, y*50+100);
+				if ((wa.bitmap.getRGB(x, y) == -14117429) || (wa.bitmap.getRGB(x, y) == -12889573)) {
+					bc.addboundary(x * 50, y * 50 + 50, x * 50 + 50, y * 50 + 100);
 
 				}
 
 			}
 		}
-		
+
 		DumpTruck dumptruck = new DumpTruck(1200, 450, 1000);
 		Player player = new Player(1200, 400);
 		Tractor tractor = new Tractor(1300, 500, 10000, 25.0, bc, aonb, save);
@@ -539,8 +541,7 @@ public class MainApplication extends Application {
 								harvesterInstanz, save);
 						break;
 					case M:
-						farmyard.farmyardMenu(
-								((Farmyard) aonb.search(harvester.getX(), harvester.getY(), "Building")),
+						farmyard.farmyardMenu(((Farmyard) aonb.search(harvester.getX(), harvester.getY(), "Building")),
 								tractorInstanz, aonb, player, cultivator, seeddrill, harvesterInstanz, wa);
 					case SPACE:
 						break;
