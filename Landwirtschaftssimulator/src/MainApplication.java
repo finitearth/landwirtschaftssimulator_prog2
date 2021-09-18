@@ -535,12 +535,12 @@ public class MainApplication extends Application {
 						break;
 					case L:
 						gasStation.refuelHarvester(
-								(GasStation) aonb.search(harvester.getX(), harvester.getY(), "buildings.building"),
+								(GasStation) aonb.search(harvester.getX(), harvester.getY(), "Building"),
 								harvesterInstanz, save);
 						break;
 					case M:
 						farmyard.farmyardMenu(
-								((Farmyard) aonb.search(harvester.getX(), harvester.getY(), "buildings.building")),
+								((Farmyard) aonb.search(harvester.getX(), harvester.getY(), "Building")),
 								tractorInstanz, aonb, player, cultivator, seeddrill, harvesterInstanz, wa);
 					case SPACE:
 						break;
