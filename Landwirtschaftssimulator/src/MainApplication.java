@@ -241,12 +241,6 @@ public class MainApplication extends Application {
 
 		});
 
-		Button back = new Button("Zur�ck");
-		back.setFont(new Font("Arial", 12));
-		back.setPrefSize(100, 10);
-		back.relocate(700, 950);
-		back.setOnMouseClicked(e -> {
-		});
 		/*
 		 * Image backg = new Image("File:./Images/", 1500, 1050, false, false); // TODO
 		 * Hintergrundbild erstellen BackgroundImage backgroundImage = new
@@ -255,7 +249,7 @@ public class MainApplication extends Application {
 		 * settings.setBackground(new Background(backgroundImage));
 		 */
 		settings.getChildren().addAll(headline, nameDescription, name, start, difficultlyLevel, easy, middle, hard,
-				player1, player1View, player2, player2View, player3, player3View, player4, player4View, back);
+				player1, player1View, player2, player2View, player3, player3View, player4, player4View);
 
 		Scene scene = new Scene(settings);
 
@@ -266,9 +260,7 @@ public class MainApplication extends Application {
 	public Scene generateGame() {
 
 		GridPane grid = generateGamefield(wa.bitmap);
-
 		
-
 
 		Image backg = new Image("File:./Images/Map.png", 1500, 1050, false, false);
 
