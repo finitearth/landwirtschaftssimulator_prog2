@@ -26,6 +26,7 @@ public class WheatfieldActions {
 	public BufferedImage bitmap = null;
 	private File file = new File("Images/Bitmap.bmp"); // Weizenfelder BufferedImage
 	int amount;
+	
 	public WheatfieldActions(GameState sf) {
 		try {
 			this.bitmap = ImageIO.read(this.file);

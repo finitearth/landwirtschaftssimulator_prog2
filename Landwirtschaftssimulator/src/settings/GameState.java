@@ -52,6 +52,7 @@ public class GameState {
 	 * file.
 	 */
 
+	@SuppressWarnings("unchecked")
 	public void savetofile(HashMap<String, ArableField> fieldtracker) {
 		JSONObject obj = new JSONObject();
 		obj.put("Playername", getPlayerName());
