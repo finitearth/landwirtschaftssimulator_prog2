@@ -558,7 +558,7 @@ public GridPane generateHeadline(Player player, Tractor tractor, Harvester harve
 		
 		GridPane grid = new GridPane();
 		
-		 for (int i = 0; i < 30; i++) {
+		for (int i = 0; i < 30; i++) {
 	         ColumnConstraints column = new ColumnConstraints(50);
 	         grid.getColumnConstraints().add(column);
 	     }
@@ -581,9 +581,7 @@ public GridPane generateHeadline(Player player, Tractor tractor, Harvester harve
 		});
 		
 		MenuItem keyAssignment = new MenuItem("Tastenbelegung"); // TODO
-		keyAssignment.setOnAction(e -> {
-
-		});
+		keyAssignment.setOnAction(e -> {keyAssignment();});
 		menu.getItems().add(load);
 		menu.getItems().add(saveGame);
 		menu.getItems().add(keyAssignment);
@@ -618,7 +616,6 @@ public GridPane generateHeadline(Player player, Tractor tractor, Harvester harve
 		
 	}
 	
-	
 	public String currentVehicleAndFuel(Player player, Tractor tractor, Harvester harvester) {
 		String vehicle;
 		if (player.getEnteredVehicle() == null) {
@@ -630,6 +627,107 @@ public GridPane generateHeadline(Player player, Tractor tractor, Harvester harve
 		else {
 			return vehicle = "Mädrescher Tank: " + save.getHarvesterFuel();
 		}
+	}
+	
+	private void keyAssignment() {
+		Stage popupwindow = new Stage();
+		popupwindow.setTitle("Tastenbelegung");
+		
+		GridPane grid = new GridPane();
+		for (int i = 0; i < 9; i++) {
+	         ColumnConstraints column = new ColumnConstraints(50);
+	         grid.getColumnConstraints().add(column);
+	    }
+		for (int i = 0; i < 17; i++) {
+	         RowConstraints row = new RowConstraints(30);
+	         grid.getRowConstraints().add(row);
+	    }
+		
+		Label player = new Label("Spieler");
+		player.setFont(new Font("Arial", 20));
+		grid.add(player, 0, 0, 2, 1);
+		
+		Label playerUp = new Label("W, Pfeiltaste hoch");
+		grid.add(playerUp, 1, 1, 4, 1);
+		Label playerUpB = new Label("Bewegung nach oben");
+		grid.add(playerUpB, 4, 1, 4, 1);
+		
+		Label playerLeft = new Label("A, Pfeiltaste links");
+		grid.add(playerLeft, 1, 2, 4, 1);
+		Label playerLeftB = new Label("Bewegung nach links");
+		grid.add(playerLeftB, 4, 2, 4, 1);
+		
+		Label playerDown = new Label("S, Pfeiltaste runter");
+		grid.add(playerDown, 1, 3, 4, 1);
+		Label playerDownB = new Label("Bewegung nach unten");
+		grid.add(playerDownB, 4, 3, 4, 1);
+		
+		Label playerRight = new Label("D, Pfeiltaste rechts");
+		grid.add(playerRight, 1, 4, 4, 1);
+		Label playerRightB = new Label("Bewegung nach rechts");
+		grid.add(playerRightB, 4, 4, 4, 1);
+		
+		Label playerEntered = new Label("E");
+		grid.add(playerEntered, 1, 5);
+		Label playerEnteredB = new Label("Einsteigen");
+		grid.add(playerEnteredB, 4, 5, 4, 1);
+		
+		Label playerFarmyard = new Label("M");
+		grid.add(playerFarmyard, 1, 6);
+		Label playerFarmyardB = new Label("Landhaus Menü öffnen");
+		grid.add(playerFarmyardB, 4, 6, 4, 1);
+		
+		Label vehicle = new Label("Fahrzeug");
+		vehicle.setFont(new Font("Arial", 20));
+		grid.add(vehicle, 0, 8, 2, 1);
+		
+		Label tractorUp = new Label("W, Pfeiltaste hoch");
+		grid.add(tractorUp, 1, 9, 4, 1);
+		Label tractorUpB = new Label("Bewegung nach oben");
+		grid.add(tractorUpB, 4, 9, 4, 1);
+		
+		Label traktorLeft = new Label("A, Pfeiltaste links");
+		grid.add(traktorLeft, 1, 10, 4, 1);
+		Label traktorLeftB = new Label("Bewegung nach links");
+		grid.add(traktorLeftB, 4, 10, 4, 1);
+		
+		Label traktorDown = new Label("S, Pfeiltaste runter");
+		grid.add(traktorDown, 1, 11, 4, 1);
+		Label traktorDownB = new Label("Bewegung nach unten");
+		grid.add(traktorDownB, 4, 11, 4, 1);
+		
+		Label traktorRight = new Label("D, Pfeiltaste rechts");
+		grid.add(traktorRight, 1, 12, 4, 1);
+		Label traktorRightB = new Label("Bewegung nach rechts");
+		grid.add(traktorRightB, 4, 12, 4, 1);
+		
+		Label traktorLeave = new Label("E");
+		grid.add(traktorLeave, 1, 13);
+		Label traktorLeaveB = new Label("Traktor verlassen");
+		grid.add(traktorLeaveB, 4, 13, 4, 1);
+		
+		Label traktorEquip = new Label("X");
+		grid.add(traktorEquip, 1, 14);
+		Label traktorEquipB = new Label("Anhänger an- und abhängen (Nur Traktor!");
+		grid.add(traktorEquipB, 4, 14, 5, 1);
+		
+		Label traktorFuel = new Label("L");
+		grid.add(traktorFuel, 1, 15);
+		Label traktorFuelB = new Label("Tanken");
+		grid.add(traktorFuelB, 4, 15, 4, 1);
+		
+		Label traktorFarmyard = new Label("M");
+		grid.add(traktorFarmyard, 1, 16);
+		Label traktorFarmyardB = new Label("Landhaus Menü öffnen");
+		grid.add(traktorFarmyardB, 4, 16, 4, 1);
+		
+		
+//		grid.setGridLinesVisible(true);
+		
+		Scene scene = new Scene(grid);
+		popupwindow.setScene(scene);
+		popupwindow.showAndWait();
+		
 	}
 
 }
