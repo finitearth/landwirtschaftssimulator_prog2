@@ -88,9 +88,12 @@ public class GameState {
 		}
 	}
 
+<<<<<<< Updated upstream:Landwirtschaftssimulator/src/settings/GameState.java
 	/*
 	 * Sets all the relevant variables of all relevant objects, as well as the game variables to the values defined in the json file.
 	 */
+=======
+>>>>>>> Stashed changes:Landwirtschaftssimulator/src/settings/SaveFile.java
 	public void loadfile(HashMap<String, ArableField> fieldtracker) {
 		JSONParser parser = new JSONParser();
 		try {

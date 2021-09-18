@@ -88,10 +88,16 @@ public class MainApplication extends Application {
 		load.setPrefSize(300, 20);
 		load.relocate(600, 580);
 		load.setOnMouseClicked(e -> {
+<<<<<<< Updated upstream
 
 			stage.setScene(chooseSettings(stage));
 			save.loadfile(wa.wheatfieldOneTracker);
 		});
+=======
+			stage.setScene(chooseSettings(stage));
+			save.loadfile(arablefieldtracker);
+		}); 
+>>>>>>> Stashed changes
 
 		Button exit = new Button("Beenden");
 		exit.setFont(new Font("Arial", 30));
