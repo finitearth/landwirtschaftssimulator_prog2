@@ -721,9 +721,6 @@ public GridPane generateHeadline(Player player, Tractor tractor, Harvester harve
 		Label traktorFarmyardB = new Label("Landhaus Menü öffnen");
 		grid.add(traktorFarmyardB, 4, 16, 4, 1);
 		
-		
-//		grid.setGridLinesVisible(true);
-		
 		Scene scene = new Scene(grid);
 		popupwindow.setScene(scene);
 		popupwindow.showAndWait();
