@@ -11,32 +11,48 @@ import org.json.simple.parser.JSONParser;
 import Fields.ArableField;
 import buildings.Player;
 import machinery.Cultivator;
+import machinery.DumpTruck;
 import machinery.Harvester;
 import machinery.SeedDrill;
 import machinery.Tractor;
 
-public class SaveFile {
-	private String playerName = "";
-	private int playerX = 1300;
-	private int playerY = 550;
+/**
+ * A class that saves the state of the game to a file and is able to load the
+ * game state from a file.
+ *
+ * @author Lukas Bumüller and Tom Zehle
+ * @version 1.0
+ *
+ */
+public class GameState {
+	String playerName;
 	Player player;
 	Tractor tractor;
 	Cultivator cultivator;
 	SeedDrill seeddrill;
 	Harvester harvester;
+	DumpTruck dumptruck;
 
+	/*
+	 * setup of the gamestate instance. Defines all the necessary objects that
+	 * need to be kept track of.
+	 */
 	public void setup(Player player_, Tractor tractor_, Cultivator cultivator_, SeedDrill seeddrill_,
-			Harvester harvester_) {
+			Harvester harvester_, DumpTruck dumptruck) {
 		player = player_;
 		tractor = tractor_;
 		cultivator = cultivator_;
 		seeddrill = seeddrill_;
 		harvester = harvester_;
+		this.dumptruck = dumptruck;
 	}
-	// Player
 
+	/*
+	 * finds all relevant variables of the relevant objects, as well as game variables and saves them to a json
+	 * file.
+	 */
 	@SuppressWarnings("unchecked")
-	public void savetofile(HashMap fieldtracker) {
+	public void savetofile(HashMap<String, ArableField> fieldtracker) {
 		JSONObject obj = new JSONObject();
 		obj.put("Playername", getPlayerName());
 		obj.put("PlayerX", getPlayerX());
@@ -49,10 +65,11 @@ public class SaveFile {
 		obj.put("HarvesterY", getHarvesterY());
 		obj.put("HarvesterFuel", getHarvesterFuel());
 		obj.put("HarvesterLoad", getHarvesterLoad());
-		/*
-		 * obj.put("DumpTruckX", getDumpTruckX()); obj.put("DumpTruckY",
-		 * getDumpTruckY()); obj.put("DumpTruckLoad", getDumTruckLoad());
-		 */
+
+		obj.put("DumpTruckX", getDumpTruckX());
+		obj.put("DumpTruckY", getDumpTruckY());
+		obj.put("DumpTruckLoad", getDumTruckLoad());
+
 		obj.put("SeedDrillX", getSeedDrillX());
 		obj.put("SeedDrillY", getSeedDrillY());
 		obj.put("UnitPrice", getUnitPrice());
@@ -71,7 +88,13 @@ public class SaveFile {
 		}
 	}
 
-	public void loadfile(HashMap fieldtracker) {
+<<<<<<< Updated upstream:Landwirtschaftssimulator/src/settings/GameState.java
+	/*
+	 * Sets all the relevant variables of all relevant objects, as well as the game variables to the values defined in the json file.
+	 */
+=======
+>>>>>>> Stashed changes:Landwirtschaftssimulator/src/settings/SaveFile.java
+	public void loadfile(HashMap<String, ArableField> fieldtracker) {
 		JSONParser parser = new JSONParser();
 		try {
 			JSONObject obj = (JSONObject) parser.parse(new FileReader("src/settings/savegame.json"));
@@ -86,11 +109,11 @@ public class SaveFile {
 			setHarvesterY((int) (long) obj.get("HarvesterY"));
 			setHarvesterFuel((int) (long) obj.get("HarvesterFuel"));
 			setHarvesterLoad((int) (long) obj.get("HarvesterLoad"));
-			/*
-			 * setDumpTruckX((int) (long) obj.get("DumpTruckX")); setDumpTruckY((int) (long)
-			 * obj.get("DumpTruckY")); setDumTruckLoad((int) (long)
-			 * obj.get("DumpTruckLoad"));
-			 */
+
+			setDumpTruckX((int) (long) obj.get("DumpTruckX"));
+			setDumpTruckY((int) (long) obj.get("DumpTruckY"));
+			setDumTruckLoad((int) (long) obj.get("DumpTruckLoad"));
+
 			setSeedDrillX((int) (long) obj.get("SeedDrillX"));
 			setSeedDrillY((int) (long) obj.get("SeedDrillY"));
 			setUnitPrice((int) (long) obj.get("UnitPrice"));
@@ -98,8 +121,6 @@ public class SaveFile {
 			setPriceField3((int) (long) obj.get("PriceField3"));
 			setPriceField2((int) (long) obj.get("PriceField2"));
 
-			Integer[] fas = (Integer[]) obj.get("Fieldstates");
-			//ArableField[] afs = (ArableField[]) fieldtracker.values().toArray();
 			fieldtracker.forEach((position, field) -> ((ArableField) field).setState((int) (long) obj.get(position)));
 
 		} catch (Exception e) {
@@ -126,7 +147,6 @@ public class SaveFile {
 	}
 
 	public void setPlayerX(int playerX) {
-		this.playerX = playerX;
 		player.setX(playerX);
 	}
 
@@ -135,7 +155,6 @@ public class SaveFile {
 	}
 
 	public void setPlayerY(int playerY) {
-		this.playerY = playerY;
 		player.setY(playerY);
 	}
 
@@ -152,9 +171,6 @@ public class SaveFile {
 	}
 
 	// Tractor
-	private int tractorX = 1300;
-	private int tractorY = 500;
-	private int tractorFuel = 100;
 
 	// getter & setter Tractor Pos.
 	public int getTractorX() {
@@ -162,7 +178,6 @@ public class SaveFile {
 	}
 
 	public void setTractorX(int tractorX) {
-		this.tractorX = tractorX;
 		tractor.setX(tractorX);
 	}
 
@@ -171,7 +186,6 @@ public class SaveFile {
 	}
 
 	public void setTractorY(int tractorY) {
-		this.tractorY = tractorY;
 		tractor.setY(tractorY);
 	}
 
@@ -185,15 +199,10 @@ public class SaveFile {
 	}
 
 	public void setTractorFuel(int tractorFuel) {
-		this.tractorFuel = tractorFuel;
 		tractor.setFuel(tractorFuel);
 	}
 
 	// Harvester
-	private int harvesterX = 1250;
-	private int harvesterY = 500;
-	private int harvesterFuel = 100;
-	private int harvesterLoad = 0;
 
 	// getter & setter Harvester Pos.
 	public int getHarvesterX() {
@@ -201,7 +210,6 @@ public class SaveFile {
 	}
 
 	public void setHarvesterX(int harvesterX) {
-		this.harvesterX = harvesterX;
 		harvester.setX(harvesterX);
 	}
 
@@ -210,7 +218,6 @@ public class SaveFile {
 	}
 
 	public void setHarvesterY(int harvesterY) {
-		this.harvesterY = harvesterY;
 		harvester.setY(harvesterY);
 	}
 
@@ -224,7 +231,6 @@ public class SaveFile {
 	}
 
 	public void setHarvesterFuel(int harvesterFuel) {
-		this.harvesterFuel = harvesterFuel;
 		harvester.setFuel(harvesterFuel);
 	}
 
@@ -239,13 +245,10 @@ public class SaveFile {
 	}
 
 	public void setHarvesterLoad(int harvesterLoad) {
-		this.harvesterLoad = harvesterLoad;
 		harvester.setLoad(harvesterLoad);
 	}
 
 	// Cultivator
-	private int cultivatorX = 1250;
-	private int cultiavtorY = 500;
 
 	// getter & setter Cultivator Pos.
 	public int getCultivatorX() {
@@ -253,7 +256,6 @@ public class SaveFile {
 	}
 
 	public void setCultivatorX(int cultivatorX) {
-		this.cultivatorX = cultivatorX;
 		cultivator.setX(cultivatorX);
 	}
 
@@ -262,37 +264,41 @@ public class SaveFile {
 	}
 
 	public void setCultiavtorY(int cultiavtorY) {
-		this.cultiavtorY = cultiavtorY;
 		cultivator.setY(cultiavtorY);
 	}
 
 	// Dump Truck
-	/*
-	 * private int dumpTruckX = 1250; private int dumpTruckY = 500; private int
-	 * dumTruckLoad = 0;
-	 */
 
 	// getter & setter Dump Truck Pos.
-	/*
-	 * public int getDumpTruckX() { return dumptruck.getX(); }
-	 *
-	 * public void setDumpTruckX(int dumpTruckX) { this.dumpTruckX = dumpTruckX; }
-	 *
-	 * public int getDumpTruckY() { return dumpTruckY; }
-	 *
-	 * public void setDumpTruckY(int dumpTruckY) { this.dumpTruckY = dumpTruckY; }
-	 *
-	 * // getter & setter Dump Truck current Load public int getDumTruckLoad() {
-	 * return dumTruckLoad; }
-	 *
-	 * public void setDumTruckLoad(int dumTruckLoad) { this.dumTruckLoad =
-	 * dumTruckLoad;
-	 */
-	// }
+
+	public int getDumpTruckX() {
+		return (int) dumptruck.getX();
+	}
+
+	public void setDumpTruckX(int dumpTruckX) {
+		dumptruck.setX(dumpTruckX);
+	}
+
+	public int getDumpTruckY() {
+		return (int) dumptruck.getX();
+	}
+
+	public void setDumpTruckY(int dumpTruckY) {
+		dumptruck.setY(dumpTruckY);
+	}
+
+	// getter & setter Dump Truck current Load
+	public int getDumTruckLoad() {
+		return dumptruck.getLoad();
+
+	}
+
+	public void setDumTruckLoad(int dumTruckLoad) {
+		dumptruck.setLoad(dumTruckLoad);
+
+	}
 
 	// Seed Drill
-	private int seedDrillX = 1350;
-	private int seedDrillY = 500;
 
 	// getter & setter Seed Drill Pos.
 	public int getSeedDrillX() {
@@ -300,7 +306,6 @@ public class SaveFile {
 	}
 
 	public void setSeedDrillX(int seedDrillX) {
-		this.seedDrillX = seedDrillX;
 		seeddrill.setX(seedDrillX);
 	}
 
@@ -309,7 +314,6 @@ public class SaveFile {
 	}
 
 	public void setSeedDrillY(int seedDrillY) {
-		this.seedDrillY = seedDrillY;
 		seeddrill.setY(seedDrillY);
 	}
 

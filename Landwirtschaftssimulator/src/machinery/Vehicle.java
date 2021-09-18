@@ -2,71 +2,70 @@ package machinery;
 
 import java.util.ArrayList;
 
-import Utils.CollisionChecker;
 import Utils.NotificationPopUp;
-import buildings.Player;
 import javafx.scene.image.ImageView;
+import settings.GameState;
 
 /**
- *
+ ** This class models a vehicle. It acts as a parent class for the vehicles
+ * tractor and harvester.
+ * 
  * @author Tom Zehle
- * @version 0.1
+ * @version 1.0
  *
  *
- * @param entered Rather the vehicle has been entered or not.
- * @param x       The x-Coordinate of the vehicle.
- * @param y       The y-Coordinate of the vehicle.
- * @param maxfuel The maximum fuel capacity of the vehicle.
- * @param fuel    The current fuel level of the vehicle.
  *
+ * 
  */
 
 public class Vehicle extends ImageView {
 	public boolean entered = false;
-	public int x;
-	public int y;
 	public int maxfuel;
 	public int fuel;
 	Equipment trailer = null;
+	GameState gs;
 
-
-	public Vehicle(int x_, int y_, int maxfuel_) {
-		setX(x_);
-		setY(y_);
-		maxfuel = maxfuel_;
-		fuel = maxfuel;
-	}
-
-	/**
-	 * Enters the vehicle
+	/*
+	 * Constructor of the vehicle class. Sets the maxfuel capacity, the x and y
+	 * coordinates as well as the game state. The fuel is intialized at the maximum
+	 * fuel capacity.
+	 * 
+	 * @param x The x-Coordinate of the vehicle.
+	 * 
+	 * @param y The y-Coordinate of the vehicle.
+	 * 
+	 * @param maxfuel The maximum fuel capacity of the vehicle.
+	 * 
+	 * @param gs the gamestate instance.
 	 */
-	public boolean enter(Player player) {
-		double player_x = player.getX();
-		double player_y = player.getY();
-		double vehicle_x = getX();
-		double vehicle_y = getY();
-		if (((Math.abs(player_x - vehicle_x) + Math.abs(player_y - vehicle_y)) < 150)) {
-			entered = true;
-		} else {
-			entered = false;
-		}
-		return entered;
+	public Vehicle(int x, int y, int maxfuel, GameState gs) {
+		setX(x);
+		setY(y);
+		this.maxfuel = maxfuel;
+		fuel = maxfuel;
+		this.gs = gs;
 	}
 
-	public void exit() {
-		if (entered) {
-			entered = false;
-		}
-	}
-
+	/*
+	 * Reduces the amount of fuel left in the tank by the distance traveled. if
+	 * there's no fuel left an event is triggered, spawning the player near together
+	 * with the vehicle near the gasstation and forcing him to pay a fee.
+	 * 
+	 * @param double d_s - the distance travelled.
+	 */
 	public void updatefuel(double d_s) {
 		fuel -= d_s;
-		boolean enoughfuel = (fuel > 0);
-		if (!enoughfuel) {
+		boolean enoughfuel = fuel > 0; // if there's enough fuel (more than 0) left in the tank after traveling
+										// distance d_s.
+		if (!enoughfuel) { // if theres not enough fuel, spawn the player near the gas station and open a
+							// pop up telling him he is supposed to pay a fee.
 			ArrayList<String> actions = new ArrayList<>();
 			actions.add("OKAY!");
-			NotificationPopUp wind = new NotificationPopUp("Ihr Tank ist leer und wachen ohnm�chtig an einer Tanke auf!\nZahle 3.000$ f�r deine Unachtsamkeit!", actions);
+			NotificationPopUp wind = new NotificationPopUp(
+					"Ihr Tank ist leer und wachen ohnm�chtig an einer Tanke auf!\nZahle 3.000$ f�r deine Unachtsamkeit!",
+					actions);
 			wind.display();
+			gs.setCash(gs.getCash() - 3000);
 			fuel = maxfuel;
 			setX(250);
 			setY(350);
@@ -74,72 +73,4 @@ public class Vehicle extends ImageView {
 		}
 	}
 
-	public void refuel(int d_fuel) {
-		fuel = Math.min(d_fuel + fuel, maxfuel);
-
-	}
-
-	public void moveup(CollisionChecker bc, double speed) {
-		setImageW();
-		updatefuel(speed);
-		setY(getY() + bc.collisioncheckY(getX(), getY(), -speed));
-
-		if (trailer != null) {
-			trailer.setX(getX());
-			trailer.setY(getY() + 30);
-		}
-	}
-
-	public void moveright(CollisionChecker bc, double speed) {
-		setImageD();
-		updatefuel(speed);
-		setX(getX() + bc.collisioncheckX(getX(), getY(), +speed));
-
-		if (trailer != null) {
-			trailer.setX(getX() - 30);
-			trailer.setY(getY());
-		}
-	}
-
-	public void movedown(CollisionChecker bc, double speed) {
-		setImageS();
-		updatefuel(speed);
-		setY(getY() + bc.collisioncheckY(getX(), getY(), +speed));
-
-		if (trailer != null) {
-			trailer.setX(getX());
-			trailer.setY(getY() - 30);
-		}
-	}
-
-	public void moveleft(CollisionChecker bc, double speed) {
-		setImageA();
-		updatefuel(speed);
-		setX(getX() + bc.collisioncheckX(getX(), getY(), -speed));
-
-		if (trailer != null) {
-			trailer.setX(getX() + 30);
-			trailer.setY(getY());
-		}
-
-	}
-
-	public void setImageW() {
-	}
-
-	public void setImageA() {
-	}
-
-	public void setImageS() {
-	}
-
-	public void setImageD() {
-	}
-
-	public void equip(ImageView object) {
-	}
-
-	public void equip(Equipment equipment) {
-
-	}
 }

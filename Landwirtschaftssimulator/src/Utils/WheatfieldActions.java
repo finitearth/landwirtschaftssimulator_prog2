@@ -13,6 +13,9 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.layout.GridPane;
 import javafx.util.Duration;
+import settings.GameState;
+
+
 
 public class WheatfieldActions {
 
@@ -22,13 +25,14 @@ public class WheatfieldActions {
 
 	public BufferedImage bitmap = null;
 	private File file = new File("Images/Bitmap.bmp"); // Weizenfelder BufferedImage
-
-	public WheatfieldActions() {
+	int amount;
+	public WheatfieldActions(GameState sf) {
 		try {
 			this.bitmap = ImageIO.read(this.file);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		amount = sf.getAmount();
 	}
 
 	public void BuyWheatfieldTwo() {
@@ -52,28 +56,28 @@ public class WheatfieldActions {
 		}
 	}
 	public ArableField GenerateWheatfieldOne(int x, int y) {
-		ArableField arableField = new ArableField(x * 50, (y + 1) * 50);
+		ArableField arableField = new ArableField(x * 50, (y + 1) * 50, amount);
 		String position = "fieldX" + x + "Y" + (y + 1);
 		this.wheatfieldOneTracker.put(position, arableField);
 		arableField.setOwned(true);
 		return arableField;
 	}
 	public ArableField GenerateWheatfieldTwo(int x, int y) {
-		ArableField arableField = new ArableField(x * 50, (y + 1) * 50);
+		ArableField arableField = new ArableField(x * 50, (y + 1) * 50, amount);
 		String position = "fieldX" + x + "Y" + (y + 1);
 		this.wheatfieldTwoTracker.put(position, arableField);
 		arableField.setOwned(false);
 		return arableField;
 	}
 	public ArableField GenerateWheatfieldThree(int x, int y) {
-		ArableField arableField = new ArableField(x * 50, (y + 1) * 50);
+		ArableField arableField = new ArableField(x * 50, (y + 1) * 50, amount);
 		String position = "fieldX" + x + "Y" + (y + 1);
 		this.wheatfieldThreeTracker.put(position, arableField);
 		arableField.setOwned(false);
 		return arableField;
 	}
 	public void updateWheatfields(GridPane gridPane) {
-		Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), ev -> {
+		Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(10), ev -> {
 			for (int y = 0; y < bitmap.getHeight(); y++) {
 				for (int x = 0; x < bitmap.getWidth(); x++) {
 					String position = "fieldX" + x + "Y" + (y + 1);
