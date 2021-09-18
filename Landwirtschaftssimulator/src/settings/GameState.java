@@ -69,7 +69,7 @@ public class GameState {
 
 		obj.put("DumpTruckX", getDumpTruckX());
 		obj.put("DumpTruckY", getDumpTruckY());
-		obj.put("DumpTruckLoad", getDumTruckLoad());
+		obj.put("DumpTruckLoad", getDumpTruckLoad());
 
 		obj.put("SeedDrillX", getSeedDrillX());
 		obj.put("SeedDrillY", getSeedDrillY());
@@ -307,7 +307,7 @@ public class GameState {
 	}
 
 	// getter & setter Dump Truck current Load
-	public int getDumTruckLoad() {
+	public int getDumpTruckLoad() {
 		return dumptruck.getLoad();
 
 	}
