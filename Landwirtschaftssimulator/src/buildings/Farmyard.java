@@ -171,7 +171,7 @@ public class Farmyard  extends building{
 	}
 
 
-	public void farmyardMenu(Farmyard farmyard, Tractor tractorInstanz, AvailableObjectsNearby aonb, Player player, Cultivator cultivatorInstanz, SeedDrill seedDrillInstanz, Harvester harvesterInstanz, WheatfieldActions wa) {
+	public void farmyardMenu(Farmyard farmyard, Tractor tractorInstanz, AvailableObjectsNearby aonb, Player player, Cultivator cultivatorInstanz, SeedDrill seedDrillInstanz, Harvester harvesterInstanz, WheatfieldActions wa, GameState save) {
 		if(farmyard != null) {
 			Stage popupwindow = new Stage();
 
@@ -205,11 +205,11 @@ public class Farmyard  extends building{
 
 			Button wheatfield2 = new Button("Buy second Wheatfield");
 			wheatfield2.setPrefSize(140, 18);
-			wheatfield2.setOnMouseClicked(e -> {wa.BuyWheatfieldTwo();});
+			wheatfield2.setOnMouseClicked(e -> {wa.BuyWheatfieldTwo(save);});
 
 			Button wheatfield3 = new Button("Buy third Wheatfield");
 			wheatfield3.setPrefSize(140, 18);
-			wheatfield3.setOnMouseClicked(e -> {wa.BuyWheatfieldThree();});
+			wheatfield3.setOnMouseClicked(e -> {wa.BuyWheatfieldThree(save);});
 
 			Button load = new Button("load");
 			load.setPrefSize(140, 18);
