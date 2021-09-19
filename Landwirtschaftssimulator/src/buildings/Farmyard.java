@@ -20,6 +20,7 @@ import machinery.Harvester;
 import machinery.SeedDrill;
 import machinery.Tractor;
 import machinery.Vehicle;
+import settings.GameState;
 
 public class Farmyard  extends building{
 
@@ -203,12 +204,12 @@ public class Farmyard  extends building{
 			tractor.setPrefSize(90, 18);
 			tractor.setOnMouseClicked(e -> { machineStore(tractorInstanz, aonb, "tractor", player, cultivatorInstanz, seedDrillInstanz, harvesterInstanz);});
 
-			Button wheatfield2 = new Button("Buy second Wheatfield");
-			wheatfield2.setPrefSize(140, 18);
+			Button wheatfield2 = new Button("Buy second Wheatfield for: " + save.getPriceField2());
+			wheatfield2.setPrefSize(200, 25);
 			wheatfield2.setOnMouseClicked(e -> {wa.BuyWheatfieldTwo(save);});
 
-			Button wheatfield3 = new Button("Buy third Wheatfield");
-			wheatfield3.setPrefSize(140, 18);
+			Button wheatfield3 = new Button("Buy third Wheatfield for: " + save.getPriceField3());
+			wheatfield3.setPrefSize(200, 25);
 			wheatfield3.setOnMouseClicked(e -> {wa.BuyWheatfieldThree(save);});
 
 			Button load = new Button("load");
@@ -219,24 +220,26 @@ public class Farmyard  extends building{
 			unload.setPrefSize(140, 18);
 			unload.setOnMouseClicked(e -> {fillSilo(aonb);});
 
-			GridPane gridpane = new GridPane();
-			GridPane.setConstraints(load, 1, 0);
-			GridPane.setConstraints(unload, 2, 0);
-			GridPane.setConstraints(wheatfield2, 1, 1);
-			GridPane.setConstraints(wheatfield3, 2, 1);
-			Insets inset = new Insets(10, 5, 5, 5);
-			GridPane.setMargin(load, inset);
-			GridPane.setMargin(unload, inset);
-			GridPane.setMargin(wheatfield2, inset);
-			GridPane.setMargin(wheatfield3, inset);
-			gridpane.getChildren().addAll(wheatfield2, wheatfield3, load, unload);
-			gridpane.setAlignment(Pos.CENTER);
+//			GridPane gridpane = new GridPane();
+//			GridPane.setConstraints(load, 1, 0);
+//			GridPane.setConstraints(unload, 2, 0);
+//			GridPane.setConstraints(wheatfield2, 1, 1);
+//			GridPane.setConstraints(wheatfield3, 1, 2);
+//			Insets inset = new Insets(10, 5, 5, 5);
+//			GridPane.setMargin(load, inset);
+//			GridPane.setMargin(unload, inset);
+//			GridPane.setMargin(wheatfield2, inset);
+//			GridPane.setMargin(wheatfield3, inset);
+//			gridpane.getChildren().addAll(wheatfield2, wheatfield3, load, unload);
+//			gridpane.setAlignment(Pos.CENTER);
+			
+//			gridpane.setGridLinesVisible(true);
 
-			layout.getChildren().addAll(cultivator, dumpTruck, harvester, seedDrill, tractor, gridpane);
+			layout.getChildren().addAll(cultivator, dumpTruck, harvester, seedDrill, tractor, load, unload, wheatfield2, wheatfield3);
 
 			layout.setAlignment(Pos.CENTER);
 
-			Scene scene1 = new Scene(layout, 350, 300);
+			Scene scene1 = new Scene(layout, 350, 400);
 			popupwindow.setScene(scene1);
 
 			popupwindow.showAndWait();

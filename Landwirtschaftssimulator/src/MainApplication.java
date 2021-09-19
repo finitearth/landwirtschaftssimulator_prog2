@@ -338,7 +338,7 @@ public class MainApplication extends Application {
 		movePlayerOnMousePress(scene, player, createTransition(player));
 
 		// GridPane gridPane = generateGamefield(wa.bitmap);
-		wa.updateWheatfields(grid);
+		wa.updateWheatfields();
 		return scene;
 
 	}

@@ -221,7 +221,7 @@ public class WheatfieldActions {
 		allfields.putAll(wheatfieldTwoTracker);
 		allfields.putAll(wheatfieldThreeTracker);
 		return allfields;
-		}
-		
 	}
+		
 }
+
