@@ -53,6 +53,10 @@ public class Tractor extends Vehicle {
 		this.speed = speed;
 		this.bc = bc;
 	}
+	
+	public Equipment getTrailer() {
+		return trailer;
+	}
 
 	/*
 	 * Checks if there are actions to be made if a movement is detected If a field
@@ -99,6 +103,10 @@ public class Tractor extends Vehicle {
 	 */
 	public void deequip() {
 		trailer = null;
+	}
+	
+	public void setImageD() {
+		setImage(TractorViewW);
 	}
 
 	/*

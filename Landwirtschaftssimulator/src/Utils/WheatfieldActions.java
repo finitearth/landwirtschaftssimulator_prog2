@@ -15,16 +15,18 @@ import javafx.scene.layout.GridPane;
 import javafx.util.Duration;
 import settings.GameState;
 
+
+
 public class WheatfieldActions {
 
-	public HashMap<String, ArableField> wheatfieldOneTracker = new HashMap<>();
-	public HashMap<String, ArableField> wheatfieldTwoTracker = new HashMap<>();
+	public HashMap<String, ArableField> wheatfieldOneTracker   = new HashMap<>();
+	public HashMap<String, ArableField> wheatfieldTwoTracker   = new HashMap<>();
 	public HashMap<String, ArableField> wheatfieldThreeTracker = new HashMap<>();
 
 	public BufferedImage bitmap = null;
 	private File file = new File("Images/Bitmap.bmp"); // Weizenfelder BufferedImage
 	int amount;
-
+	
 	public WheatfieldActions(GameState sf) {
 		try {
 			this.bitmap = ImageIO.read(this.file);
@@ -39,23 +41,21 @@ public class WheatfieldActions {
 			for (int x = 0; x < bitmap.getWidth(); x++) {
 				String position = "fieldX" + x + "Y" + (y + 1);
 				ArableField field = wheatfieldTwoTracker.get(position);
-				if (field != null)
+				if(field != null)
 					field.setOwned(true);
 			}
 		}
 	}
-
 	public void BuyWheatfieldThree() {
 		for (int y = 0; y < bitmap.getHeight(); y++) {
 			for (int x = 0; x < bitmap.getWidth(); x++) {
 				String position = "fieldX" + x + "Y" + (y + 1);
 				ArableField field = wheatfieldThreeTracker.get(position);
-				if (field != null)
+				if(field != null)
 					field.setOwned(true);
 			}
 		}
 	}
-
 	public ArableField GenerateWheatfieldOne(int x, int y) {
 		ArableField arableField = new ArableField(x * 50, (y + 1) * 50, amount);
 		String position = "fieldX" + x + "Y" + (y + 1);
@@ -63,7 +63,6 @@ public class WheatfieldActions {
 		arableField.setOwned(true);
 		return arableField;
 	}
-
 	public ArableField GenerateWheatfieldTwo(int x, int y) {
 		ArableField arableField = new ArableField(x * 50, (y + 1) * 50, amount);
 		String position = "fieldX" + x + "Y" + (y + 1);
@@ -71,7 +70,6 @@ public class WheatfieldActions {
 		arableField.setOwned(false);
 		return arableField;
 	}
-
 	public ArableField GenerateWheatfieldThree(int x, int y) {
 		ArableField arableField = new ArableField(x * 50, (y + 1) * 50, amount);
 		String position = "fieldX" + x + "Y" + (y + 1);
@@ -79,7 +77,6 @@ public class WheatfieldActions {
 		arableField.setOwned(false);
 		return arableField;
 	}
-
 	public void updateWheatfields(GridPane gridPane) {
 		Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(10), ev -> {
 			for (int y = 0; y < bitmap.getHeight(); y++) {
@@ -88,10 +85,12 @@ public class WheatfieldActions {
 					if (wheatfieldOneTracker.get(position) != null) {
 						ArableField field = wheatfieldOneTracker.get(position);
 						field.update();
-					} else if (wheatfieldTwoTracker.get(position) != null) {
+					}
+					else if(wheatfieldTwoTracker.get(position) != null) {
 						ArableField field = wheatfieldTwoTracker.get(position);
 						field.update();
-					} else if (wheatfieldThreeTracker.get(position) != null) {
+					}
+					else if(wheatfieldThreeTracker.get(position) != null) {
 						ArableField field = wheatfieldThreeTracker.get(position);
 						field.update();
 					}
@@ -101,13 +100,4 @@ public class WheatfieldActions {
 		timeline.setCycleCount(Animation.INDEFINITE);
 		timeline.play();
 	}
-
-	public HashMap<String, ArableField> getarableFields(){
-		HashMap<String, ArableField> allfields = new HashMap<>();
-		allfields.putAll(wheatfieldOneTracker);
-		allfields.putAll(wheatfieldTwoTracker);
-		allfields.putAll(wheatfieldThreeTracker);
-		return allfields;
-		}
-		
-	}
+}

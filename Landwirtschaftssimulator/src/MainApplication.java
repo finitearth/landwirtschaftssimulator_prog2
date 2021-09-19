@@ -12,9 +12,6 @@ import buildings.Farmyard;
 import buildings.GasStation;
 import buildings.Landtrade;
 import buildings.Player;
-import javafx.animation.Animation;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -92,9 +89,10 @@ public class MainApplication extends Application {
 		load.relocate(600, 580);
 		load.setOnMouseClicked(e -> {
 
+
 			stage.setScene(chooseSettings(stage));
-			save.loadfile(wa.getarableFields());
-		}); 
+			save.loadfile(wa.wheatfieldOneTracker);
+		});
 
 
 		Button exit = new Button("Beenden");
@@ -241,6 +239,12 @@ public class MainApplication extends Application {
 
 		});
 
+		Button back = new Button("Zurï¿½ck");
+		back.setFont(new Font("Arial", 12));
+		back.setPrefSize(100, 10);
+		back.relocate(700, 950);
+		back.setOnMouseClicked(e -> {
+		});
 		/*
 		 * Image backg = new Image("File:./Images/", 1500, 1050, false, false); // TODO
 		 * Hintergrundbild erstellen BackgroundImage backgroundImage = new
@@ -249,7 +253,7 @@ public class MainApplication extends Application {
 		 * settings.setBackground(new Background(backgroundImage));
 		 */
 		settings.getChildren().addAll(headline, nameDescription, name, start, difficultlyLevel, easy, middle, hard,
-				player1, player1View, player2, player2View, player3, player3View, player4, player4View);
+				player1, player1View, player2, player2View, player3, player3View, player4, player4View, back);
 
 		Scene scene = new Scene(settings);
 
@@ -260,15 +264,95 @@ public class MainApplication extends Application {
 	public Scene generateGame() {
 
 		GridPane grid = generateGamefield(wa.bitmap);
-		
+
+		/*
+		 * for (int i = 0; i < 30; i++) { ColumnConstraints column = new
+		 * ColumnConstraints(50); // SpielfeldgrÃ¶sse
+		 * grid.getColumnConstraints().add(column); } for (int i = 0; i < 21; i++) {
+		 * RowConstraints row = new RowConstraints(50);
+		 * grid.getRowConstraints().add(row); }
+		 */
+
+		Label headline = new Label(save.getPlayerName() + "'s Farm");
+		headline.setFont(new Font("Arial", 25));
+		grid.add(headline, 13, 0, 3, 1);
+
+		Label currentCash = new Label("Geld: " + save.getCash());
+		currentCash.setFont(new Font("Arial", 25));
+		grid.add(currentCash, 27, 0, 3, 1);
+
+		Label fuelTractor = new Label("Tank Traktor: " + save.getTractorFuel());
+		fuelTractor.setFont(new Font("Arial", 20));
+		grid.add(fuelTractor, 23, 0, 4, 1);
+
+		Label fuelHarvester = new Label("Tank Mï¿½hdrescher: " + save.getHarvesterFuel());
+		fuelHarvester.setFont(new Font("Arial", 20));
+		grid.add(fuelHarvester, 18, 0, 5, 1);
+
+		Menu menu = new Menu("Menï¿½");
+		MenuBar menuBar = new MenuBar();
+
+		MenuItem newGame = new MenuItem("Neues Spiel");
+		newGame.setOnAction(e -> {
+
+		});
+
+		MenuItem load = new MenuItem("Spiel laden");
+		load.setOnAction(e -> {
+//			save.loadfile(wa.arablefieldtracker);
+			save.loadfile(wa.wheatfieldOneTracker);
+			save.loadfile(wa.wheatfieldTwoTracker);
+			save.loadfile(wa.wheatfieldThreeTracker);
+		});
+
+		MenuItem saveGame = new MenuItem("Spiel speichern");
+		saveGame.setOnAction(e -> {
+//			save.savetofile(wa.arablefieldtracker);
+			save.savetofile(wa.wheatfieldOneTracker);
+			save.savetofile(wa.wheatfieldTwoTracker);
+			save.savetofile(wa.wheatfieldThreeTracker);
+		});
+
+		MenuItem keyAssignment = new MenuItem("Tastenbelegung");
+		keyAssignment.setOnAction(e -> {
+
+		});
+
+		menu.getItems().add(newGame);
+		menu.getItems().add(load);
+		menu.getItems().add(saveGame);
+		menu.getItems().add(keyAssignment);
+
+		menuBar.getMenus().add(menu);
+
+		grid.add(menuBar, 0, 0, 2, 1);
 
 		Image backg = new Image("File:./Images/Map.png", 1500, 1050, false, false);
 
 		BackgroundImage backgroundImage = new BackgroundImage(backg, BackgroundRepeat.REPEAT,
 				BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
-		grid.setBackground(new Background(backgroundImage));
-		
 
+		grid.setBackground(new Background(backgroundImage));
+
+		/*
+		 * File file = new File("Images/Bitmap.bmp"); // Weizenfelder BufferedImage
+		 * bitmap;
+		 */
+		/*
+		 * try { bitmap = ImageIO.read(file); for (int y = 0; y < bitmap.getHeight();
+		 * y++) { for (int x = 0; x < bitmap.getWidth(); x++) { //
+		 * System.out.println(bitmap.getRGB(x, y)); if(bitmap.getRGB(x, y) == -10728) {
+		 * grid.add(new Field(), x, (y+1)); } } } } catch (IOException e) {
+		 * e.printStackTrace(); }
+		 */
+
+		// grid.setGridLinesVisible(false);
+
+		/*
+		 * Image background = new Image("File:./Images/Map.png"); // TODO Bild ersetzen
+		 * Festes Spielfeld ImageView backg = new ImageView(background);
+		 */
+		// grid.add(backg, 0, 10); // Landschaft
 		for (int y = 0; y < wa.bitmap.getHeight(); y++) {
 			for (int x = 0; x < wa.bitmap.getWidth(); x++) {
 //				System.out.println(wa.bitmap.getRGB(x, y));
@@ -301,22 +385,22 @@ public class MainApplication extends Application {
 
 		for (int y = 0; y < wa.bitmap.getHeight(); y++) {
 			for (int x = 0; x < wa.bitmap.getWidth(); x++) {
-				if ((wa.bitmap.getRGB(x, y) == -14117429) || (wa.bitmap.getRGB(x, y) == -12889573)) {
-					bc.addboundary(x * 50, y * 50 + 50, x * 50 + 50, y * 50 + 100);
+				if ((wa.bitmap.getRGB(x, y) == -14117429) ||(wa.bitmap.getRGB(x, y) == -12889573) ) {
+					bc.addboundary(x*50, y*50+50, x*50+50, y*50+100);
 
 				}
 
 			}
 		}
-
+		
 		DumpTruck dumptruck = new DumpTruck(1200, 450, 1000);
 		Player player = new Player(1200, 400);
 		Tractor tractor = new Tractor(1300, 500, 10000, 25.0, bc, aonb, save);
 		Cultivator cultivator = new Cultivator(1250, 500);
 		SeedDrill seeddrill = new SeedDrill(1350, 500);
-		Landtrade landtrade = new Landtrade(1200, 550);
-		Farmyard farmyard = new Farmyard(1300, 450);
-		GasStation gasStation = new GasStation(250, 350);
+		Landtrade landtrade = new Landtrade(1200, 550, save);
+		Farmyard farmyard = new Farmyard(1300, 450, aonb, save, player);
+		GasStation gasStation = new GasStation(250, 350, save);
 		Harvester harvester = new Harvester(400, 500, 10000, 500, 25.0, bc, aonb, save);
 		save.setup(player, tractor, cultivator, seeddrill, harvester, dumptruck);
 		aonb.add(tractor, "Vehicle");
@@ -325,17 +409,16 @@ public class MainApplication extends Application {
 		aonb.add(landtrade, "Building");
 		aonb.add(farmyard, "Building");
 		aonb.add(seeddrill, "Trailer");
-		aonb.add(harvester, "Vehicle");
+		aonb.add(harvester, "Vehicle2");
+		aonb.add(dumptruck, "Trailer");
 		
-		GridPane headline = generateHeadline(player, tractor, harvester);
-		grid.add(headline, 0, 0, 30, 1);
 
 		final Group group = new Group(grid, player, tractor, cultivator, gasStation, farmyard, landtrade, seeddrill,
-				harvester);
+				harvester, dumptruck);
 		Scene scene = new Scene(group);
 
 		movePlayerOnKeyPress(scene, player, gasStation, tractor, landtrade, farmyard, cultivator, seeddrill, save,
-				harvester);
+				harvester, dumptruck);
 		movePlayerOnMousePress(scene, player, createTransition(player));
 
 		// GridPane gridPane = generateGamefield(wa.bitmap);
@@ -344,9 +427,9 @@ public class MainApplication extends Application {
 
 	}
 
-	private void movePlayerOnKeyPress(Scene scene, Player player, GasStation gasStation, Tractor tractorInstanz,
-			Landtrade landtrade, Farmyard farmyard, Cultivator cultivator, SeedDrill seeddrill, GameState save,
-			Harvester harvesterInstanz) { // TODO transitions
+	private void movePlayerOnKeyPress(Scene scene, Player player, GasStation gasStation, Tractor tractor_,
+			Landtrade landtrade, Farmyard farmyard, Cultivator cultivator_, SeedDrill seeddrill_, GameState save,
+			Harvester harvester_, DumpTruck dumpTruck_) { // TODO transitions
 
 		/*
 		 * bc.addboundary(550, 700, 650, 1000); // lower river and forest
@@ -375,11 +458,12 @@ public class MainApplication extends Application {
 						player.moveleft(bc, walkingspeed);
 						break;
 					case E:
-						player.setEnteredVehicle((Vehicle) aonb.search(player.getX(), player.getY(), "Vehicle"));
+						player.setEnteredVehicle((Vehicle) aonb.search(player.getX(), player.getY(), "Vehicle"),tractor_);
+						player.setEnteredVehicle((Vehicle) aonb.search(player.getX(), player.getY(), "Vehicle2"), harvester_);
 						break;
 					case M:
 						farmyard.farmyardMenu(((Farmyard) aonb.search(player.getX(), player.getY(), "Building")),
-								tractorInstanz, aonb, player, cultivator, seeddrill, harvesterInstanz, wa);
+								tractor_, cultivator_, seeddrill_, harvester_, dumpTruck_, wa);
 					default:
 						break;
 					}
@@ -405,7 +489,7 @@ public class MainApplication extends Application {
 						player.setX(tractor.getX());
 						player.setY(tractor.getY());
 						player.setImageW();
-						player.setEnteredVehicle(null);
+						player.setEnteredVehicle(null, tractor_);
 						break;
 					case X:
 						tractor.equip((Equipment) aonb.search(tractor.getX(), tractor.getY(), "Trailer"));
@@ -419,14 +503,14 @@ public class MainApplication extends Application {
 						break;
 					case L:
 						gasStation.refuelTractor((GasStation) aonb.search(tractor.getX(), tractor.getY(), "Building"),
-								tractorInstanz, save);
+								tractor_);
 						break;
 					case V:
-						landtrade.selling((Landtrade) aonb.search(tractor.getX(), tractor.getY(), "Building"));
-						break; // nur provisorisch
+						landtrade.selling((Landtrade) aonb.search(tractor.getX(), tractor.getY(), "Building"),dumpTruck_,tractor);
+						break; 
 					case M:
 						farmyard.farmyardMenu(((Farmyard) aonb.search(tractor.getX(), tractor.getY(), "Building")),
-								tractorInstanz, aonb, player, cultivator, seeddrill, harvesterInstanz, wa);
+								tractor_, cultivator_, seeddrill_, harvester_, dumpTruck_, wa);
 					default:
 						break;
 					}
@@ -450,16 +534,18 @@ public class MainApplication extends Application {
 						player.setX(harvester.getX());
 						player.setY(harvester.getY());
 						player.setImageW();
-						player.setEnteredVehicle(null);
+						player.setEnteredVehicle(null, harvester_);
 						break;
 					case L:
 						gasStation.refuelHarvester(
 								(GasStation) aonb.search(harvester.getX(), harvester.getY(), "Building"),
-								harvesterInstanz, save);
+								harvester_);
 						break;
 					case M:
-						farmyard.farmyardMenu(((Farmyard) aonb.search(harvester.getX(), harvester.getY(), "Building")),
-								tractorInstanz, aonb, player, cultivator, seeddrill, harvesterInstanz, wa);
+						farmyard.farmyardMenu(
+								((Farmyard) aonb.search(harvester.getX(), harvester.getY(), "Building")),
+								tractor_, cultivator_, seeddrill_, harvester_, dumpTruck_, wa);
+					case F			: 	harvester.fillDumpTruck(dumpTruck_, harvester_);
 					case SPACE:
 						break;
 					default:
@@ -552,179 +638,6 @@ public class MainApplication extends Application {
 		 * e.printStackTrace(); }
 		 */
 
-	}
-	
-public GridPane generateHeadline(Player player, Tractor tractor, Harvester harvester) {
-		
-		GridPane grid = new GridPane();
-		
-		for (int i = 0; i < 30; i++) {
-	         ColumnConstraints column = new ColumnConstraints(50);
-	         grid.getColumnConstraints().add(column);
-	     }
-		
-		Menu menu = new Menu("Menü");
-		MenuBar menuBar = new MenuBar();
-		MenuItem load = new MenuItem("Spiel laden");
-		load.setOnAction(e -> {
-//			save.loadfile(wa.arablefieldtracker);
-			save.loadfile(wa.wheatfieldOneTracker);
-			save.loadfile(wa.wheatfieldTwoTracker);
-			save.loadfile(wa.wheatfieldThreeTracker);
-		});
-		MenuItem saveGame = new MenuItem("Spiel speichern");
-		saveGame.setOnAction(e -> {
-//			save.savetofile(wa.arablefieldtracker);
-			save.savetofile(wa.wheatfieldOneTracker);
-			save.savetofile(wa.wheatfieldTwoTracker);
-			save.savetofile(wa.wheatfieldThreeTracker);
-		});
-		
-		MenuItem keyAssignment = new MenuItem("Tastenbelegung"); // TODO
-		keyAssignment.setOnAction(e -> {keyAssignment();});
-		menu.getItems().add(load);
-		menu.getItems().add(saveGame);
-		menu.getItems().add(keyAssignment);
-		menuBar.getMenus().add(menu);
-		grid.add(menuBar, 0, 0, 2, 1);
-		
-		Label name = new Label(save.getPlayerName() + "'s Farm");
-		name.setFont(new Font("Arial", 25));
-		grid.add(name, 5, 0, 3, 1);
-		
-		Label fuel = new Label(currentVehicleAndFuel(player, tractor, harvester));
-		fuel.setFont(new Font("Arial", 25));
-		grid.add(fuel, 21, 0, 6, 1);
-		
-		Label currentCash = new Label("Geld: " + save.getCash());
-		currentCash.setFont(new Font("Arial", 25));
-		grid.add(currentCash, 27, 0, 3, 1);
-		
-		Label dumpTruckLoad = new Label("Kipper Ladung: " + save.getDumpTruckLoad());
-		dumpTruckLoad.setFont(new Font("Arial", 25));
-		grid.add(dumpTruckLoad, 15, 0, 6, 1);
-		
-		Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(0.1), ev -> {
-			currentCash.setText("Geld: " + save.getCash());
-			fuel.setText(currentVehicleAndFuel(player, tractor, harvester));
-			dumpTruckLoad.setText("Kipper Ladung: " + save.getDumpTruckLoad());
-		}));
-		timeline.setCycleCount(Animation.INDEFINITE);
-		timeline.play();
-		
-		return grid;
-		
-	}
-	
-	public String currentVehicleAndFuel(Player player, Tractor tractor, Harvester harvester) {
-		String vehicle;
-		if (player.getEnteredVehicle() == null) {
-			return vehicle = "";
-		}
-		else if (player.getEnteredVehicle() == tractor){
-			return vehicle = "Traktor Tank: " + save.getTractorFuel();
-		}
-		else {
-			return vehicle = "Mädrescher Tank: " + save.getHarvesterFuel();
-		}
-	}
-	
-	private void keyAssignment() {
-		Stage popupwindow = new Stage();
-		popupwindow.setTitle("Tastenbelegung");
-		
-		GridPane grid = new GridPane();
-		for (int i = 0; i < 9; i++) {
-	         ColumnConstraints column = new ColumnConstraints(50);
-	         grid.getColumnConstraints().add(column);
-	    }
-		for (int i = 0; i < 17; i++) {
-	         RowConstraints row = new RowConstraints(30);
-	         grid.getRowConstraints().add(row);
-	    }
-		
-		Label player = new Label("Spieler");
-		player.setFont(new Font("Arial", 20));
-		grid.add(player, 0, 0, 2, 1);
-		
-		Label playerUp = new Label("W, Pfeiltaste hoch");
-		grid.add(playerUp, 1, 1, 4, 1);
-		Label playerUpB = new Label("Bewegung nach oben");
-		grid.add(playerUpB, 4, 1, 4, 1);
-		
-		Label playerLeft = new Label("A, Pfeiltaste links");
-		grid.add(playerLeft, 1, 2, 4, 1);
-		Label playerLeftB = new Label("Bewegung nach links");
-		grid.add(playerLeftB, 4, 2, 4, 1);
-		
-		Label playerDown = new Label("S, Pfeiltaste runter");
-		grid.add(playerDown, 1, 3, 4, 1);
-		Label playerDownB = new Label("Bewegung nach unten");
-		grid.add(playerDownB, 4, 3, 4, 1);
-		
-		Label playerRight = new Label("D, Pfeiltaste rechts");
-		grid.add(playerRight, 1, 4, 4, 1);
-		Label playerRightB = new Label("Bewegung nach rechts");
-		grid.add(playerRightB, 4, 4, 4, 1);
-		
-		Label playerEntered = new Label("E");
-		grid.add(playerEntered, 1, 5);
-		Label playerEnteredB = new Label("Einsteigen");
-		grid.add(playerEnteredB, 4, 5, 4, 1);
-		
-		Label playerFarmyard = new Label("M");
-		grid.add(playerFarmyard, 1, 6);
-		Label playerFarmyardB = new Label("Landhaus Menü öffnen");
-		grid.add(playerFarmyardB, 4, 6, 4, 1);
-		
-		Label vehicle = new Label("Fahrzeug");
-		vehicle.setFont(new Font("Arial", 20));
-		grid.add(vehicle, 0, 8, 2, 1);
-		
-		Label tractorUp = new Label("W, Pfeiltaste hoch");
-		grid.add(tractorUp, 1, 9, 4, 1);
-		Label tractorUpB = new Label("Bewegung nach oben");
-		grid.add(tractorUpB, 4, 9, 4, 1);
-		
-		Label traktorLeft = new Label("A, Pfeiltaste links");
-		grid.add(traktorLeft, 1, 10, 4, 1);
-		Label traktorLeftB = new Label("Bewegung nach links");
-		grid.add(traktorLeftB, 4, 10, 4, 1);
-		
-		Label traktorDown = new Label("S, Pfeiltaste runter");
-		grid.add(traktorDown, 1, 11, 4, 1);
-		Label traktorDownB = new Label("Bewegung nach unten");
-		grid.add(traktorDownB, 4, 11, 4, 1);
-		
-		Label traktorRight = new Label("D, Pfeiltaste rechts");
-		grid.add(traktorRight, 1, 12, 4, 1);
-		Label traktorRightB = new Label("Bewegung nach rechts");
-		grid.add(traktorRightB, 4, 12, 4, 1);
-		
-		Label traktorLeave = new Label("E");
-		grid.add(traktorLeave, 1, 13);
-		Label traktorLeaveB = new Label("Traktor verlassen");
-		grid.add(traktorLeaveB, 4, 13, 4, 1);
-		
-		Label traktorEquip = new Label("X");
-		grid.add(traktorEquip, 1, 14);
-		Label traktorEquipB = new Label("Anhänger an- und abhängen (Nur Traktor!");
-		grid.add(traktorEquipB, 4, 14, 5, 1);
-		
-		Label traktorFuel = new Label("L");
-		grid.add(traktorFuel, 1, 15);
-		Label traktorFuelB = new Label("Tanken");
-		grid.add(traktorFuelB, 4, 15, 4, 1);
-		
-		Label traktorFarmyard = new Label("M");
-		grid.add(traktorFarmyard, 1, 16);
-		Label traktorFarmyardB = new Label("Landhaus Menü öffnen");
-		grid.add(traktorFarmyardB, 4, 16, 4, 1);
-		
-		Scene scene = new Scene(grid);
-		popupwindow.setScene(scene);
-		popupwindow.showAndWait();
-		
 	}
 
 }

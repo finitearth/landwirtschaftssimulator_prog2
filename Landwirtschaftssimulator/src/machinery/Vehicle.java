@@ -72,5 +72,9 @@ public class Vehicle extends ImageView {
 
 		}
 	}
+	public void refuel(int d_fuel) {
+		fuel = Math.min(d_fuel + fuel, maxfuel);
+
+	}
 
 }
