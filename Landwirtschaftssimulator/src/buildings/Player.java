@@ -50,9 +50,9 @@ public class Player extends ImageView {
 		return enteredvehicle;
 	}
 
-	public void setEnteredVehicle(Vehicle vehicle, Vehicle vehicleTest) {
+	public void setEnteredVehicle(Vehicle vehicle) {
 		// Boolean enterable = vehicle.enter(this);
-		if (vehicle == null && enteredvehicle == vehicleTest) {
+		if (vehicle == null) {
 			enteredvehicle = null;
 			return;
 		}

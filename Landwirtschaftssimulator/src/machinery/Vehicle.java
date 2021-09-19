@@ -51,10 +51,9 @@ public class Vehicle extends ImageView {
 	 * there's no fuel left an event is triggered, spawning the player near together
 	 * with the vehicle near the gasstation and forcing him to pay a fee.
 	 * 
-	 * @param double d_s - the distance travelled.
 	 */
-	public void updatefuel(double d_s) {
-		fuel -= d_s;
+	public void updatefuel() {
+		fuel -= 1;
 		boolean enoughfuel = fuel > 0; // if there's enough fuel (more than 0) left in the tank after traveling
 										// distance d_s.
 		if (!enoughfuel) { // if theres not enough fuel, spawn the player near the gas station and open a
@@ -71,10 +70,6 @@ public class Vehicle extends ImageView {
 			setY(350);
 
 		}
-	}
-	public void refuel(int d_fuel) {
-		fuel = Math.min(d_fuel + fuel, maxfuel);
-
 	}
 
 }

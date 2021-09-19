@@ -62,10 +62,6 @@ public class Harvester extends Vehicle {
 	public void fill(int grainamount) {
 		graintank += grainamount;
 	}
-	
-	public void setImageD() {
-		setImage(ViewD);
-	}
 
 	/*
 	 * Method to harvest a field. Use aonb.search in order to find the nearest field
@@ -78,20 +74,6 @@ public class Harvester extends Vehicle {
 			field.harvest(this);
 		}
 	}
-	public void fillDumpTruck(DumpTruck dumpTruck_, Harvester harvester_) {
-		Equipment activeEquipment = ((Equipment) aonb.search(harvester_.getX(), harvester_.getY(), "Trailer"));
-		if(activeEquipment == dumpTruck_) {
-			if(graintank + dumpTruck_.getLoad() <= dumpTruck_.getMaxload()) {
-				dumpTruck_.setLoad(graintank + dumpTruck_.getLoad());
-				graintank = 0;
-		}
-		else {
-			dumpTruck_.setLoad(dumpTruck_.getMaxload());
-			graintank = graintank + dumpTruck_.getLoad() - dumpTruck_.getMaxload();
-		}
-		}
-		
-	}
 
 	/*
 	 * sets the image to facing up and updates the coordinates of the tractor. Calls
@@ -99,7 +81,7 @@ public class Harvester extends Vehicle {
 	 */
 	public void moveup() {
 		setImage(ViewW);
-		updatefuel(speed);
+		updatefuel();
 		setY(getY() + cb.collisioncheckY(getX(), getY(), -speed));
 		harvest();
 	}
@@ -110,7 +92,7 @@ public class Harvester extends Vehicle {
 	 */
 	public void moveright() {
 		setImage(ViewD);
-		updatefuel(speed);
+		updatefuel();
 		setX(getX() + cb.collisioncheckX(getX(), getY(), +speed));
 		harvest();
 	}
@@ -121,7 +103,7 @@ public class Harvester extends Vehicle {
 	 */
 	public void movedown() {
 		setImage(ViewS);
-		updatefuel(speed);
+		updatefuel();
 		setY(getY() + cb.collisioncheckY(getX(), getY(), +speed));
 		harvest();
 	}
@@ -132,7 +114,7 @@ public class Harvester extends Vehicle {
 	 */
 	public void moveleft() {
 		setImage(ViewA);
-		updatefuel(speed);
+		updatefuel();
 		setX(getX() + cb.collisioncheckX(getX(), getY(), -speed));
 		harvest();
 	}
