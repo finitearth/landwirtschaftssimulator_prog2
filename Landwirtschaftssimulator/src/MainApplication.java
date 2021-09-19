@@ -425,7 +425,7 @@ public class MainApplication extends Application {
 						break; // nur provisorisch
 					case M:
 						farmyard.farmyardMenu(((Farmyard) aonb.search(tractor.getX(), tractor.getY(), "Building")),
-								tractorInstanz, aonb, player, cultivator, seeddrill, harvesterInstanz, wa);
+								tractorInstanz, aonb, player, cultivator, seeddrill, harvesterInstanz, wa, save);
 					default:
 						break;
 					}
@@ -458,7 +458,7 @@ public class MainApplication extends Application {
 						break;
 					case M:
 						farmyard.farmyardMenu(((Farmyard) aonb.search(harvester.getX(), harvester.getY(), "Building")),
-								tractorInstanz, aonb, player, cultivator, seeddrill, harvesterInstanz, wa);
+								tractorInstanz, aonb, player, cultivator, seeddrill, harvesterInstanz, wa, save);
 					case SPACE:
 						break;
 					default:
