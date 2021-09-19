@@ -215,4 +215,13 @@ public class WheatfieldActions {
 		timeline.setCycleCount(Animation.INDEFINITE);
 		timeline.play();
 	}
+		public HashMap<String, ArableField> getarableFields(){
+		HashMap<String, ArableField> allfields = new HashMap<>();
+		allfields.putAll(wheatfieldOneTracker);
+		allfields.putAll(wheatfieldTwoTracker);
+		allfields.putAll(wheatfieldThreeTracker);
+		return allfields;
+		}
+		
+	}
 }
