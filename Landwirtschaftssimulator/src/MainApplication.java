@@ -378,7 +378,7 @@ public class MainApplication extends Application {
 						break;
 					case M:
 						farmyard.farmyardMenu(((Farmyard) aonb.search(player.getX(), player.getY(), "Building")),
-								tractorInstanz, aonb, player, cultivator, seeddrill, harvesterInstanz, wa);
+								tractorInstanz, aonb, player, cultivator, seeddrill, harvesterInstanz, wa, save);
 					default:
 						break;
 					}
@@ -528,7 +528,7 @@ public class MainApplication extends Application {
 		GridPane grid = new GridPane();
 
 		for (int i = 0; i < 30; i++) {
-			ColumnConstraints column = new ColumnConstraints(50); // SpielfeldgrÃ¶sse
+			ColumnConstraints column = new ColumnConstraints(50); // SpielfeldgrÃƒÂ¶sse
 			grid.getColumnConstraints().add(column);
 		}
 
@@ -562,7 +562,7 @@ public GridPane generateHeadline(Player player, Tractor tractor, Harvester harve
 	         grid.getColumnConstraints().add(column);
 	     }
 		
-		Menu menu = new Menu("Menü");
+		Menu menu = new Menu("MenÃ¼");
 		MenuBar menuBar = new MenuBar();
 		MenuItem load = new MenuItem("Spiel laden");
 		load.setOnAction(e -> {
@@ -618,7 +618,7 @@ public GridPane generateHeadline(Player player, Tractor tractor, Harvester harve
 			return vehicle = "Traktor Tank: " + save.getTractorFuel();
 		}
 		else {
-			return vehicle = "Mädrescher Tank: " + save.getHarvesterFuel();
+			return vehicle = "MÃ¤drescher Tank: " + save.getHarvesterFuel();
 		}
 	}
 	
@@ -667,7 +667,7 @@ public GridPane generateHeadline(Player player, Tractor tractor, Harvester harve
 		
 		Label playerFarmyard = new Label("M");
 		grid.add(playerFarmyard, 1, 6);
-		Label playerFarmyardB = new Label("Landhaus Menü öffnen");
+		Label playerFarmyardB = new Label("Landhaus MenÃ¼ Ã¶ffnen");
 		grid.add(playerFarmyardB, 4, 6, 4, 1);
 		
 		Label vehicle = new Label("Fahrzeug");
@@ -701,7 +701,7 @@ public GridPane generateHeadline(Player player, Tractor tractor, Harvester harve
 		
 		Label traktorEquip = new Label("X");
 		grid.add(traktorEquip, 1, 14);
-		Label traktorEquipB = new Label("Anhänger an- und abhängen (Nur Traktor!");
+		Label traktorEquipB = new Label("AnhÃ¤nger an- und abhÃ¤ngen (Nur Traktor!");
 		grid.add(traktorEquipB, 4, 14, 5, 1);
 		
 		Label traktorFuel = new Label("L");
@@ -711,7 +711,7 @@ public GridPane generateHeadline(Player player, Tractor tractor, Harvester harve
 		
 		Label traktorFarmyard = new Label("M");
 		grid.add(traktorFarmyard, 1, 16);
-		Label traktorFarmyardB = new Label("Landhaus Menü öffnen");
+		Label traktorFarmyardB = new Label("Landhaus MenÃ¼ Ã¶ffnen");
 		grid.add(traktorFarmyardB, 4, 16, 4, 1);
 		
 		Scene scene = new Scene(grid);
