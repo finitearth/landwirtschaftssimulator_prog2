@@ -12,6 +12,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import machinery.Cultivator;
@@ -37,7 +38,7 @@ public class Farmyard  extends building{
 	GameState save;
 	
 	
-	private int siloLevel;
+	private int siloLevel = 0;
 	private int maxSiloLevel;
 	Image Farmyard  = new Image("File:./Images/Scheune.png", 50, 50, false, false);
 	ArrayList<String> machineParking = new ArrayList<>();
@@ -53,10 +54,11 @@ public class Farmyard  extends building{
 	public void fillSilo() {  
 		Equipment activeEquipment = tractor.getTrailer();
 		if(activeEquipment == dumpTruck) {
-		siloLevel = siloLevel + dumpTruck.getLoad();
-		if(siloLevel > maxSiloLevel) {
-			dumpTruck.setLoad(siloLevel - maxSiloLevel);
-			siloLevel = maxSiloLevel;
+		
+		save.setSiloLevel(save.getSiloLevel() + dumpTruck.getLoad());
+		if(save.getSiloLevel() > maxSiloLevel) {
+			dumpTruck.setLoad(save.getSiloLevel() - maxSiloLevel);
+			save.setSiloLevel(maxSiloLevel);
 		}
 		else {
 			dumpTruck.setLoad(0);
@@ -67,16 +69,19 @@ public class Farmyard  extends building{
 		Equipment activeEquipment = tractor.getTrailer();
 		if(activeEquipment == dumpTruck) {
 		int amountOfClear = dumpTruck.getMaxload() - dumpTruck.getLoad();
-		if(siloLevel >= (amountOfClear)) {
+		if(save.getSiloLevel() >= (amountOfClear)) {
 			dumpTruck.setLoad(dumpTruck.getMaxload());
-			siloLevel = siloLevel - amountOfClear;
+			save.setSiloLevel(save.getSiloLevel() - amountOfClear);
 		}
 		else {
-			dumpTruck.setLoad(dumpTruck.getLoad() + siloLevel);
-			siloLevel = 0;
+			dumpTruck.setLoad(dumpTruck.getLoad() + save.getSiloLevel());
+			save.setSiloLevel(0);
 			}
 		}
 	}
+	
+	
+	
 	public void machinePickUp(String storingMachinery, int index) {
 		switch(storingMachinery) {
 			case "tractor":
@@ -236,6 +241,9 @@ public class Farmyard  extends building{
 			Button unload = new Button("unload");
 			unload.setPrefSize(140, 18);
 			unload.setOnMouseClicked(e -> {fillSilo();});
+			
+			Label currentSiloLevel = new Label("Silo level: " + save.getSiloLevel());
+			currentSiloLevel.setPrefSize(90, 18);
 
 			//GridPane gridpane = new GridPane();
 			//			GridPane.setConstraints(load, 1, 0);
@@ -250,11 +258,11 @@ public class Farmyard  extends building{
 			//gridpane.getChildren().addAll(wheatfield2, wheatfield3, load, unload);
 			//gridpane.setAlignment(Pos.CENTER);
 			
-			layout.getChildren().addAll(BtnCultivator, BtnDumpTruck, BtnHarvester, BtnSeedDrill,BtnTractor,  load, unload, wheatfield2, wheatfield3);
+			layout.getChildren().addAll(BtnCultivator, BtnDumpTruck, BtnHarvester, BtnSeedDrill,BtnTractor,  load, unload, wheatfield2, wheatfield3, currentSiloLevel);
 			
 			layout.setAlignment(Pos.CENTER);
 			
-			Scene scene1 = new Scene(layout, 350, 300);
+			Scene scene1 = new Scene(layout, 350, 400);
 			
 			popupwindow.setScene(scene1);
 

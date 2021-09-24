@@ -9,6 +9,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 import Fields.ArableField;
+import buildings.Farmyard;
 import buildings.Player;
 import machinery.Cultivator;
 import machinery.DumpTruck;
@@ -20,7 +21,7 @@ import machinery.Tractor;
  * A class that saves the state of the game to a file and is able to load the
  * game state from a file.
  *
- * @author Lukas Bumüller and Tom Zehle
+ * @author Lukas Bumï¿½ller and Tom Zehle
  * @version 1.0
  *
  */
@@ -32,18 +33,20 @@ public class GameState {
 	SeedDrill seeddrill;
 	Harvester harvester;
 	DumpTruck dumptruck;
+	Farmyard farmyard;
 
 	/*
 	 * setup of the gamestate instance. Defines all the necessary objects that need
 	 * to be kept track of.
 	 */
 	public void setup(Player player_, Tractor tractor_, Cultivator cultivator_, SeedDrill seeddrill_,
-			Harvester harvester_, DumpTruck dumptruck) {
+			Harvester harvester_, DumpTruck dumptruck, Farmyard farmyard_) {
 		player = player_;
 		tractor = tractor_;
 		cultivator = cultivator_;
 		seeddrill = seeddrill_;
 		harvester = harvester_;
+		farmyard = farmyard_;
 		this.dumptruck = dumptruck;
 	}
 
@@ -202,6 +205,17 @@ public class GameState {
 
 	public int getTractorY() {
 		return (int) tractor.getY();
+	}
+	
+
+	private int siloLevel = 0;
+	
+	public void setSiloLevel(int fuel) {
+		siloLevel = siloLevel + fuel;
+	}
+	
+	public int getSiloLevel() {
+		return siloLevel;
 	}
 
 	public void setTractorY(int tractorY) {
