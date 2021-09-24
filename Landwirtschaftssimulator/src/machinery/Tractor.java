@@ -76,6 +76,9 @@ public class Tractor extends Vehicle {
 		}
 
 	}
+	public Equipment getTrailer() {
+		return trailer;
+	}
 
 	/*
 	 * Equips a equipment if there's no trailer attached yet by setting the trailer
@@ -100,6 +103,7 @@ public class Tractor extends Vehicle {
 	public void deequip() {
 		trailer = null;
 	}
+
 
 	/*
 	 * sets the image to facing up and updates the coordinates of the tractor. Calls
@@ -188,5 +192,10 @@ public class Tractor extends Vehicle {
 	public void setFuel(int fuel) {
 		this.fuel = fuel;
 
+	}
+
+	public void setImageD() {
+		setImage(TractorViewW);
+		
 	}
 }

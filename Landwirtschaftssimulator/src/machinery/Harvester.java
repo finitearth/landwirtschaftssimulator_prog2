@@ -63,6 +63,10 @@ public class Harvester extends Vehicle {
 		graintank += grainamount;
 	}
 
+	public void setImageD() {
+		setImage(ViewD);
+	}
+	
 	/*
 	 * Method to harvest a field. Use aonb.search in order to find the nearest field
 	 * nearby. If it returns null, there is no field nearby -> do nothing. If there
@@ -75,6 +79,20 @@ public class Harvester extends Vehicle {
 		}
 	}
 
+	public void fillDumpTruck(DumpTruck dumpTruck_, Harvester harvester_) {
+		Equipment activeEquipment = ((Equipment) aonb.search(harvester_.getX(), harvester_.getY(), "Trailer"));
+		if(activeEquipment == dumpTruck_) {
+			if(graintank + dumpTruck_.getLoad() <= dumpTruck_.getMaxload()) {
+				dumpTruck_.setLoad(graintank + dumpTruck_.getLoad());
+				graintank = 0;
+		}
+		else {
+			dumpTruck_.setLoad(dumpTruck_.getMaxload());
+			graintank = graintank + dumpTruck_.getLoad() - dumpTruck_.getMaxload();
+		}
+		}
+		
+	}
 	/*
 	 * sets the image to facing up and updates the coordinates of the tractor. Calls
 	 * harvest. Checks for Collision.

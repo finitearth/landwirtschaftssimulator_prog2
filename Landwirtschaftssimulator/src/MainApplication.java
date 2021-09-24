@@ -313,9 +313,9 @@ public class MainApplication extends Application {
 		Tractor tractor = new Tractor(1300, 500, 10000, 25.0, bc, aonb, save);
 		Cultivator cultivator = new Cultivator(1250, 500);
 		SeedDrill seeddrill = new SeedDrill(1350, 500);
-		Landtrade landtrade = new Landtrade(1200, 550);
-		Farmyard farmyard = new Farmyard(1300, 450);
-		GasStation gasStation = new GasStation(250, 350);
+		Landtrade landtrade = new Landtrade(1200, 550, save);
+		Farmyard farmyard = new Farmyard(1300, 450, aonb, save, player);
+		GasStation gasStation = new GasStation(250, 350, save);
 		Harvester harvester = new Harvester(400, 500, 10000, 500, 25.0, bc, aonb, save);
 		save.setup(player, tractor, cultivator, seeddrill, harvester, dumptruck);
 		aonb.add(tractor, "Vehicle");
@@ -324,17 +324,18 @@ public class MainApplication extends Application {
 		aonb.add(landtrade, "Building");
 		aonb.add(farmyard, "Building");
 		aonb.add(seeddrill, "Trailer");
-		aonb.add(harvester, "Vehicle");
+		aonb.add(harvester, "Vehicle2");
+		aonb.add(dumptruck, "Trailer");
 		
 		GridPane headline = generateHeadline(player, tractor, harvester);
 		grid.add(headline, 0, 0, 30, 1);
 
 		final Group group = new Group(grid, player, tractor, cultivator, gasStation, farmyard, landtrade, seeddrill,
-				harvester);
+				harvester, dumptruck);
 		Scene scene = new Scene(group);
 
 		movePlayerOnKeyPress(scene, player, gasStation, tractor, landtrade, farmyard, cultivator, seeddrill, save,
-				harvester);
+				harvester, dumptruck);
 		movePlayerOnMousePress(scene, player, createTransition(player));
 
 		// GridPane gridPane = generateGamefield(wa.bitmap);
@@ -343,9 +344,9 @@ public class MainApplication extends Application {
 
 	}
 
-	private void movePlayerOnKeyPress(Scene scene, Player player, GasStation gasStation, Tractor tractorInstanz,
-			Landtrade landtrade, Farmyard farmyard, Cultivator cultivator, SeedDrill seeddrill, GameState save,
-			Harvester harvesterInstanz) { // TODO transitions
+	private void movePlayerOnKeyPress(Scene scene, Player player, GasStation gasStation, Tractor tractor_,
+			Landtrade landtrade, Farmyard farmyard, Cultivator cultivator_, SeedDrill seeddrill_, GameState save,
+			Harvester harvester_, DumpTruck dumpTruck_) { // TODO transitions
 
 		/*
 		 * bc.addboundary(550, 700, 650, 1000); // lower river and forest
@@ -374,11 +375,12 @@ public class MainApplication extends Application {
 						player.moveleft(bc, walkingspeed);
 						break;
 					case E:
-						player.setEnteredVehicle((Vehicle) aonb.search(player.getX(), player.getY(), "Vehicle"));
+						player.setEnteredVehicle((Vehicle) aonb.search(player.getX(), player.getY(), "Vehicle"),tractor_);
+						player.setEnteredVehicle((Vehicle) aonb.search(player.getX(), player.getY(), "Vehicle2"), harvester_);
 						break;
 					case M:
 						farmyard.farmyardMenu(((Farmyard) aonb.search(player.getX(), player.getY(), "Building")),
-								tractorInstanz, aonb, player, cultivator, seeddrill, harvesterInstanz, wa, save);
+								tractor_, cultivator_, seeddrill_, harvester_, dumpTruck_, wa);
 					default:
 						break;
 					}
@@ -404,7 +406,7 @@ public class MainApplication extends Application {
 						player.setX(tractor.getX());
 						player.setY(tractor.getY());
 						player.setImageW();
-						player.setEnteredVehicle(null);
+						player.setEnteredVehicle(null, tractor_);
 						break;
 					case X:
 						tractor.equip((Equipment) aonb.search(tractor.getX(), tractor.getY(), "Trailer"));
@@ -418,14 +420,14 @@ public class MainApplication extends Application {
 						break;
 					case L:
 						gasStation.refuelTractor((GasStation) aonb.search(tractor.getX(), tractor.getY(), "Building"),
-								tractorInstanz, save);
+								tractor_);
 						break;
 					case V:
-						landtrade.selling((Landtrade) aonb.search(tractor.getX(), tractor.getY(), "Building"));
-						break; // nur provisorisch
+						landtrade.selling((Landtrade) aonb.search(tractor.getX(), tractor.getY(), "Building"),dumpTruck_,tractor);
+						break; 
 					case M:
 						farmyard.farmyardMenu(((Farmyard) aonb.search(tractor.getX(), tractor.getY(), "Building")),
-								tractorInstanz, aonb, player, cultivator, seeddrill, harvesterInstanz, wa, save);
+								tractor_, cultivator_, seeddrill_, harvester_, dumpTruck_, wa);
 					default:
 						break;
 					}
@@ -449,16 +451,18 @@ public class MainApplication extends Application {
 						player.setX(harvester.getX());
 						player.setY(harvester.getY());
 						player.setImageW();
-						player.setEnteredVehicle(null);
+						player.setEnteredVehicle(null, harvester_);
 						break;
 					case L:
 						gasStation.refuelHarvester(
 								(GasStation) aonb.search(harvester.getX(), harvester.getY(), "Building"),
-								harvesterInstanz, save);
+								harvester_);
 						break;
 					case M:
-						farmyard.farmyardMenu(((Farmyard) aonb.search(harvester.getX(), harvester.getY(), "Building")),
-								tractorInstanz, aonb, player, cultivator, seeddrill, harvesterInstanz, wa, save);
+						farmyard.farmyardMenu(
+								((Farmyard) aonb.search(harvester.getX(), harvester.getY(), "Building")),
+								tractor_, cultivator_, seeddrill_, harvester_, dumpTruck_, wa);
+					case F			: 	harvester.fillDumpTruck(dumpTruck_, harvester_);
 					case SPACE:
 						break;
 					default:
