@@ -64,7 +64,7 @@ public class Vehicle extends ImageView {
 					"Ihr Tank ist leer und wachen ohnm�chtig an einer Tanke auf!\nZahle 3.000$ f�r deine Unachtsamkeit!",
 					actions);
 			wind.display();
-			gs.setCash(gs.getCash() - 3000);
+			gs.setCash(gs.getCash() - 15000);
 			fuel = maxfuel;
 			setX(250);
 			setY(350);
