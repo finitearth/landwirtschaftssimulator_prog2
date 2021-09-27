@@ -102,18 +102,20 @@ public class ArableField extends ImageView {
 	}
 
 	/**
-	 * harvests the field if field is harvastable (growth state of 3) and owned.
-	 * fills the harvester up with the grain amount obtained. updates the growth
-	 * state to -2 (harvested). Calls updateFieldImage to update the Image.
-	 * 
-	 * @param harvester - The harvester that is harvesting the field.
-	 */
-	public void harvest(Harvester harvester) {
-		if (this.getState() == 3 && this.isOwned()) {
-			harvester.fill(amount);
-			growthstate = -2;
-			updateFieldImage();
-		}
+	* harvests the field if field is harvastable (growth state of 3) and owned.
+	* fills the harvester up with the grain amount obtained. updates the growth
+	* state to -2 (harvested). Calls updateFieldImage to update the Image.
+	* 
+	* @return the amount of grain harvested.
+	*/
+	public int harvest() {
+	if (this.getState() == 3 && this.isOwned()) {
+	growthstate = -2;
+	updateFieldImage();
+	return amount;
+	}
+	return 0;
+
 	}
 
 	/**

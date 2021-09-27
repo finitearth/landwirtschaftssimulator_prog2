@@ -75,9 +75,9 @@ public class Harvester extends Vehicle {
 	public void harvest() {
 		ArableField field = (ArableField) aonb.search(getX(), getY(), "ArableField");
 		if (field != null) {
-			field.harvest(this);
+		graintank += field.harvest();
 		}
-	}
+		}
 
 	public void fillDumpTruck(DumpTruck dumpTruck_, Harvester harvester_) {
 		Equipment activeEquipment = ((Equipment) aonb.search(harvester_.getX(), harvester_.getY(), "Trailer"));
