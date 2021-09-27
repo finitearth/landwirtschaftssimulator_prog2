@@ -80,7 +80,7 @@ public class Harvester extends Vehicle {
 		}
 
 	public void fillDumpTruck(DumpTruck dumpTruck_, Harvester harvester_) {
-		Equipment activeEquipment = ((Equipment) aonb.search(harvester_.getX(), harvester_.getY(), "Trailer"));
+		Equipment activeEquipment = ((Equipment) aonb.search(harvester_.getX() + 25, harvester_.getY() + 25, "Trailer"));
 		if(activeEquipment == dumpTruck_) {
 			if(graintank + dumpTruck_.getLoad() <= dumpTruck_.getMaxload()) {
 				dumpTruck_.setLoad(graintank + dumpTruck_.getLoad());
@@ -100,7 +100,7 @@ public class Harvester extends Vehicle {
 	public void moveup() {
 		setImage(ViewW);
 		updatefuel();
-		setY(getY() + cb.collisioncheckY(getX(), getY(), -speed));
+		setY(getY() + cb.collisioncheckY(getX()+25, getY()+25, -speed));
 		harvest();
 	}
 
@@ -111,7 +111,7 @@ public class Harvester extends Vehicle {
 	public void moveright() {
 		setImage(ViewD);
 		updatefuel();
-		setX(getX() + cb.collisioncheckX(getX(), getY(), +speed));
+		setX(getX() + cb.collisioncheckX(getX()+25, getY()+25, +speed));
 		harvest();
 	}
 
@@ -122,7 +122,7 @@ public class Harvester extends Vehicle {
 	public void movedown() {
 		setImage(ViewS);
 		updatefuel();
-		setY(getY() + cb.collisioncheckY(getX(), getY(), +speed));
+		setY(getY() + cb.collisioncheckY(getX()+25, getY()+25, +speed));
 		harvest();
 	}
 
@@ -133,7 +133,7 @@ public class Harvester extends Vehicle {
 	public void moveleft() {
 		setImage(ViewA);
 		updatefuel();
-		setX(getX() + cb.collisioncheckX(getX(), getY(), -speed));
+		setX(getX() + cb.collisioncheckX(getX()+25, getY()+25, -speed)); // + 25 
 		harvest();
 	}
 
@@ -175,22 +175,3 @@ public class Harvester extends Vehicle {
 	}
 
 }
-
-// public void mow(Grainfield field) {
-/*
- * int grainamount = field.getGrainamount(); if (graintank + grainamount <=
- * maxgraintank) { graintank += grainamount; field.mow(); } else {
- * System.out.println("Tank full"); }
- *
- * }
- */
-
-/*
- * public void empty(Silo silo) { int silox = silo.getX(); int siloy =
- * silo.getY(); int silolevel = silo.getLevel();
- * 
- * if (Math.pow((silox - x), 2) + Math.pow((siloy - y), 2) < 1) { try {
- * silo.setLevel(silolevel + graintank); graintank = 0; } catch (TankFull e) {
- * System.out.println("Tank full :("); } }
- */
-// }

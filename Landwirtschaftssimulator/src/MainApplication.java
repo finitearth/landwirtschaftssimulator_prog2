@@ -290,15 +290,20 @@ public class MainApplication extends Application {
 		int lower_boundary = 1050;
 
 		bc = new CollisionChecker();
-		bc.addboundary(left_boundary - 100, upper_boundary, left_boundary, lower_boundary); // Left Window boundary
-		bc.addboundary(left_boundary, upper_boundary - 100, right_boundary, upper_boundary); // Upper Window boundary
+		bc.addboundary(left_boundary - 100, upper_boundary, left_boundary +50, lower_boundary); // Left Window boundary
+		bc.addboundary(left_boundary, upper_boundary - 100, right_boundary, upper_boundary + 25); // Upper Window boundary
 		bc.addboundary(right_boundary, upper_boundary, right_boundary + 100, lower_boundary); // Right Window boundary
 		bc.addboundary(left_boundary, lower_boundary, right_boundary, lower_boundary + 100); // Lower Window boundary
 
 		for (int y = 0; y < wa.bitmap.getHeight(); y++) {
 			for (int x = 0; x < wa.bitmap.getWidth(); x++) {
-				if ((wa.bitmap.getRGB(x, y) == -14117429) || (wa.bitmap.getRGB(x, y) == -12889573)) {
-					bc.addboundary(x * 50, y * 50 + 50, x * 50 + 50, y * 50 + 100);
+				if ((wa.bitmap.getRGB(x, y) == -14117429) // is it a river?
+						|| (wa.bitmap.getRGB(x, y) == -12889573) // a forest?
+						|| (wa.bitmap.getRGB(x, y) == -3089935) // a gastation?
+						|| (wa.bitmap.getRGB(x, y) == -6878453) // a farmyard?
+						|| (wa.bitmap.getRGB(x, y) == -10600641)) // a silo?
+				{
+					bc.addboundary(x * 50, y * 50 + 50, x * 50 + 50, y * 50 + 100); // add boundary
 
 				}
 
