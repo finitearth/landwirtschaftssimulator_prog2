@@ -38,7 +38,7 @@ public class Farmyard extends building {
 	GameState save;
 
 	private int siloLevel = 0;
-	private int maxSiloLevel;
+	private int maxSiloLevel = 5000;
 	Image Farmyard = new Image("File:./Images/Scheune.png", 50, 50, false, false);
 	ArrayList<String> machineParking = new ArrayList<>();
 

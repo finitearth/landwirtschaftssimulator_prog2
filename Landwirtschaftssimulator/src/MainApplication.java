@@ -563,7 +563,7 @@ public class MainApplication extends Application {
 			ColumnConstraints column = new ColumnConstraints(50);
 			grid.getColumnConstraints().add(column);
 		}
-		for (int i = 0; i < 17; i++) {
+		for (int i = 0; i < 23; i++) {
 			RowConstraints row = new RowConstraints(30);
 			grid.getRowConstraints().add(row);
 		}
@@ -602,49 +602,67 @@ public class MainApplication extends Application {
 		Label playerFarmyardB = new Label("Open Farmyard menu");
 		grid.add(playerFarmyardB, 4, 6, 4, 1);
 
-		Label vehicle = new Label("Fahrzeug");
+		Label vehicle = new Label("Vehicle");
 		vehicle.setFont(new Font("Arial", 20));
 		grid.add(vehicle, 0, 8, 2, 1);
 
-		Label tractorUp = new Label("W, Pfeiltaste hoch");
+		Label tractorUp = new Label("W, Up arrow key");
 		grid.add(tractorUp, 1, 9, 4, 1);
-		Label tractorUpB = new Label("Bewegung nach oben");
+		Label tractorUpB = new Label("Move up");
 		grid.add(tractorUpB, 4, 9, 4, 1);
 
-		Label traktorLeft = new Label("A, Pfeiltaste links");
+		Label traktorLeft = new Label("A, Left arrow key");
 		grid.add(traktorLeft, 1, 10, 4, 1);
-		Label traktorLeftB = new Label("Bewegung nach links");
+		Label traktorLeftB = new Label("Move left");
 		grid.add(traktorLeftB, 4, 10, 4, 1);
 
-		Label traktorDown = new Label("S, Pfeiltaste runter");
+		Label traktorDown = new Label("S, Down arrow key");
 		grid.add(traktorDown, 1, 11, 4, 1);
-		Label traktorDownB = new Label("Bewegung nach unten");
+		Label traktorDownB = new Label("Move down");
 		grid.add(traktorDownB, 4, 11, 4, 1);
 
-		Label traktorRight = new Label("D, Pfeiltaste rechts");
+		Label traktorRight = new Label("D, Right arrow key");
 		grid.add(traktorRight, 1, 12, 4, 1);
-		Label traktorRightB = new Label("Bewegung nach rechts");
+		Label traktorRightB = new Label("Move right");
 		grid.add(traktorRightB, 4, 12, 4, 1);
 
 		Label traktorLeave = new Label("E");
 		grid.add(traktorLeave, 1, 13);
-		Label traktorLeaveB = new Label("Traktor verlassen");
+		Label traktorLeaveB = new Label("Leave Vehicle");
 		grid.add(traktorLeaveB, 4, 13, 4, 1);
 
-		Label traktorEquip = new Label("X");
-		grid.add(traktorEquip, 1, 14);
-		Label traktorEquipB = new Label("Anhänger an- und abhängen (Nur Traktor!");
-		grid.add(traktorEquipB, 4, 14, 5, 1);
-
 		Label traktorFuel = new Label("L");
-		grid.add(traktorFuel, 1, 15);
-		Label traktorFuelB = new Label("Tanken");
-		grid.add(traktorFuelB, 4, 15, 4, 1);
+		grid.add(traktorFuel, 1, 14);
+		Label traktorFuelB = new Label("Refuel");
+		grid.add(traktorFuelB, 4, 14, 4, 1);
 
 		Label traktorFarmyard = new Label("M");
-		grid.add(traktorFarmyard, 1, 16);
-		Label traktorFarmyardB = new Label("Landhaus Menü öffnen");
-		grid.add(traktorFarmyardB, 4, 16, 4, 1);
+		grid.add(traktorFarmyard, 1, 15);
+		Label traktorFarmyardB = new Label("Open Farmyard Menu");
+		grid.add(traktorFarmyardB, 4, 15, 4, 1);
+		
+		Label tractor = new Label("Tractor");
+		tractor.setFont(new Font("Arial", 20));
+		grid.add(tractor, 0, 17, 2, 1);
+		
+		Label traktorEquip = new Label("X");
+		grid.add(traktorEquip, 1, 18);
+		Label traktorEquipB = new Label("Append trailer");
+		grid.add(traktorEquipB, 4, 18, 5, 1);
+		
+		Label sell = new Label("V");
+		grid.add(sell, 1, 19);
+		Label sellB = new Label("Sell harvest");
+		grid.add(sellB, 4, 19, 5, 1);
+		
+		Label harvester = new Label("Harvester");
+		harvester.setFont(new Font("Arial", 20));
+		grid.add(harvester, 0, 21, 2, 1);
+		
+		Label fillDump = new Label("F");
+		grid.add(fillDump, 1, 22);
+		Label fillDumpB = new Label("Fill harvest in Dump Truck");
+		grid.add(fillDumpB, 4, 22, 5, 1);
 
 		Scene scene = new Scene(grid);
 		popupwindow.setScene(scene);

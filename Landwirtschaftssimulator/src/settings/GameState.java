@@ -207,16 +207,6 @@ public class GameState {
 		return (int) tractor.getY();
 	}
 
-	private int siloLevel = 0;
-
-	public void setSiloLevel(int fuel) {
-		siloLevel = siloLevel + fuel;
-	}
-
-	public int getSiloLevel() {
-		return siloLevel;
-	}
-
 	public void setTractorY(int tractorY) {
 		tractor.setY(tractorY);
 	}
@@ -388,6 +378,17 @@ public class GameState {
 
 	public void setPriceField3(int priceField3) {
 		this.priceField3 = priceField3;
+	}
+	
+	//Farmyard
+	private int siloLevel = 0;
+
+	public void setSiloLevel(int silolevel) {
+		this.siloLevel = silolevel;
+	}
+
+	public int getSiloLevel() {
+		return siloLevel;
 	}
 
 }

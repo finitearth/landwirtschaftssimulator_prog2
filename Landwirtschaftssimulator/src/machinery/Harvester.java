@@ -89,8 +89,9 @@ public class Harvester extends Vehicle {
 				dumpTruck_.setLoad(graintank + dumpTruck_.getLoad());
 				graintank = 0;
 			} else {
+				int dif = dumpTruck_.getMaxload() - dumpTruck_.getLoad();
+				graintank = graintank - dif;
 				dumpTruck_.setLoad(dumpTruck_.getMaxload());
-				graintank = graintank + dumpTruck_.getLoad() - dumpTruck_.getMaxload();
 			}
 		}
 
