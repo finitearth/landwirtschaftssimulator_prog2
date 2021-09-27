@@ -4,6 +4,7 @@ import javafx.scene.image.ImageView;
 
 public class Equipment extends ImageView {
 	public String type = "Equipment";
+
 	public void setImageW() {
 
 	}
@@ -19,6 +20,7 @@ public class Equipment extends ImageView {
 	public void setImageD() {
 
 	}
+
 	public String getType() {
 		return type;
 	}

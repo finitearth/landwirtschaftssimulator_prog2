@@ -13,7 +13,6 @@ public class Player extends ImageView {
 	Image playerImageD = new Image("File:./Images/PlayerD.png");
 	Image playerImageCollided = new Image("File:./Images/PlayerTest.png");
 
-
 	private Vehicle enteredvehicle = null;
 
 	public Player(int posX, int posY) {
@@ -56,8 +55,8 @@ public class Player extends ImageView {
 			enteredvehicle = null;
 			return;
 		}
-		
-		else if (enteredvehicle == null&&  vehicle != null) {
+
+		else if (enteredvehicle == null && vehicle != null) {
 			setNoImage();
 			enteredvehicle = vehicle;
 		}
@@ -68,15 +67,20 @@ public class Player extends ImageView {
 		setImageW();
 		setY(getY() + bc.collisioncheckY(getX(), getY(), -walkingspeed));
 	}
+
 	public void moveright(CollisionChecker bc, double walkingspeed) {
-		setImageD(); setX(getX() + bc.collisioncheckX(getX(), getY(), + walkingspeed));
+		setImageD();
+		setX(getX() + bc.collisioncheckX(getX(), getY(), +walkingspeed));
 	}
 
 	public void movedown(CollisionChecker bc, double walkingspeed) {
-		setImageS(); setY(getY() + bc.collisioncheckY(getX(), getY(), + walkingspeed));
+		setImageS();
+		setY(getY() + bc.collisioncheckY(getX(), getY(), +walkingspeed));
 	}
+
 	public void moveleft(CollisionChecker bc, double walkingspeed) {
-		setImageA(); setX(getX() + bc.collisioncheckX(getX(), getY(), - walkingspeed));
+		setImageA();
+		setX(getX() + bc.collisioncheckX(getX(), getY(), -walkingspeed));
 	}
 
 }

@@ -7,10 +7,10 @@ public class DumpTruck extends Equipment {
 	private int load;
 	private int maxload;
 
-	Image dumpTruckW = new Image("File:./Images/DumpTruckW.png");
-	Image dumpTruckA = new Image("File:./Images/DumpTruckA.png");
-	Image dumpTruckS = new Image("File:./Images/DumpTruckS.png");
-	Image dumpTruckD = new Image("File:./Images/DumpTruckD.png");
+	Image dumpTruckW = new Image("File:./Images/DumpTruckW.png", 50, 50, false, false);
+	Image dumpTruckA = new Image("File:./Images/DumpTruckA.png", 50, 50, false, false);
+	Image dumpTruckS = new Image("File:./Images/DumpTruckS.png", 50, 50, false, false);
+	Image dumpTruckD = new Image("File:./Images/DumpTruckD.png", 50, 50, false, false);
 
 	public DumpTruck(int posX, int posY, int maxload) {
 		this.setX(posX);

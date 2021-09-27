@@ -9,13 +9,13 @@ import settings.GameState;
 /**
  ** This class models a vehicle. It acts as a parent class for the vehicles
  * tractor and harvester.
- * 
+ *
  * @author Tom Zehle
  * @version 1.0
  *
  *
  *
- * 
+ *
  */
 
 public class Vehicle extends ImageView {
@@ -25,17 +25,17 @@ public class Vehicle extends ImageView {
 	Equipment trailer = null;
 	GameState gs;
 
-	/*
+	/**
 	 * Constructor of the vehicle class. Sets the maxfuel capacity, the x and y
 	 * coordinates as well as the game state. The fuel is intialized at the maximum
 	 * fuel capacity.
-	 * 
+	 *
 	 * @param x The x-Coordinate of the vehicle.
-	 * 
+	 *
 	 * @param y The y-Coordinate of the vehicle.
-	 * 
+	 *
 	 * @param maxfuel The maximum fuel capacity of the vehicle.
-	 * 
+	 *
 	 * @param gs the gamestate instance.
 	 */
 	public Vehicle(int x, int y, int maxfuel, GameState gs) {
@@ -46,11 +46,11 @@ public class Vehicle extends ImageView {
 		this.gs = gs;
 	}
 
-	/*
+	/**
 	 * Reduces the amount of fuel left in the tank by the distance traveled. if
 	 * there's no fuel left an event is triggered, spawning the player near together
 	 * with the vehicle near the gasstation and forcing him to pay a fee.
-	 * 
+	 *
 	 */
 	public void updatefuel() {
 		fuel -= 1;
@@ -61,7 +61,7 @@ public class Vehicle extends ImageView {
 			ArrayList<String> actions = new ArrayList<>();
 			actions.add("OKAY!");
 			NotificationPopUp wind = new NotificationPopUp(
-					"Ihr Tank ist leer und wachen ohnmï¿½chtig an einer Tanke auf!\nZahle 3.000$ fï¿½r deine Unachtsamkeit!",
+					"Ihr Tank ist leer und wachen ohnmächtig an einer Tanke auf!\nZahle 15.000$ für deine Unachtsamkeit!",
 					actions);
 			wind.display();
 			gs.setCash(gs.getCash() - 15000);

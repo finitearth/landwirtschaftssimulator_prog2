@@ -1,12 +1,10 @@
 
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
 import java.util.Optional;
 
 import Fields.ArableField;
 import Utils.AvailableObjectsNearby;
 import Utils.CollisionChecker;
-import Utils.NotificationPopUp;
 import Utils.WheatfieldActions;
 import buildings.Farmyard;
 import buildings.GasStation;
@@ -60,7 +58,7 @@ import settings.GameState;
 public class MainApplication extends Application {
 	GameState save = new GameState();
 	AvailableObjectsNearby aonb = new AvailableObjectsNearby();
-	WheatfieldActions wa = new WheatfieldActions(save);
+	WheatfieldActions wa;
 	CollisionChecker bc;
 
 	public static void main(String[] args) {
@@ -86,13 +84,13 @@ public class MainApplication extends Application {
 			stage.setScene(chooseSettings(stage));
 		});
 
-		Button load = new Button("Load Game");
-		load.setFont(new Font("Arial", 30));
-		load.setPrefSize(300, 20);
-		load.relocate(600, 580);
-		load.setOnMouseClicked(e -> {
+		Button keybindings = new Button("Keybindings");
+		keybindings.setFont(new Font("Arial", 30));
+		keybindings.setPrefSize(300, 20);
+		keybindings.relocate(600, 580);
+		keybindings.setOnMouseClicked(e -> {
 
-			save.loadfile(wa.getarableFields());
+			keyAssignment();
 		});
 
 		Button exit = new Button("Exit");
@@ -117,7 +115,7 @@ public class MainApplication extends Application {
 				BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
 		welcome.setBackground(new Background(backgroundImage));
 
-		welcome.getChildren().addAll(headline, load, newGame, exit);
+		welcome.getChildren().addAll(headline, keybindings, newGame, exit);
 
 		Scene scene = new Scene(welcome);
 
@@ -129,12 +127,12 @@ public class MainApplication extends Application {
 
 	public Scene chooseSettings(Stage stage) {
 		Pane settings = new Pane();
-		settings.setPrefSize(1500, 1050);
+		settings.setPrefSize(1200, 800);
 
 		Label headline = new Label("Settings");
 		headline.setFont(new Font("Arial", 30));
 		headline.setPrefSize(200, 20);
-		headline.relocate(650, 30);
+		headline.relocate(590, 30);
 
 		Label nameDescription = new Label("Character Name");
 		nameDescription.setFont(new Font("Arial", 16));
@@ -162,41 +160,12 @@ public class MainApplication extends Application {
 		hard.setToggleGroup(difficultly);
 		hard.relocate(400, 530);
 
-		ToggleGroup playerChoose = new ToggleGroup();
-
-		RadioButton player1 = new RadioButton();
-		player1.setToggleGroup(playerChoose);
-		player1.setSelected(true);
-		player1.relocate(1050, 300);
-		Image player1Image = new Image("File:./Images/PlayerS.png", 50, 50, false, false);
-		ImageView player1View = new ImageView(player1Image);
-		player1View.relocate(1100, 280);
-
-		RadioButton player2 = new RadioButton();
-		player2.setToggleGroup(playerChoose);
-		player2.relocate(1050, 400);
-		Image player2Image = new Image("File:./Images/PlayerS.png", 50, 50, false, false);
-		ImageView player2View = new ImageView(player2Image);
-		player2View.relocate(1100, 380);
-
-		RadioButton player3 = new RadioButton();
-		player3.setToggleGroup(playerChoose);
-		player3.relocate(1050, 500);
-		Image player3Image = new Image("File:./Images/PlayerS.png", 50, 50, false, false);
-		ImageView player3View = new ImageView(player3Image);
-		player3View.relocate(1100, 480);
-
-		RadioButton player4 = new RadioButton();
-		player4.setToggleGroup(playerChoose);
-		player4.relocate(1050, 600);
-		Image player4Image = new Image("File:./Images/PlayerS.png", 50, 50, false, false);
-		ImageView player4View = new ImageView(player4Image);
-		player4View.relocate(1100, 580);
+		
 
 		Button start = new Button("Go In");
 		start.setFont(new Font("Arial", 25));
 		start.setPrefSize(100, 20);
-		start.relocate(700, 850);
+		start.relocate(700, 400);
 		start.setOnMouseClicked(e -> {
 
 			if (name.getText() == "") {
@@ -233,21 +202,14 @@ public class MainApplication extends Application {
 					save.setPriceField2(1500);
 					save.setPriceField3(2000);
 				}
-
+				
+				wa = new WheatfieldActions(save);
 				stage.setScene(generateGame());
 			}
 
 		});
 
-		/*
-		 * Image backg = new Image("File:./Images/", 1500, 1050, false, false); // TODO
-		 * Hintergrundbild erstellen BackgroundImage backgroundImage = new
-		 * BackgroundImage(backg,BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT,
-		 * BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
-		 * settings.setBackground(new Background(backgroundImage));
-		 */
-		settings.getChildren().addAll(headline, nameDescription, name, start, difficultlyLevel, easy, middle, hard,
-				player1, player1View, player2, player2View, player3, player3View, player4, player4View);
+		settings.getChildren().addAll(headline, nameDescription, name, start, difficultlyLevel, easy, middle, hard);
 
 		Scene scene = new Scene(settings);
 
@@ -290,11 +252,13 @@ public class MainApplication extends Application {
 		int lower_boundary = 1050;
 
 		bc = new CollisionChecker();
-		bc.addboundary(left_boundary - 100, upper_boundary, left_boundary +50, lower_boundary); // Left Window boundary
-		bc.addboundary(left_boundary, upper_boundary - 100, right_boundary, upper_boundary + 25); // Upper Window boundary
+		bc.addboundary(left_boundary - 100, upper_boundary, left_boundary + 50, lower_boundary); // Left Window boundary
+		bc.addboundary(left_boundary, upper_boundary - 100, right_boundary, upper_boundary + 25); // Upper Window
+																									// boundary
 		bc.addboundary(right_boundary, upper_boundary, right_boundary + 100, lower_boundary); // Right Window boundary
 		bc.addboundary(left_boundary, lower_boundary, right_boundary, lower_boundary + 100); // Lower Window boundary
 
+		// search for obstacles in the bitmap. if there's an obstacle add a boundary.
 		for (int y = 0; y < wa.bitmap.getHeight(); y++) {
 			for (int x = 0; x < wa.bitmap.getWidth(); x++) {
 				if ((wa.bitmap.getRGB(x, y) == -14117429) // is it a river?
@@ -499,27 +463,6 @@ public class MainApplication extends Application {
 		return transition;
 	}
 
-//	public void updateFields(GridPane gridPane, BufferedImage bitmap) {
-//		Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(5), ev -> {
-//			for (int y = 0; y < bitmap.getHeight(); y++) {
-//				for (int x = 0; x < bitmap.getWidth(); x++) {
-////						System.out.println(bitmap.getRGB(x, y));
-//					if (bitmap.getRGB(x, y) == -3628785) {
-//						String position = "fieldX" + x + "Y" + (y + 1);
-//						ArableField field = wa.wheatfieldOneTracker.get(position);
-//						if (field != null) {
-//							field.update();
-//						}
-//						else
-//							System.out.println("errorr");
-//					}
-//				}
-//			}
-//		}));
-//		timeline.setCycleCount(Animation.INDEFINITE);
-//		timeline.play();
-//	}
-
 	public GridPane generateGamefield(BufferedImage bitmap) {
 		GridPane grid = new GridPane();
 
@@ -532,20 +475,8 @@ public class MainApplication extends Application {
 			RowConstraints row = new RowConstraints(50);
 			grid.getRowConstraints().add(row);
 		}
-		// grid.setGridLinesVisible(false);
 		return grid;
 
-		/*
-		 * File file = new File("Images/Bitmap.bmp"); // Weizenfelder BufferedImage
-		 * bitmap;
-		 */
-		/*
-		 * try { bitmap = ImageIO.read(file); for (int y = 0; y < bitmap.getHeight();
-		 * y++) { for (int x = 0; x < bitmap.getWidth(); x++) { //
-		 * System.out.println(bitmap.getRGB(x, y)); if(bitmap.getRGB(x, y) == -10728) {
-		 * grid.add(new Field(), x, (y+1)); } } } } catch (IOException e) {
-		 * e.printStackTrace(); }
-		 */
 
 	}
 

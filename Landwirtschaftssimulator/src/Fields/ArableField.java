@@ -2,8 +2,6 @@ package Fields;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import machinery.Harvester;
-import settings.GameState;
 
 /**
  * This class models arable fields. Particularly it defines rather the field is
@@ -45,7 +43,7 @@ public class ArableField extends ImageView {
 	 * Constructor for the ArableField class. Intializes the image via
 	 * updateFieldImage, sets the x/y coordinates of the field as well as the amount
 	 * obtained from harvesting this field
-	 * 
+	 *
 	 * @param x       the x coordinate of the field
 	 * @param y       the y coordinate of the field
 	 * @param amount_ the amount obtained from harvesting the field.
@@ -55,7 +53,7 @@ public class ArableField extends ImageView {
 		this.setX(x);
 		this.setY(y);
 		amount = amount_;
-		;
+
 	}
 
 	/**
@@ -102,19 +100,20 @@ public class ArableField extends ImageView {
 	}
 
 	/**
-	* harvests the field if field is harvastable (growth state of 3) and owned.
-	* fills the harvester up with the grain amount obtained. updates the growth
-	* state to -2 (harvested). Calls updateFieldImage to update the Image.
-	* 
-	* @return the amount of grain harvested.
-	*/
+	 * harvests the field if field is harvastable (growth state of 3) and owned.
+	 * fills the harvester up with the grain amount obtained. updates the growth
+	 * state to -2 (harvested). Calls updateFieldImage to update the Image.
+	 *
+	 * @return the amount of grain harvested.
+	 */
 	public int harvest() {
-	if (this.getState() == 3 && this.isOwned()) {
-	growthstate = -2;
-	updateFieldImage();
-	return amount;
-	}
-	return 0;
+		if (this.getState() == 3 && this.isOwned()) {
+			growthstate = -2;
+			updateFieldImage();
+			System.out.println(amount);
+			return amount;
+		}
+		return 0;
 
 	}
 
@@ -143,7 +142,7 @@ public class ArableField extends ImageView {
 
 	/**
 	 * Getter for the growthstate
-	 * 
+	 *
 	 * @return the growthstate of the field
 	 */
 	public int getState() {
@@ -152,9 +151,9 @@ public class ArableField extends ImageView {
 
 	/**
 	 * sets the growthstate of the field and updates the image accordingly.
-	 * 
+	 *
 	 * @param int growthstate_ the growthstate the field is supposed to be set to.
-	 * 
+	 *
 	 */
 	public void setState(int growthstate_) {
 		growthstate = growthstate_;
@@ -163,7 +162,7 @@ public class ArableField extends ImageView {
 
 	/**
 	 * Getter for the owned-status
-	 * 
+	 *
 	 * @return boolean: rather the field is being owned or not
 	 */
 	public boolean isOwned() {
@@ -172,9 +171,9 @@ public class ArableField extends ImageView {
 
 	/**
 	 * sets the owned variable of the field and updates the image accordingly.
-	 * 
+	 *
 	 * @param boolean owned: if the field is supposed to be owned or not.
-	 * 
+	 *
 	 */
 	public void setOwned(boolean owned) {
 		this.owned = owned;

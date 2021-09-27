@@ -56,7 +56,7 @@ public class WheatfieldActions {
 	 * The Constructor attempts to read the Bitmap.bmp file into a BufferedImage
 	 * variable, sets the variable amount and populates the WheatfieldOwnership
 	 * HashMap with the appropiate key-value pairs.
-	 * 
+	 *
 	 * @param sf sf is of type GameState and corresponds to the current state of the
 	 *           game
 	 */
@@ -67,7 +67,8 @@ public class WheatfieldActions {
 			e.printStackTrace();
 		}
 		amount = sf.getAmount();
-		this.WheatfieldOwnership.put("wheatfieldOne", true); // Field #1 is the only one you own at the start of the game
+		this.WheatfieldOwnership.put("wheatfieldOne", true); // Field #1 is the only one you own at the start of the
+																// game
 		this.WheatfieldOwnership.put("wheatfieldTwo", false); // that's why Ownership = false for the other two
 		this.WheatfieldOwnership.put("wheatfieldThree", false);
 	}
@@ -80,15 +81,16 @@ public class WheatfieldActions {
 	 * player is charged the price of wheatfield #2. 5. The HashMap
 	 * WheatfieldOwnership is updated such that the player cannot buy wheatfield #2
 	 * again.
-	 * 
+	 *
 	 * @param sf The GameState is needed to charge the player the price of
 	 *           wheatfield #2.
 	 */
 	public void BuyWheatfieldTwo(GameState sf) {
-		if ((this.WheatfieldOwnership.get("wheatfieldTwo") == false) &&		// You can only buy Field #2 if you don't own it yet
-			(sf.getCash() >= sf.getPriceField2()))							// and you have enough money to buy it
+		if (!this.WheatfieldOwnership.get("wheatfieldTwo") && // You can only buy Field #2 if you don't own it
+																// yet
+				(sf.getCash() >= sf.getPriceField2())) // and you have enough money to buy it
 		{
-			for (int y = 0; y < bitmap.getHeight(); y++) { 
+			for (int y = 0; y < bitmap.getHeight(); y++) {
 				for (int x = 0; x < bitmap.getWidth(); x++) {
 					String position = "fieldX" + x + "Y" + (y + 1);
 					ArableField field = wheatfieldTwoTracker.get(position);
@@ -97,9 +99,9 @@ public class WheatfieldActions {
 				}
 			}
 			sf.setCash(sf.getCash() - sf.getPriceField2());
-			this.WheatfieldOwnership.put("wheatfieldTwo", true); // Ownership is set to true because you now own this field
-		}
-		else if (this.WheatfieldOwnership.get("wheatfieldTwo"))
+			this.WheatfieldOwnership.put("wheatfieldTwo", true); // Ownership is set to true because you now own this
+																	// field
+		} else if (this.WheatfieldOwnership.get("wheatfieldTwo"))
 			System.out.println("You already own this field!");
 		else
 			System.out.println("You don't have enough money haha!");
@@ -113,15 +115,16 @@ public class WheatfieldActions {
 	 * player is charged the price of wheatfield #3. 5. The HashMap
 	 * WheatfieldOwnership is updated such that the player cannot buy wheatfield #3
 	 * again.
-	 * 
+	 *
 	 * @param sf The GameState is needed to charge the player the price of
 	 *           wheatfield #3.
 	 */
 	public void BuyWheatfieldThree(GameState sf) {
-		if ((this.WheatfieldOwnership.get("wheatfieldThree") == false) &&	// You can only buy Field #2 if you don't own it yet
-			(sf.getCash() >= sf.getPriceField3()))	 						// and you have enough money to buy it
+		if (!this.WheatfieldOwnership.get("wheatfieldThree") && // You can only buy Field #2 if you don't own
+																// it yet
+				(sf.getCash() >= sf.getPriceField3())) // and you have enough money to buy it
 		{
-			for (int y = 0; y < bitmap.getHeight(); y++) { 
+			for (int y = 0; y < bitmap.getHeight(); y++) {
 				for (int x = 0; x < bitmap.getWidth(); x++) {
 					String position = "fieldX" + x + "Y" + (y + 1);
 					ArableField field = wheatfieldThreeTracker.get(position);
@@ -130,9 +133,9 @@ public class WheatfieldActions {
 				}
 			}
 			sf.setCash(sf.getCash() - sf.getPriceField3());
-			this.WheatfieldOwnership.put("wheatfieldThree", true); // Ownership is set to true because you now own this field
-		}
-		else if (this.WheatfieldOwnership.get("wheatfieldThree"))
+			this.WheatfieldOwnership.put("wheatfieldThree", true); // Ownership is set to true because you now own this
+																	// field
+		} else if (this.WheatfieldOwnership.get("wheatfieldThree"))
 			System.out.println("You already own this field!");
 		else
 			System.out.println("You don't have enough money haha!");
@@ -141,14 +144,16 @@ public class WheatfieldActions {
 	/**
 	 * This function generates a new arable field tile, sets its coordinates and
 	 * amount and puts it into the HashMap wheatfieldOneTracker.
-	 * 
+	 *
 	 * @param x x refers to position of the tile within the bitmap. It does not
 	 *          refer to the position of the tile on the actual, playable map.
 	 * @param y y refers to position of the tile within the bitmap. It does not
 	 *          refer to the position of the tile on the actual, playable map.
 	 */
 	public ArableField GenerateWheatfieldOne(int x, int y) {
-		ArableField arableField = new ArableField(x * 50, (y + 1) * 50, amount); // x and y are multiplied by 50 because the Map is 50 times bigger than the Bitmap
+		ArableField arableField = new ArableField(x * 50, (y + 1) * 50, amount); // x and y are multiplied by 50 because
+																					// the Map is 50 times bigger than
+																					// the Bitmap
 		String position = "fieldX" + x + "Y" + (y + 1);
 		this.wheatfieldOneTracker.put(position, arableField);
 		arableField.setOwned(true);
@@ -158,14 +163,16 @@ public class WheatfieldActions {
 	/**
 	 * This function generates a new arable field tile, sets its coordinates and
 	 * amount and puts it into the HashMap wheatfieldTwoTracker.
-	 * 
+	 *
 	 * @param x x refers to position of the tile within the bitmap. It does not
 	 *          refer to the position of the tile on the actual, playable map.
 	 * @param y y refers to position of the tile within the bitmap. It does not
 	 *          refer to the position of the tile on the actual, playable map.
 	 */
 	public ArableField GenerateWheatfieldTwo(int x, int y) {
-		ArableField arableField = new ArableField(x * 50, (y + 1) * 50, amount); // x and y are multiplied by 50 because the Map is 50 times bigger than the Bitmap
+		ArableField arableField = new ArableField(x * 50, (y + 1) * 50, amount); // x and y are multiplied by 50 because
+																					// the Map is 50 times bigger than
+																					// the Bitmap
 		String position = "fieldX" + x + "Y" + (y + 1);
 		this.wheatfieldTwoTracker.put(position, arableField);
 		arableField.setOwned(false);
@@ -175,14 +182,16 @@ public class WheatfieldActions {
 	/**
 	 * This function generates a new arable field tile, sets its coordinates and
 	 * amount and puts it into the HashMap wheatfieldThreeTracker.
-	 * 
+	 *
 	 * @param x x refers to position of the tile within the bitmap. It does not
 	 *          refer to the position of the tile on the actual, playable map.
 	 * @param y y refers to position of the tile within the bitmap. It does not
 	 *          refer to the position of the tile on the actual, playable map.
 	 */
 	public ArableField GenerateWheatfieldThree(int x, int y) {
-		ArableField arableField = new ArableField(x * 50, (y + 1) * 50, amount); // x and y are multiplied by 50 because the Map is 50 times bigger than the Bitmap
+		ArableField arableField = new ArableField(x * 50, (y + 1) * 50, amount); // x and y are multiplied by 50 because
+																					// the Map is 50 times bigger than
+																					// the Bitmap
 		String position = "fieldX" + x + "Y" + (y + 1);
 		this.wheatfieldThreeTracker.put(position, arableField);
 		arableField.setOwned(false);
@@ -215,13 +224,14 @@ public class WheatfieldActions {
 		timeline.setCycleCount(Animation.INDEFINITE);
 		timeline.play();
 	}
-		public HashMap<String, ArableField> getarableFields(){
+
+	// TODO Doku
+	public HashMap<String, ArableField> getarableFields() {
 		HashMap<String, ArableField> allfields = new HashMap<>();
 		allfields.putAll(wheatfieldOneTracker);
 		allfields.putAll(wheatfieldTwoTracker);
 		allfields.putAll(wheatfieldThreeTracker);
 		return allfields;
 	}
-		
-}
 
+}

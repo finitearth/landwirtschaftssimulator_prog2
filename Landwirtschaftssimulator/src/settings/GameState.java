@@ -35,7 +35,7 @@ public class GameState {
 	DumpTruck dumptruck;
 	Farmyard farmyard;
 
-	/*
+	/**
 	 * setup of the gamestate instance. Defines all the necessary objects that need
 	 * to be kept track of.
 	 */
@@ -50,7 +50,7 @@ public class GameState {
 		this.dumptruck = dumptruck;
 	}
 
-	/*
+	/**
 	 * finds all relevant variables of the relevant objects, as well as game
 	 * variables and saves them to a json file.
 	 */
@@ -84,9 +84,9 @@ public class GameState {
 		fieldtracker.forEach((position, field) -> {
 
 			if (field.isOwned()) {
-				obj.put(position, ((ArableField) field).getState());
+				obj.put(position, field.getState());
 			}
-			
+
 			else {
 				obj.put(position, -10);
 			}
@@ -101,7 +101,8 @@ public class GameState {
 			e.printStackTrace();
 		}
 	}
-	/*
+
+	/**
 	 * Sets all the relevant variables of all relevant objects, as well as the game
 	 * variables to the values defined in the json file.
 	 */
@@ -136,13 +137,12 @@ public class GameState {
 			fieldtracker.forEach((position, field) -> {
 				int state = (int) (long) obj.get(position);
 				if (state == -10) {
-					((ArableField) field).setOwned(false);
+					field.setOwned(false);
+				} else {
+					field.setOwned(true);
+					field.setState(state);
 				}
-				else {
-					((ArableField) field).setOwned(true);
-					((ArableField) field).setState(state);
-				}
-				
+
 			});
 
 		} catch (Exception e) {
@@ -206,14 +206,13 @@ public class GameState {
 	public int getTractorY() {
 		return (int) tractor.getY();
 	}
-	
 
 	private int siloLevel = 0;
-	
+
 	public void setSiloLevel(int fuel) {
 		siloLevel = siloLevel + fuel;
 	}
-	
+
 	public int getSiloLevel() {
 		return siloLevel;
 	}
@@ -352,7 +351,7 @@ public class GameState {
 
 	// ArableField
 
-	private int amount = 0;
+	private int amount;
 
 	public int getAmount() {
 		return amount;

@@ -28,17 +28,17 @@ public class Harvester extends Vehicle {
 	Image ViewW = new Image("File:./Images/HarvesterW.png", 50, 50, false, false);
 	Image ViewS = new Image("File:./Images/HarvesterS.png", 50, 50, false, false);
 
-	/*
+	/**
 	 * The constructor for the harvester class. Calls the super constructor of
 	 * vehicle. Sets the image to facing to the left and sets the variable save.
-	 * 
+	 *
 	 * @param int x the x coordinate of the harvester.
-	 * 
+	 *
 	 * @param int y the y coordinate of the harvester.
-	 * 
+	 *
 	 * @param AvailableObjectsNearby aonb the instance of AONB, allowing to search
 	 * for nearby objects.
-	 * 
+	 *
 	 * @param GameState gs the instance of the game state, only used to pass it to
 	 * the super constructor.
 	 */
@@ -53,9 +53,9 @@ public class Harvester extends Vehicle {
 		this.speed = speed;
 	}
 
-	/*
+	/**
 	 * Method to fill the graintank by a certain amount of grain.
-	 * 
+	 *
 	 * @param int grainamount the amount of grain the tank is supposed to be filled
 	 * by.
 	 */
@@ -66,8 +66,8 @@ public class Harvester extends Vehicle {
 	public void setImageD() {
 		setImage(ViewD);
 	}
-	
-	/*
+
+	/**
 	 * Method to harvest a field. Use aonb.search in order to find the nearest field
 	 * nearby. If it returns null, there is no field nearby -> do nothing. If there
 	 * is a field nearby: harvest it!
@@ -75,89 +75,93 @@ public class Harvester extends Vehicle {
 	public void harvest() {
 		ArableField field = (ArableField) aonb.search(getX(), getY(), "ArableField");
 		if (field != null) {
-		graintank += field.harvest();
+			graintank = gs.getHarvesterLoad()+ field.harvest();
+			
 		}
-		}
-
+	}
+	
+	// TODO Doku
 	public void fillDumpTruck(DumpTruck dumpTruck_, Harvester harvester_) {
-		Equipment activeEquipment = ((Equipment) aonb.search(harvester_.getX() + 25, harvester_.getY() + 25, "Trailer"));
-		if(activeEquipment == dumpTruck_) {
-			if(graintank + dumpTruck_.getLoad() <= dumpTruck_.getMaxload()) {
+		Equipment activeEquipment = ((Equipment) aonb.search(harvester_.getX() + 25, harvester_.getY() + 25,
+				"Trailer"));
+		if (activeEquipment == dumpTruck_) {
+			if (graintank + dumpTruck_.getLoad() <= dumpTruck_.getMaxload()) {
 				dumpTruck_.setLoad(graintank + dumpTruck_.getLoad());
 				graintank = 0;
+			} else {
+				dumpTruck_.setLoad(dumpTruck_.getMaxload());
+				graintank = graintank + dumpTruck_.getLoad() - dumpTruck_.getMaxload();
+			}
 		}
-		else {
-			dumpTruck_.setLoad(dumpTruck_.getMaxload());
-			graintank = graintank + dumpTruck_.getLoad() - dumpTruck_.getMaxload();
-		}
-		}
-		
+
 	}
-	/*
+
+	/**
 	 * sets the image to facing up and updates the coordinates of the tractor. Calls
 	 * harvest. Checks for Collision.
 	 */
 	public void moveup() {
 		setImage(ViewW);
 		updatefuel();
-		setY(getY() + cb.collisioncheckY(getX()+25, getY()+25, -speed));
+		setY(getY() + cb.collisioncheckY(getX() + 25, getY() + 25, -speed));
 		harvest();
 	}
 
-	/*
+	/**
 	 * sets the image to facing up and updates the coordinates of the tractor. Calls
 	 * harvest. Checks for Collision.
 	 */
 	public void moveright() {
 		setImage(ViewD);
 		updatefuel();
-		setX(getX() + cb.collisioncheckX(getX()+25, getY()+25, +speed));
+		setX(getX() + cb.collisioncheckX(getX() + 25, getY() + 25, +speed));
 		harvest();
 	}
 
-	/*
+	/**
 	 * sets the image to facing down and updates the coordinates of the tractor.
 	 * Calls harvest. Checks for Collision.
 	 */
 	public void movedown() {
 		setImage(ViewS);
 		updatefuel();
-		setY(getY() + cb.collisioncheckY(getX()+25, getY()+25, +speed));
+		setY(getY() + cb.collisioncheckY(getX() + 25, getY() + 25, +speed));
 		harvest();
 	}
 
-	/*
+	/**
 	 * sets the image to facing left and updates the coordinates of the tractor.
 	 * Calls harvest. Checks for Collision.
 	 */
 	public void moveleft() {
 		setImage(ViewA);
 		updatefuel();
-		setX(getX() + cb.collisioncheckX(getX()+25, getY()+25, -speed)); // + 25 
+		setX(getX() + cb.collisioncheckX(getX() + 25, getY() + 25, -speed)); // + 25
 		harvest();
 	}
 
-	/*
+	/**
 	 * getter for the fuel variable.
-	 * 
+	 *
 	 * @return int fuel
 	 */
 	public int getFuel() {
 		return fuel;
 	}
 
-	/*
+	/**
 	 * setter for the fuel variable.
-	 * 
+	 *
 	 * @param int fuel
 	 */
 	public void setFuel(int fuel) {
 		this.fuel = fuel;
 
 	}
-	
-	/* 
+
+	/**
 	 * getter for the graintank variable.
+	 *
 	 * @return int graintank
 	 */
 
@@ -165,8 +169,9 @@ public class Harvester extends Vehicle {
 		return graintank;
 	}
 
-	/*
+	/**
 	 * setter for the graintankvariable.
+	 *
 	 * @param int load the amount of load it is supposed to have.
 	 */
 	public void setLoad(int load) {

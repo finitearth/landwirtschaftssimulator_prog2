@@ -22,17 +22,20 @@ public class NotificationPopUp {
 	ArrayList<String> actions;
 	String answer;
 
-	/*
+	/**
 	 * Constructor of the NotificationPopUp-Class
+	 *
 	 * @param String message The message to be displayed
-	 * @param Arraylist<String> actions an arraylist of actions (string) to be chosen from.
+	 *
+	 * @param Arraylist<String> actions an arraylist of actions (string) to be
+	 * chosen from.
 	 */
 	public NotificationPopUp(String message, ArrayList<String> actions) {
 		this.message = message;
 		this.actions = actions;
 	}
 
-	/*
+	/**
 	 * Displays the pop up window.
 	 */
 	public String display() {
@@ -67,7 +70,5 @@ public class NotificationPopUp {
 		return answer;
 
 	}
-
-
 
 }

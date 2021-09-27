@@ -10,15 +10,12 @@ public class Cultivator extends Equipment {
 	Image cultivatorD = new Image("File:./Images/CultivatorD.png");
 	String type = "Cultivator";
 
-	public Cultivator(int posX, int posY){
+	public Cultivator(int posX, int posY) {
 		setX(posX);
 		setY(posY);
 		setImage(cultivatorD);
 	}
 
-	public void cultivate(GridPane grid) {
-
-	}
 	@Override
 	public void setImageA() {
 		setImage(cultivatorA);
@@ -38,6 +35,7 @@ public class Cultivator extends Equipment {
 	public void setImageD() {
 		setImage(cultivatorD);
 	}
+
 	@Override
 	public String getType() {
 		return type;
