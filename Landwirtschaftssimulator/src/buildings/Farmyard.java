@@ -62,9 +62,9 @@ public class Farmyard extends building {
 	 * The constructor for the Farmyard class. Calls the super constructor of
 	 * building. Sets the image.
 	 * 
-	 * @param int x the x coordinate of the tractor.
+	 * @param int x the x coordinate of the Farmyard.
 	 * 
-	 * @param int y the y coordinate of the tractor.
+	 * @param int y the y coordinate of the Farmyard.
 	 * 
 	 * @param AvailableObjectsNearby aonb the instance of AONB, allowing to search
 	 * for nearby objects.
