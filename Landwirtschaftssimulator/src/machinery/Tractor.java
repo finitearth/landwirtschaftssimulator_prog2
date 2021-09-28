@@ -202,7 +202,7 @@ public class Tractor extends Vehicle {
 	}
 	
 	/**
-	* Setter for the ImageD of the tractor
+	* Setter for the ImageD of the tractor.
 	*/
 	public void setImageD() {
 		setImage(TractorViewW);
