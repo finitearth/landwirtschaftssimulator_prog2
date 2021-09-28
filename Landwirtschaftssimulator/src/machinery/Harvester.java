@@ -80,7 +80,13 @@ public class Harvester extends Vehicle {
 		}
 	}
 	
-	// TODO Doku
+	/**
+	* Method to transfer the harvester load into the dumptruck if they are near to eachother.
+	*
+	* @param DumpTruck dumpTruck the instance of the Dumptruck
+	*
+	* @param Harvester harvester the instance of the Harvester
+	*/
 	public void fillDumpTruck(DumpTruck dumpTruck_, Harvester harvester_) {
 		Equipment activeEquipment = ((Equipment) aonb.search(harvester_.getX() + 25, harvester_.getY() + 25,
 				"Trailer"));
