@@ -46,7 +46,7 @@ public class Farmyard extends building {
 	AvailableObjectsNearby aonb;
 	GameState save;
 
-	/*
+	/**
 	 * @param siloLevel the current Silolevel.
 	 * 
 	 * @param maxSiloLevel the Limit of the amount in the Silo.
@@ -58,7 +58,7 @@ public class Farmyard extends building {
 	Image Farmyard = new Image("File:./Images/Scheune.png", 50, 50, false, false);
 	ArrayList<String> machineParking = new ArrayList<>();
 
-	/*
+	/**
 	 * The constructor for the Farmyard class. Calls the super constructor of
 	 * building. Sets the image.
 	 * 
@@ -81,7 +81,7 @@ public class Farmyard extends building {
 		this.player = player;
 	}
 
-	/*
+	/**
 	 * Checks if the Dumptruck is near the Farmyard and fills the load into the Silo if there is enough space.
 	 */
 	public void fillSilo() {
@@ -97,7 +97,7 @@ public class Farmyard extends building {
 		}
 	}
 
-	/*
+	/**
 	 * Checks if the Dumptruck is near the Farmyard and fills the load from the Silo into the Dumptruck .
 	 * 
 	 * @param int amountOfClear the amount of load filling in the dumptruck
@@ -116,7 +116,7 @@ public class Farmyard extends building {
 		}
 	}
 
-	/*
+	/**
 	 * Checks if the Vehicle or Machinery is stored in the Farmyard and brings it back to the field.
 	 * 
 	 * @param String storingMachinery the List of the stored Machineries and Vehicles, necessary to know if Vehicle/Machinery ist parking at the moment.
@@ -153,7 +153,7 @@ public class Farmyard extends building {
 		}
 	}
 
-	/*
+	/**
 	 * Checks if the Vehicle or Machinery is near the Farmyard and stores them so they are not available anymore.
 	 * 
 	 * @param String storingMachinery the List of the stored Machineries and Vehicles, necessary for adding them to the List.
@@ -234,7 +234,7 @@ public class Farmyard extends building {
 		}
 	}
 
-	/*
+	/**
 	 * Displays the Menu of the Farmyard. Buttons for storing or picking up Machineries and Vehicles. Buttons to load and unload the Silo.
 	 * Buttons to buy new fields.
 	 * 
