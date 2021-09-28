@@ -19,7 +19,7 @@ public class Landtrade extends building {
 	Tractor tractor;
 	GameState save;
 
-	/*
+	/**
 	* The Construction for the Landtrade class. Calls the super constructor of bulding. Set the image.
 	*
 	* @param int x the x coordinate of the Landtrade
@@ -34,7 +34,7 @@ public class Landtrade extends building {
 		this.save = save;
 	}
 
-	/*
+	/**
 	* Sells dumptruck load to the landtrade
 	*
 	* @param int payment the amount of cash the player get from the landtrade
