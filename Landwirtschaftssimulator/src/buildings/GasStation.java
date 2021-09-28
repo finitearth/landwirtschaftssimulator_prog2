@@ -18,12 +18,12 @@ public class GasStation extends building {
 	Tractor tractor;
 	GameState save;
 	
-	/*
+	/**
 	 * @param costPerLiter the Costs for one Liter fuel.
 	 */	
 	int costPerLiter = 1;
 	
-	/*
+	/**
 	 * The constructor for the GasStation class. Calls the super constructor of
 	 * building. Sets the image.
 	 * 
@@ -39,7 +39,7 @@ public class GasStation extends building {
 		this.save = save;
 	}
 
-	/*
+	/**
 	* Refuels the tractor.
 	*
 	* @param GasStation gasStation the instance of the Gasstation
@@ -72,6 +72,15 @@ public class GasStation extends building {
 		}
 	}
 
+	/**
+	* Refuels the harvester.
+	*
+	* @param GasStation gasStation the instance of the Gasstation
+	*
+	* @param Tractor tractor the instance of the Tractor
+	*
+	* @param int newFuel the amount of fuel that fits in the tractor
+	*/
 	public void refuelHarvester(GasStation gasStation, Harvester harvester_) { //same as refuelTractor just for the harvester
 		harvester = harvester_;
 		if (gasStation != null) {
