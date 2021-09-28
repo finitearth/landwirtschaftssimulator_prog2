@@ -18,7 +18,7 @@ public class building extends ImageView {
 	public int x;
 	public int y;
 
-	/*
+	/**
 	 * Constructor of the building class. Sets the x and y
 	 * coordinates.
 	 * 
