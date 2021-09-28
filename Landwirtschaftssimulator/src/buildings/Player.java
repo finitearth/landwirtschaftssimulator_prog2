@@ -1,9 +1,9 @@
 package buildings;
 
-import Utils.CollisionChecker;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import machinery.Vehicle;
+import utils.CollisionChecker;
 
 public class Player extends ImageView {
 

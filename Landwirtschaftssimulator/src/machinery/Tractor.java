@@ -1,10 +1,10 @@
 package machinery;
 
-import Fields.ArableField;
-import Utils.AvailableObjectsNearby;
-import Utils.CollisionChecker;
+import fields.ArableField;
 import javafx.scene.image.Image;
 import settings.GameState;
+import utils.AvailableObjectsNearby;
+import utils.CollisionChecker;
 
 /**
  * This class models the tractor vehicle. Particularly it updates the images of
@@ -55,9 +55,9 @@ public class Tractor extends Vehicle {
 	}
 
 	/**
-	 * Checks if there are actions to be made if a movement is detected If a field
-	 * is nearby and a cultivator is attached: cultivate that field! If a field is
-	 * nearby and a seeddrill is attached: sow that field!
+	 * Checks if there are actions to be made if a movement is detected. If a field
+	 * is nearby and a cultivator is attached: cultivate that field! 
+	 * If a field is nearby and a seeddrill is attached: sow that field!
 	 */
 	public void checkmovementactions() {
 		if (trailer != null) { // is there a trailer attached?
@@ -111,7 +111,7 @@ public class Tractor extends Vehicle {
 	}
 
 	/**
-	 * sets the image to facing up and updates the coordinates of the tractor. Calls
+	 * sets the image to face up and updates the coordinates of the tractor. Calls
 	 * checkmovementactions. If a trailer is attached, its image as well as its
 	 * coordinates are updated accordingly. Checks for collisions.
 	 */
@@ -131,7 +131,7 @@ public class Tractor extends Vehicle {
 	}
 
 	/**
-	 * sets the image to facing to the right and updates the coordinates of the
+	 * sets the image to face to the right and updates the coordinates of the
 	 * tractor. Calls checkmovementactions. If a trailer is attached, its image as
 	 * well as its coordinates are updated accordingly. Checks for collisions.
 	 */
@@ -148,7 +148,7 @@ public class Tractor extends Vehicle {
 	}
 
 	/**
-	 * sets the image to facing down and updates the coordinates of the tractor.
+	 * sets the image to face down and updates the coordinates of the tractor.
 	 * Calls checkmovementactions. If a trailer is attached, its image as well as
 	 * its coordinates are updated accordingly. Checks for collisions.
 	 */
@@ -165,7 +165,7 @@ public class Tractor extends Vehicle {
 	}
 
 	/**
-	 * sets the image to facing to the left and updates the coordinates of the
+	 * sets the image to face to the left and updates the coordinates of the
 	 * tractor. Calls checkmovementactions. If a trailer is attached, its image as
 	 * well as its coordinates are updated accordingly. Checks for collisions.
 	 */

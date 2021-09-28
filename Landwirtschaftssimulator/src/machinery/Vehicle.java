@@ -2,9 +2,9 @@ package machinery;
 
 import java.util.ArrayList;
 
-import Utils.NotificationPopUp;
 import javafx.scene.image.ImageView;
 import settings.GameState;
+import utils.NotificationPopUp;
 
 /**
  ** This class models a vehicle. It acts as a parent class for the vehicles

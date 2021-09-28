@@ -2,14 +2,11 @@
 import java.awt.image.BufferedImage;
 import java.util.Optional;
 
-import Fields.ArableField;
-import Utils.AvailableObjectsNearby;
-import Utils.CollisionChecker;
-import Utils.WheatfieldActions;
 import buildings.Farmyard;
 import buildings.GasStation;
 import buildings.Landtrade;
 import buildings.Player;
+import fields.ArableField;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -54,6 +51,9 @@ import machinery.SeedDrill;
 import machinery.Tractor;
 import machinery.Vehicle;
 import settings.GameState;
+import utils.AvailableObjectsNearby;
+import utils.CollisionChecker;
+import utils.WheatfieldActions;
 
 public class MainApplication extends Application {
 	GameState save = new GameState();

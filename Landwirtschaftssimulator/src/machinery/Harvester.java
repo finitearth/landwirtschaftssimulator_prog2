@@ -1,10 +1,10 @@
 package machinery;
 
-import Fields.ArableField;
-import Utils.AvailableObjectsNearby;
-import Utils.CollisionChecker;
+import fields.ArableField;
 import javafx.scene.image.Image;
 import settings.GameState;
+import utils.AvailableObjectsNearby;
+import utils.CollisionChecker;
 
 /**
  * This class models the harvester vehicle. Particularly it updates the images
@@ -32,15 +32,15 @@ public class Harvester extends Vehicle {
 	 * The constructor for the harvester class. Calls the super constructor of
 	 * vehicle. Sets the image to facing to the left and sets the variable save.
 	 *
-	 * @param int x the x coordinate of the harvester.
+	 * @param int                    x the x coordinate of the harvester.
 	 *
-	 * @param int y the y coordinate of the harvester.
+	 * @param int                    y the y coordinate of the harvester.
 	 *
 	 * @param AvailableObjectsNearby aonb the instance of AONB, allowing to search
-	 * for nearby objects.
+	 *                               for nearby objects.
 	 *
-	 * @param GameState gs the instance of the game state, only used to pass it to
-	 * the super constructor.
+	 * @param GameState              gs the instance of the game state, only used to
+	 *                               pass it to the super constructor.
 	 */
 	public Harvester(int x, int y, int maxfuel, int maxgraintank, double speed, CollisionChecker cb,
 			AvailableObjectsNearby aonb, GameState gs) {
@@ -57,12 +57,16 @@ public class Harvester extends Vehicle {
 	 * Method to fill the graintank by a certain amount of grain.
 	 *
 	 * @param int grainamount the amount of grain the tank is supposed to be filled
-	 * by.
+	 *            by.
 	 */
 	public void fill(int grainamount) {
 		graintank += grainamount;
 	}
 
+	/**
+	 * Method to set the image of the harvester to face to the right. Only utilized,
+	 * when the harvester is unloaded from the farmyard.
+	 */
 	public void setImageD() {
 		setImage(ViewD);
 	}
@@ -75,18 +79,19 @@ public class Harvester extends Vehicle {
 	public void harvest() {
 		ArableField field = (ArableField) aonb.search(getX(), getY(), "ArableField");
 		if (field != null) {
-			graintank = gs.getHarvesterLoad()+ field.harvest();
-			
+			graintank = gs.getHarvesterLoad() + field.harvest();
+
 		}
 	}
-	
+
 	/**
-	* Method to transfer the harvester load into the dumptruck if they are near to eachother.
-	*
-	* @param DumpTruck dumpTruck the instance of the Dumptruck
-	*
-	* @param Harvester harvester the instance of the Harvester
-	*/
+	 * Method to transfer the harvester load into the dumptruck if they are near to
+	 * each other.
+	 *
+	 * @param DumpTruck dumpTruck the instance of the Dumptruck
+	 *
+	 * @param Harvester harvester the instance of the Harvester
+	 */
 	public void fillDumpTruck(DumpTruck dumpTruck_, Harvester harvester_) {
 		Equipment activeEquipment = ((Equipment) aonb.search(harvester_.getX() + 25, harvester_.getY() + 25,
 				"Trailer"));
@@ -104,7 +109,7 @@ public class Harvester extends Vehicle {
 	}
 
 	/**
-	 * sets the image to facing up and updates the coordinates of the tractor. Calls
+	 * sets the image to face up and updates the coordinates of the tractor. Calls
 	 * harvest. Checks for Collision.
 	 */
 	public void moveup() {
@@ -126,7 +131,7 @@ public class Harvester extends Vehicle {
 	}
 
 	/**
-	 * sets the image to facing down and updates the coordinates of the tractor.
+	 * sets the image to face down and updates the coordinates of the tractor.
 	 * Calls harvest. Checks for Collision.
 	 */
 	public void movedown() {
@@ -137,7 +142,7 @@ public class Harvester extends Vehicle {
 	}
 
 	/**
-	 * sets the image to facing left and updates the coordinates of the tractor.
+	 * sets the image to face left and updates the coordinates of the tractor.
 	 * Calls harvest. Checks for Collision.
 	 */
 	public void moveleft() {

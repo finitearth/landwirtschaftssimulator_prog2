@@ -8,9 +8,9 @@ import java.util.HashMap;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
-import Fields.ArableField;
 import buildings.Farmyard;
 import buildings.Player;
+import fields.ArableField;
 import machinery.Cultivator;
 import machinery.DumpTruck;
 import machinery.Harvester;

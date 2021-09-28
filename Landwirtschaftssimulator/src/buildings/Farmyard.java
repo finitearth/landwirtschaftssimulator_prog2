@@ -2,17 +2,6 @@ package buildings;
 
 import java.util.ArrayList;
 
-/**
- * This class models the Farmyard. Particularly it saves the Silolevel as well as it updates it.
- * It also stores Vehicles and Machineries.
- * 
- * @author Julius Großmann
- * @version 1.0
- * 
- */
-
-import Utils.AvailableObjectsNearby;
-import Utils.WheatfieldActions;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -33,6 +22,8 @@ import machinery.SeedDrill;
 import machinery.Tractor;
 import machinery.Vehicle;
 import settings.GameState;
+import utils.AvailableObjectsNearby;
+import utils.WheatfieldActions;
 
 public class Farmyard extends building {
 
