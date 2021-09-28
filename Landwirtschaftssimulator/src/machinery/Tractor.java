@@ -78,7 +78,11 @@ public class Tractor extends Vehicle {
 		}
 	}
 	
-	//	TODO Doku
+	/**
+	* getter for the trailer
+	*
+	* @return Trailer trailer
+	*/
 	public Equipment getTrailer() {
 		return trailer;
 	}
@@ -197,7 +201,9 @@ public class Tractor extends Vehicle {
 
 	}
 	
-	// TODO Doku
+	/**
+	* Setter for the ImageD of the tractor
+	*/
 	public void setImageD() {
 		setImage(TractorViewW);
 
