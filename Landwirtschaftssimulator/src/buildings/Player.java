@@ -5,6 +5,13 @@ import javafx.scene.image.ImageView;
 import machinery.Vehicle;
 import utils.CollisionChecker;
 
+/**
+ * This class models the Player.
+ *
+ * @author Lukas Bumüller
+ * @version 1.0
+ *
+ */
 public class Player extends ImageView {
 
 	Image playerImageW = new Image("File:./Images/PlayerW.png");
@@ -15,24 +22,44 @@ public class Player extends ImageView {
 
 	private Vehicle enteredvehicle = null;
 
+	/**
+	 * The constructor for the Player class. Sets the image for the direction of movement down.
+	 *
+	 * @param int posX 			the x coordinate of the Dump Truck.
+	 *
+	 * @param int posY 			the y coordinate of the Dump Truck.
+	 * 
+	 */
 	public Player(int posX, int posY) {
 		this.setX(posX);
 		this.setY(posY);
 		this.setImage(playerImageS);
 	}
 
+	/**
+	 * Method to set the image of the player for the direction of movement up.
+	 */
 	public void setImageW() {
 		this.setImage(playerImageW);
 	}
 
+	/**
+	 * Method to set the image of the player for the direction of movement left.
+	 */
 	public void setImageA() {
 		this.setImage(playerImageA);
 	}
 
+	/**
+	 * Method to set the image of the player for the direction of movement down.
+	 */
 	public void setImageS() {
 		this.setImage(playerImageS);
 	}
 
+	/**
+	 * Method to set the image of the player for the direction of movement right.
+	 */
 	public void setImageD() {
 		this.setImage(playerImageD);
 	}
@@ -41,14 +68,25 @@ public class Player extends ImageView {
 		this.setImage(playerImageCollided);
 	}
 
+	/**
+	 * Method to remove the Image of the player.
+	 */
 	public void setNoImage() {
 		this.setImage(null);
 	}
 
+	/**
+	 * getter for the enterdvehicle variable.
+	 *
+	 * @return String enteredvehicle
+	 */
 	public Vehicle getEnteredVehicle() {
 		return enteredvehicle;
 	}
 
+	/**
+	 * Method to remove the Image of the player.
+	 */
 	public void setEnteredVehicle(Vehicle vehicle, Vehicle vehicleTest) {
 		// Boolean enterable = vehicle.enter(this);
 		if (vehicle == null && enteredvehicle == vehicleTest) {

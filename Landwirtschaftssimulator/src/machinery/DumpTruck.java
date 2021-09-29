@@ -3,7 +3,7 @@ package machinery;
 import javafx.scene.image.Image;
 
 /**
- * This class models the Dump Truck vehicle.
+ * This class models the Dump Truck pendant.
  *
  * @author Lukas Bumüller
  * @version 1.0
