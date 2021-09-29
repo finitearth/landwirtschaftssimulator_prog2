@@ -110,7 +110,6 @@ public class ArableField extends ImageView {
 		if (this.getState() == 3 && this.isOwned()) {
 			growthstate = -2;
 			updateFieldImage();
-			System.out.println(amount);
 			return amount;
 		}
 		return 0;

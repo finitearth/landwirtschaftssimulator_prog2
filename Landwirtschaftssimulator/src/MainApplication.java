@@ -317,7 +317,7 @@ public class MainApplication extends Application {
 		Farmyard farmyard = new Farmyard(1300, 450, aonb, save, player);
 		GasStation gasStation = new GasStation(250, 350, save);
 		Harvester harvester = new Harvester(400, 500, 10000, 500, 25.0, bc, aonb, save);
-		save.setup(player, tractor, cultivator, seeddrill, harvester, dumptruck, farmyard);
+		save.setup(player, tractor, cultivator, seeddrill, harvester, dumptruck, farmyard, wa);
 		aonb.add(tractor, "Vehicle");
 		aonb.add(cultivator, "Trailer");
 		aonb.add(gasStation, "Building");

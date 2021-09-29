@@ -16,6 +16,7 @@ import machinery.DumpTruck;
 import machinery.Harvester;
 import machinery.SeedDrill;
 import machinery.Tractor;
+import utils.WheatfieldActions;
 
 /**
  * A class that saves the state of the game to a file and is able to load the
@@ -34,13 +35,14 @@ public class GameState {
 	Harvester harvester;
 	DumpTruck dumptruck;
 	Farmyard farmyard;
+	WheatfieldActions wa;
 
 	/**
 	 * setup of the gamestate instance. Defines all the necessary objects that need
 	 * to be kept track of.
 	 */
 	public void setup(Player player_, Tractor tractor_, Cultivator cultivator_, SeedDrill seeddrill_,
-			Harvester harvester_, DumpTruck dumptruck, Farmyard farmyard_) {
+			Harvester harvester_, DumpTruck dumptruck, Farmyard farmyard_, WheatfieldActions wa) {
 		player = player_;
 		tractor = tractor_;
 		cultivator = cultivator_;
@@ -48,6 +50,7 @@ public class GameState {
 		harvester = harvester_;
 		farmyard = farmyard_;
 		this.dumptruck = dumptruck;
+		this.wa = wa;
 	}
 
 	/**
@@ -69,6 +72,8 @@ public class GameState {
 		obj.put("HarvesterY", getHarvesterY());
 		obj.put("HarvesterFuel", getHarvesterFuel());
 		obj.put("HarvesterLoad", getHarvesterLoad());
+		obj.put("Wheatfield2ownership", wa.WheatfieldOwnership.get("wheatfieldTwo") );
+		obj.put("Wheatfield3ownership", wa.WheatfieldOwnership.get("wheatfieldThree"));
 
 		obj.put("DumpTruckX", getDumpTruckX());
 		obj.put("DumpTruckY", getDumpTruckY());
@@ -122,6 +127,8 @@ public class GameState {
 			setHarvesterY((int) (long) obj.get("HarvesterY"));
 			setHarvesterFuel((int) (long) obj.get("HarvesterFuel"));
 			setHarvesterLoad((int) (long) obj.get("HarvesterLoad"));
+			wa.WheatfieldOwnership.put("wheatfieldTwo", (Boolean) obj.get("Wheatfield2ownership"));
+			wa.WheatfieldOwnership.put("wheatfieldThree", (Boolean) obj.get("Wheatfield3ownership"));
 
 			setDumpTruckX((int) (long) obj.get("DumpTruckX"));
 			setDumpTruckY((int) (long) obj.get("DumpTruckY"));
