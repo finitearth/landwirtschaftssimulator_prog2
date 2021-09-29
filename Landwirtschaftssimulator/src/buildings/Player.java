@@ -82,7 +82,10 @@ public class Player extends ImageView {
 	}
 
 	/**
-	 * Method to remove the Image of the player.
+	 * setter for the enteredvehicle variable.
+	 *
+	 * @param Vehicle vehicle
+	 * @param Vehicle vehicleTest
 	 */
 	public void setEnteredVehicle(Vehicle vehicle, Vehicle vehicleTest) {
 		// Boolean enterable = vehicle.enter(this);
@@ -98,21 +101,49 @@ public class Player extends ImageView {
 
 	}
 
+	/**
+	 * Method to move up, set the movement speed and check if there are any movement boundaries
+	 * 
+	 * @param CollisonChecker bc
+	 * 
+	 * @param double walkingspeed
+	 */
 	public void moveup(CollisionChecker bc, double walkingspeed) {
 		setImageW();
 		setY(getY() + bc.collisioncheckY(getX(), getY(), -walkingspeed));
 	}
 
+	/**
+	 * Method to move right, set the movement speed and check if there are any movement boundaries
+	 * 
+	 * @param CollisonChecker bc
+	 * 
+	 * @param double walkingspeed
+	 */
 	public void moveright(CollisionChecker bc, double walkingspeed) {
 		setImageD();
 		setX(getX() + bc.collisioncheckX(getX(), getY(), +walkingspeed));
 	}
 
+	/**
+	 * Method to move down, set the movement speed and check if there are any movement boundaries
+	 * 
+	 * @param CollisonChecker bc
+	 * 
+	 * @param double walkingspeed
+	 */
 	public void movedown(CollisionChecker bc, double walkingspeed) {
 		setImageS();
 		setY(getY() + bc.collisioncheckY(getX(), getY(), +walkingspeed));
 	}
 
+	/**
+	 * Method to move left, set the movement speed and check if there are any movement boundaries
+	 * 
+	 * @param CollisonChecker bc
+	 * 
+	 * @param double walkingspeed
+	 */
 	public void moveleft(CollisionChecker bc, double walkingspeed) {
 		setImageA();
 		setX(getX() + bc.collisioncheckX(getX(), getY(), -walkingspeed));
