@@ -336,7 +336,7 @@ public class MainApplication extends Application {
 
 		movePlayerOnKeyPress(scene, player, gasStation, tractor, landtrade, farmyard, cultivator, seeddrill, save,
 				harvester, dumptruck);
-		movePlayerOnMousePress(scene, player, createTransition(player));
+//		movePlayerOnMousePress(scene, player, createTransition(player));
 		wa.updateWheatfields();
 		return scene;
 
