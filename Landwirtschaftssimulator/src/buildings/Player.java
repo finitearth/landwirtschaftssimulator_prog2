@@ -23,11 +23,12 @@ public class Player extends ImageView {
 	private Vehicle enteredvehicle = null;
 
 	/**
-	 * The constructor for the Player class. Sets the image for the direction of movement down.
+	 * The constructor for the Player class. Sets the image for the direction of
+	 * movement down.
 	 *
-	 * @param int posX 			the x coordinate of the Dump Truck.
+	 * @param int posX the x coordinate of the Dump Truck.
 	 *
-	 * @param int posY 			the y coordinate of the Dump Truck.
+	 * @param int posY the y coordinate of the Dump Truck.
 	 * 
 	 */
 	public Player(int posX, int posY) {
@@ -62,10 +63,6 @@ public class Player extends ImageView {
 	 */
 	public void setImageD() {
 		this.setImage(playerImageD);
-	}
-
-	public void setImageCollided() {
-		this.setImage(playerImageCollided);
 	}
 
 	/**

@@ -55,16 +55,37 @@ import utils.AvailableObjectsNearby;
 import utils.CollisionChecker;
 import utils.WheatfieldActions;
 
+/**
+ * The main application for setting up the game screen, as well as starting the
+ * game logics.
+ * 
+ * @author Lukas Bumüller, Julius Großmann, Leonard Fritz und Tom Zehle
+ * @version 1.0
+ * 
+ *
+ */
 public class MainApplication extends Application {
 	GameState save = new GameState();
 	AvailableObjectsNearby aonb = new AvailableObjectsNearby();
 	WheatfieldActions wa;
 	CollisionChecker bc;
 
+	/**
+	 * Calls launch
+	 * 
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		launch(args);
 	}
 
+	/**
+	 * Sets up the start screen and the main menu.
+	 * 
+	 * @author Lukas Bumüller
+	 * @param stage
+	 * @throws Exception
+	 */
 	@Override
 	public void start(Stage stage) throws Exception {
 
@@ -110,7 +131,7 @@ public class MainApplication extends Application {
 			}
 		});
 
-		Image backg = new Image("File:./Images/back.png", 1500, 1050, false, false); // TODO Hintergrundbild erstellen
+		Image backg = new Image("File:./Images/back.png", 1500, 1050, false, false);
 		BackgroundImage backgroundImage = new BackgroundImage(backg, BackgroundRepeat.REPEAT,
 				BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
 		welcome.setBackground(new Background(backgroundImage));
@@ -125,6 +146,14 @@ public class MainApplication extends Application {
 
 	}
 
+	/**
+	 * Method that is called before starting a game. Enables the player to choose
+	 * settings such as difficulty level and the name.
+	 * 
+	 * @author Lukas Bumüller
+	 * @param stage
+	 * @return scene
+	 */
 	public Scene chooseSettings(Stage stage) {
 		Pane settings = new Pane();
 		settings.setPrefSize(1200, 800);
@@ -159,8 +188,6 @@ public class MainApplication extends Application {
 		RadioButton hard = new RadioButton("Hard");
 		hard.setToggleGroup(difficultly);
 		hard.relocate(400, 530);
-
-		
 
 		Button start = new Button("Go In");
 		start.setFont(new Font("Arial", 25));
@@ -202,7 +229,7 @@ public class MainApplication extends Application {
 					save.setPriceField2(1500);
 					save.setPriceField3(2000);
 				}
-				
+
 				wa = new WheatfieldActions(save);
 				stage.setScene(generateGame());
 			}
@@ -217,9 +244,17 @@ public class MainApplication extends Application {
 
 	}
 
+	/**
+	 * Generates the gamefields. Utilizes the bitmap for generating special fields,
+	 * such as the arable fields. Sets up the collision checker instance. All visual
+	 * objects are generated here.
+	 * 
+	 * @return scene
+	 * @author Leonard Fritz, Lukas Bumüller and Tom Zehle
+	 */
 	public Scene generateGame() {
 
-		GridPane grid = generateGamefield(wa.bitmap);
+		GridPane grid = generateGamefield();
 
 		Image backg = new Image("File:./Images/Map.png", 1500, 1050, false, false);
 
@@ -229,7 +264,6 @@ public class MainApplication extends Application {
 
 		for (int y = 0; y < wa.bitmap.getHeight(); y++) {
 			for (int x = 0; x < wa.bitmap.getWidth(); x++) {
-//				System.out.println(wa.bitmap.getRGB(x, y));
 				if (wa.bitmap.getRGB(x, y) == -3628785) {
 					ArableField arableField = wa.GenerateWheatfieldOne(x, y);
 					aonb.add(arableField, "ArableField");
@@ -246,8 +280,8 @@ public class MainApplication extends Application {
 			}
 		}
 
-		int upper_boundary = 50 - 50;
-		int left_boundary = 0 - 50;
+		int upper_boundary = 0;
+		int left_boundary = -50;
 		int right_boundary = 1500;
 		int lower_boundary = 1050;
 
@@ -303,25 +337,32 @@ public class MainApplication extends Application {
 		movePlayerOnKeyPress(scene, player, gasStation, tractor, landtrade, farmyard, cultivator, seeddrill, save,
 				harvester, dumptruck);
 		movePlayerOnMousePress(scene, player, createTransition(player));
-
-		// GridPane gridPane = generateGamefield(wa.bitmap);
 		wa.updateWheatfields();
 		return scene;
 
 	}
 
+	/**
+	 * Handles all the user keyboard inputs.
+	 * 
+	 * @author Lukas Bumüller, Leonard Fritz, Julius Großmann and Tom Zehle
+	 * @param scene
+	 * @param player
+	 * @param gasStation
+	 * @param tractor_
+	 * @param landtrade
+	 * @param farmyard
+	 * @param cultivator_
+	 * @param seeddrill_
+	 * @param save
+	 * @param harvester_
+	 * @param dumpTruck_
+	 */
 	private void movePlayerOnKeyPress(Scene scene, Player player, GasStation gasStation, Tractor tractor_,
 			Landtrade landtrade, Farmyard farmyard, Cultivator cultivator_, SeedDrill seeddrill_, GameState save,
-			Harvester harvester_, DumpTruck dumpTruck_) { // TODO transitions
+			Harvester harvester_, DumpTruck dumpTruck_) {
 
-		/*
-		 * bc.addboundary(550, 700, 650, 1000); // lower river and forest
-		 * bc.addboundary(700, 350, 750, 650); // middle river bc.addboundary(600, 400,
-		 * 850, 450); // river curls left bc.addboundary(600, 350, 650, 400); // river
-		 * before bridge bc.addboundary(300, 250, 500, 300); // above gasstation
-		 * bc.addboundary(0, 50, 300, 250); // upper right forest bc.addboundary(0, 300,
-		 * 200, 350); //
-		 */ scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
+		scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
 			@Override
 			public void handle(KeyEvent event) {
 				Vehicle enteredvehicle = player.getEnteredVehicle();
@@ -429,45 +470,52 @@ public class MainApplication extends Application {
 		});
 
 	}
+// Used for developing purposes. Enabled teleportation via mouse inputs.
+//	private void movePlayerOnMousePress(Scene scene, final Player player, final TranslateTransition transition) {
+//		scene.setOnMousePressed(new EventHandler<MouseEvent>() {
+//			@Override
+//			public void handle(MouseEvent event) {
+//				int newX = ((int) event.getSceneX() / 50) * 50 + 10; // Rundet Position der Maus ab und zentriert
+//																		// Spieler
+//				int newY = ((int) event.getSceneY() / 50) * 50 + 10; // 10 = (Feld.Breite - Spieler.Breite) / 2
+//				if (!event.isControlDown()) {
+//					player.setX(newX);
+//					player.setY(newY);
+//				} else {
+//					transition.setToX(newX - player.getX());
+//					transition.setToY(newY - player.getY());
+//					transition.playFromStart();
+//				}
+//			}
+//		});
+//	}
+//
+//	private TranslateTransition createTransition(final Player player) {
+//		final TranslateTransition transition = new TranslateTransition(Duration.seconds(0.25), player);
+//		transition.setOnFinished(new EventHandler<ActionEvent>() {
+//			@Override
+//			public void handle(ActionEvent event) {
+//				player.setX(player.getTranslateX() + player.getX());
+//				player.setY(player.getTranslateY() + player.getY());
+//				player.setTranslateX(0);
+//				player.setTranslateY(0);
+//			}
+//		});
+//		return transition;
+//	}
 
-	private void movePlayerOnMousePress(Scene scene, final Player player, final TranslateTransition transition) {
-		scene.setOnMousePressed(new EventHandler<MouseEvent>() {
-			@Override
-			public void handle(MouseEvent event) {
-				int newX = ((int) event.getSceneX() / 50) * 50 + 10; // Rundet Position der Maus ab und zentriert
-																		// Spieler
-				int newY = ((int) event.getSceneY() / 50) * 50 + 10; // 10 = (Feld.Breite - Spieler.Breite) / 2
-				if (!event.isControlDown()) {
-					player.setX(newX);
-					player.setY(newY);
-				} else {
-					transition.setToX(newX - player.getX());
-					transition.setToY(newY - player.getY());
-					transition.playFromStart();
-				}
-			}
-		});
-	}
-
-	private TranslateTransition createTransition(final Player player) {
-		final TranslateTransition transition = new TranslateTransition(Duration.seconds(0.25), player);
-		transition.setOnFinished(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent event) {
-				player.setX(player.getTranslateX() + player.getX());
-				player.setY(player.getTranslateY() + player.getY());
-				player.setTranslateX(0);
-				player.setTranslateY(0);
-			}
-		});
-		return transition;
-	}
-
-	public GridPane generateGamefield(BufferedImage bitmap) {
+	/**
+	 * Generates gridpane utilized for the positioning of the fields and visual
+	 * objects.
+	 * 
+	 * @return GridPane grid
+	 * @author Lukas Bumüller
+	 */
+	public GridPane generateGamefield() {
 		GridPane grid = new GridPane();
 
 		for (int i = 0; i < 30; i++) {
-			ColumnConstraints column = new ColumnConstraints(50); // SpielfeldgrÃƒÂ¶sse
+			ColumnConstraints column = new ColumnConstraints(50); // Spielfeldgrösse
 			grid.getColumnConstraints().add(column);
 		}
 
@@ -477,9 +525,17 @@ public class MainApplication extends Application {
 		}
 		return grid;
 
-
 	}
 
+	/**
+	 * Generates the headline utilized for information about graintank, fuel, etc.
+	 * 
+	 * @author Lukas Bumüller
+	 * @param player
+	 * @param tractor
+	 * @param harvester
+	 * @return GridPane grid
+	 */
 	public GridPane generateHeadline(Player player, Tractor tractor, Harvester harvester) {
 
 		GridPane grid = new GridPane();
@@ -543,6 +599,15 @@ public class MainApplication extends Application {
 
 	}
 
+	/**
+	 * Utilized to get the information about the current vehicle and its fuel.
+	 * 
+	 * @param player
+	 * @param tractor
+	 * @param harvester
+	 * @author Lukas Bumüller
+	 * @return String vehicle
+	 */
 	public String currentVehicleAndFuel(Player player, Tractor tractor, Harvester harvester) {
 		String vehicle;
 		if (player.getEnteredVehicle() == null) {
@@ -553,7 +618,11 @@ public class MainApplication extends Application {
 			return vehicle = "Harvester Fuel: " + save.getHarvesterFuel();
 		}
 	}
-
+	
+	/**
+	 * Information for the user about the key assignments.
+	 * @author Lukas Bumüller
+	 */
 	private void keyAssignment() {
 		Stage popupwindow = new Stage();
 		popupwindow.setTitle("Keybindings");
@@ -640,25 +709,25 @@ public class MainApplication extends Application {
 		grid.add(traktorFarmyard, 1, 15);
 		Label traktorFarmyardB = new Label("Open Farmyard Menu");
 		grid.add(traktorFarmyardB, 4, 15, 4, 1);
-		
+
 		Label tractor = new Label("Tractor");
 		tractor.setFont(new Font("Arial", 20));
 		grid.add(tractor, 0, 17, 2, 1);
-		
+
 		Label traktorEquip = new Label("X");
 		grid.add(traktorEquip, 1, 18);
 		Label traktorEquipB = new Label("Append trailer");
 		grid.add(traktorEquipB, 4, 18, 5, 1);
-		
+
 		Label sell = new Label("V");
 		grid.add(sell, 1, 19);
 		Label sellB = new Label("Sell harvest");
 		grid.add(sellB, 4, 19, 5, 1);
-		
+
 		Label harvester = new Label("Harvester");
 		harvester.setFont(new Font("Arial", 20));
 		grid.add(harvester, 0, 21, 2, 1);
-		
+
 		Label fillDump = new Label("F");
 		grid.add(fillDump, 1, 22);
 		Label fillDumpB = new Label("Fill harvest in Dump Truck");
