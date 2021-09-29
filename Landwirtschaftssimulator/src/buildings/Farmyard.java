@@ -25,6 +25,11 @@ import settings.GameState;
 import utils.AvailableObjectsNearby;
 import utils.WheatfieldActions;
 
+/**
+ * This Class models the Farmyard. The player can store vehicles and machinery, 
+ * buy more arablefields and un-/load the Dump Truck.
+ * 
+ */	
 public class Farmyard extends building {
 
 	ArrayList<String> actions = new ArrayList<>();
