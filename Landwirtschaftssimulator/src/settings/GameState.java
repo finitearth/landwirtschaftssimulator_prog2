@@ -150,16 +150,31 @@ public class GameState {
 		}
 	}
 
-	// getter & setter Player Name
+	
+	// Player
+	/**
+	 * getter for the playerName variable.
+	 *
+	 * @return String playerName
+	 */
 	public String getPlayerName() {
 		return playerName;
 	}
-
+	
+	/**
+	 * setter for the playerName variable.
+	 *
+	 * @param String playerName
+	 */
 	public void setPlayerName(String playerName) {
 		this.playerName = playerName;
 	}
 
-	// getter & setter Player Pos.
+	/**
+	 * getter for the Player position X.
+	 *
+	 * @return int player.getX
+	 */
 	public int getPlayerX() {
 		try {
 			return (int) player.getX();
@@ -167,15 +182,30 @@ public class GameState {
 			return 0;
 		}
 	}
-
+	
+	/**
+	 * setter for the Player position X.
+	 *
+	 * @param int playerX
+	 */
 	public void setPlayerX(int playerX) {
 		player.setX(playerX);
 	}
-
+	
+	/**
+	 * getter for the Player position Y.
+	 *
+	 * @return int player.getY
+	 */
 	public int getPlayerY() {
 		return (int) player.getY();
 	}
-
+	
+	/**
+	 * setter for the Player position Y.
+	 *
+	 * @param int playerY
+	 */
 	public void setPlayerY(int playerY) {
 		player.setY(playerY);
 	}
@@ -183,35 +213,67 @@ public class GameState {
 	// Cash
 	private int cash = 2000;
 
-	// getter & setter Cash
+	/**
+	 * getter for the cash variable.
+	 *
+	 * @return int cash
+	 */
 	public int getCash() {
 		return cash;
 	}
-
+	
+	/**
+	 * setter for the cash variable.
+	 *
+	 * @param int cash
+	 */
 	public void setCash(int cash) {
 		this.cash = cash;
 	}
 
 	// Tractor
 
-	// getter & setter Tractor Pos.
+	/**
+	 * getter for the Tractor position X.
+	 *
+	 * @return int tractor.getX
+	 */
 	public int getTractorX() {
 		return (int) tractor.getX();
 	}
-
+	
+	/**
+	 * setter for the Tractor position x.
+	 *
+	 * @param int tractorX
+	 */
 	public void setTractorX(int tractorX) {
 		tractor.setX(tractorX);
 	}
-
+	
+	/**
+	 * getter for the Tractor position Y.
+	 *
+	 * @return int tractor.getY
+	 */
 	public int getTractorY() {
 		return (int) tractor.getY();
 	}
-
+	
+	/**
+	 * setter for the Tractor position Y.
+	 *
+	 * @param int tractorY
+	 */
 	public void setTractorY(int tractorY) {
 		tractor.setY(tractorY);
 	}
 
-	// getter & setter Tractor current Fuel
+	/**
+	 * getter for the Tractor fuel.
+	 *
+	 * @return int tractor.getFuel
+	 */
 	public int getTractorFuel() {
 		try {
 			return tractor.getFuel();
@@ -219,31 +281,59 @@ public class GameState {
 			return 0;
 		}
 	}
-
+	
+	/**
+	 * setter for the Tractor fuel.
+	 *
+	 * @param int tractorFuel
+	 */
 	public void setTractorFuel(int tractorFuel) {
 		tractor.setFuel(tractorFuel);
 	}
 
 	// Harvester
 
-	// getter & setter Harvester Pos.
+	/**
+	 * getter for the Harvester position X.
+	 *
+	 * @return int harvester.getX
+	 */
 	public int getHarvesterX() {
 		return (int) harvester.getX();
 	}
 
+	/**
+	 * setter for the Harvester position X.
+	 *
+	 * @param int harvesterX
+	 */
 	public void setHarvesterX(int harvesterX) {
 		harvester.setX(harvesterX);
 	}
 
+	/**
+	 * getter for the Harvester position Y.
+	 *
+	 * @return int harvester.getY
+	 */
 	public int getHarvesterY() {
 		return (int) harvester.getY();
 	}
 
+	/**
+	 * setter for the Harvester position Y.
+	 *
+	 * @param int harvesterY
+	 */
 	public void setHarvesterY(int harvesterY) {
 		harvester.setY(harvesterY);
 	}
 
-	// getter & setter Harvester current Fuel
+	/**
+	 * getter for the Harvester fuel.
+	 *
+	 * @return int harvester.getFuel
+	 */
 	public int getHarvesterFuel() {
 		try {
 			return harvester.getFuel();
@@ -252,11 +342,20 @@ public class GameState {
 		}
 	}
 
+	/**
+	 * setter for the Harvester fuel.
+	 *
+	 * @param int harvesterFuel
+	 */
 	public void setHarvesterFuel(int harvesterFuel) {
 		harvester.setFuel(harvesterFuel);
 	}
 
-	// getter & setter Harvester current Load
+	/**
+	 * getter for the Harvester load.
+	 *
+	 * @return int harvester.getLoad
+	 */
 	public int getHarvesterLoad() {
 		try {
 			return harvester.getLoad();
@@ -266,75 +365,144 @@ public class GameState {
 
 	}
 
+	/**
+	 * setter for the Harvester load.
+	 *
+	 * @param int harvesterLoad
+	 */
 	public void setHarvesterLoad(int harvesterLoad) {
 		harvester.setLoad(harvesterLoad);
 	}
 
 	// Cultivator
 
-	// getter & setter Cultivator Pos.
+	/**
+	 * getter for the Cultivator position X.
+	 *
+	 * @return int cultivator.getX
+	 */
 	public int getCultivatorX() {
 		return (int) cultivator.getX();
 	}
 
+	/**
+	 * setter for the Cultivator position X.
+	 *
+	 * @param int cultivatorX
+	 */
 	public void setCultivatorX(int cultivatorX) {
 		cultivator.setX(cultivatorX);
 	}
 
+	/**
+	 * getter for the Cultivator position Y.
+	 *
+	 * @return int cultivator.getY
+	 */
 	public int getCultiavtorY() {
 		return (int) cultivator.getY();
 	}
 
+	/**
+	 * setter for the Cultivator position Y.
+	 *
+	 * @param int cultivatorY
+	 */
 	public void setCultiavtorY(int cultiavtorY) {
 		cultivator.setY(cultiavtorY);
 	}
 
 	// Dump Truck
-
-	// getter & setter Dump Truck Pos.
-
+	/**
+	 * getter for the Dump Truck position X.
+	 *
+	 * @return int dumptruck.getX
+	 */
 	public int getDumpTruckX() {
 		return (int) dumptruck.getX();
 	}
 
+	/**
+	 * setter for the Dump Truck position X.
+	 *
+	 * @param int dumpTruckX
+	 */
 	public void setDumpTruckX(int dumpTruckX) {
 		dumptruck.setX(dumpTruckX);
 	}
 
+	/**
+	 * getter for the Dump Truck position Y.
+	 *
+	 * @return int dumptruck.getY
+	 */
 	public int getDumpTruckY() {
 		return (int) dumptruck.getX();
 	}
 
+	/**
+	 * setter for the Dump Truck position Y.
+	 *
+	 * @param int dumpTruckY
+	 */
 	public void setDumpTruckY(int dumpTruckY) {
 		dumptruck.setY(dumpTruckY);
 	}
 
-	// getter & setter Dump Truck current Load
+	/**
+	 * getter for the Dump Truck load.
+	 *
+	 * @return int dumptruck.getLoad
+	 */
 	public int getDumpTruckLoad() {
 		return dumptruck.getLoad();
 
 	}
 
-	public void setDumTruckLoad(int dumTruckLoad) {
-		dumptruck.setLoad(dumTruckLoad);
+	/**
+	 * setter for the Dump Truck load.
+	 *
+	 * @param int dumpTruckLoad
+	 */
+	public void setDumTruckLoad(int dumpTruckLoad) {
+		dumptruck.setLoad(dumpTruckLoad);
 
 	}
 
 	// Seed Drill
 
-	// getter & setter Seed Drill Pos.
+	/**
+	 * getter for the Seed Drill position X.
+	 *
+	 * @return int seeddrill.getX
+	 */
 	public int getSeedDrillX() {
 		return (int) seeddrill.getX();
 	}
 
+	/**
+	 * setter for the Seed Drill position X.
+	 *
+	 * @param int seedDrillX
+	 */
 	public void setSeedDrillX(int seedDrillX) {
 		seeddrill.setX(seedDrillX);
 	}
 
+	/**
+	 * getter for the Seed Drill position Y.
+	 *
+	 * @return int seeddrill.getY
+	 */
 	public int getSeedDrillY() {
 		return (int) seeddrill.getY();
 	}
 
+	/**
+	 * setter for the Seed Drill position Y.
+	 *
+	 * @param int seedDrillY
+	 */
 	public void setSeedDrillY(int seedDrillY) {
 		seeddrill.setY(seedDrillY);
 	}
@@ -343,20 +511,40 @@ public class GameState {
 
 	private int amount;
 
+	/**
+	 * getter for the Amount of one Field.
+	 *
+	 * @return int amount
+	 */
 	public int getAmount() {
 		return amount;
 	}
 
+	/**
+	 * setter for the Amount of one Field.
+	 *
+	 * @param int amount
+	 */
 	public void setAmount(int amount) {
 		this.amount = amount;
 	}
 
 	private int unitPrice = 0;
 
+	/**
+	 * getter for the Price of one Unit.
+	 *
+	 * @return int unitPrice
+	 */
 	public int getUnitPrice() {
 		return unitPrice;
 	}
 
+	/**
+	 * setter for the Price of one Unit.
+	 *
+	 * @param int unitPrice
+	 */
 	public void setUnitPrice(int unitPrice) {
 		this.unitPrice = unitPrice;
 	}
@@ -364,18 +552,38 @@ public class GameState {
 	private int priceField2 = 0;
 	private int priceField3 = 0;
 
+	/**
+	 * getter for the Price for the arable field 2.
+	 *
+	 * @return int priceField2
+	 */
 	public int getPriceField2() {
 		return priceField2;
 	}
 
+	/**
+	 * setter for the Price for the arable field 2.
+	 *
+	 * @param int priceField2
+	 */
 	public void setPriceField2(int priceField2) {
 		this.priceField2 = priceField2;
 	}
 
+	/**
+	 * getter for the Price for the arable field 3.
+	 *
+	 * @return int priceField3
+	 */
 	public int getPriceField3() {
 		return priceField3;
 	}
 
+	/**
+	 * setter for the Price for the arable field 3.
+	 *
+	 * @param int priceField3
+	 */
 	public void setPriceField3(int priceField3) {
 		this.priceField3 = priceField3;
 	}
@@ -383,12 +591,23 @@ public class GameState {
 	//Farmyard
 	private int siloLevel = 0;
 
-	public void setSiloLevel(int silolevel) {
-		this.siloLevel = silolevel;
-	}
-
+	/**
+	 * getter for the Farmyard Silo level
+	 *
+	 * @return int siloLevel
+	 */
 	public int getSiloLevel() {
 		return siloLevel;
 	}
+	
+	/**
+	 * setter for the Farmyard Silo level
+	 *
+	 * @param int siloLevel
+	 */
+	public void setSiloLevel(int silolevel) {
+		this.siloLevel = silolevel;
+	}
+	
 
 }
